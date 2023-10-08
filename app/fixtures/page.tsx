@@ -41,9 +41,7 @@ const BTeamFutureFixtures: Fixture[] = [
   { date: "Tue 26th Mar 2024", opponent: "Chandlers Ford C", Location: "Away" },
 ];
 
-const FutureFixtures: React.FC = ({ team }: any) => {
-  console.log(team);
-
+const FutureFixtures = ({ team }) => {
   return (
     <div className="text-sm md:text-base p-2">
       <h2 className="md:text-2xl font-semibold">Future Fixtures</h2>
