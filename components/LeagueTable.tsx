@@ -126,7 +126,11 @@ const LeagueTable = ({ teams, div }) => {
                   <div className="flex gap-3 justify-around">
                     {team.form.map((result, id) => {
                       return (
-                        <Link href={result.link} target="_blank">
+                        <Link
+                          href={result.link}
+                          target="_blank"
+                          key={result.link}
+                        >
                           <FormButton
                             result={result.result}
                             key={id}
