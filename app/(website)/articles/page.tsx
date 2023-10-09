@@ -27,7 +27,7 @@ const articles: Article[] = [
 
 const HomePage: React.FC = () => {
   return (
-    <div className="bg-slate-200 text-black text-lg text-center  h-screen lg:overflow-hidden">
+    <div className="bg-slate-200 text-black text-lg text-center pt-24 h-screen lg:overflow-hidden">
       <h1>Recent Articles</h1>
       <ul>
         {articles.map((article) => (
