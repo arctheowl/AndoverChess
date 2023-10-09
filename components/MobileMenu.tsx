@@ -27,16 +27,16 @@ export default function MobileMenu() {
               )}
             </Disclosure.Button>
 
-            <Disclosure.Panel className="sm:hidden  w-64">
-              <div className="space-y-1 pb-4 pt-2  w-64">
+            <Disclosure.Panel className="sm:hidden w-36">
+              <div className="space-y-1 pb-4 pt-2 text-xl text-center">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                 <Disclosure.Button
                   as="a"
                   href="/about"
                   className={`${
                     pathname === "/about"
-                      ? "border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-                      : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-indigo-700"
+                      : "block border-l-4 border-transparent py-2 pl-3 pr-4  text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
                   }`}
                 >
                   About
@@ -46,8 +46,8 @@ export default function MobileMenu() {
                   href="/fixtures"
                   className={`${
                     pathname === "/fixtures"
-                      ? "border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-                      : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4  text-indigo-700"
+                      : "block border-l-4 border-transparent py-2 pl-3 pr-4  text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
                   }`}
                 >
                   Fixtures
@@ -57,8 +57,8 @@ export default function MobileMenu() {
                   href="/articles"
                   className={`${
                     pathname === "/articles"
-                      ? "border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-                      : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4  text-indigo-700"
+                      : "block border-l-4 border-transparent py-2 pl-3 pr-4  text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
                   }`}
                 >
                   Articles
@@ -68,8 +68,8 @@ export default function MobileMenu() {
                   href="/tools"
                   className={`${
                     pathname === "/tools"
-                      ? "border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-                      : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4  text-indigo-700"
+                      : "block border-l-4 border-transparent py-2 pl-3 pr-4  text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
                   }`}
                 >
                   Tools
