@@ -149,7 +149,7 @@ const LeagueTable = ({ teams, div }) => {
           </tbody>
         </table>
       </div>
-      <p className="text-left text-sm sm:invisible md:visible">
+      <p className="text-left text-sm hidden md:flex">
         <span>P=Played</span>
         <span className="pl-2">W=Wins</span>
         <span className="pl-2">D=Draws</span>

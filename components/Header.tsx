@@ -13,10 +13,10 @@ const Header = () => {
             <li style={{ marginLeft: "1rem" }}>
               <a href="/fixtures">Fixtures</a>
             </li>
-            <li style={{ marginLeft: "1rem" }} className="hidden md:no-hidden">
+            <li style={{ marginLeft: "1rem" }} className="hidden md:flex">
               <a href="/articles">Articles</a>
             </li>
-            <li style={{ marginLeft: "1rem" }} className="hidden">
+            <li style={{ marginLeft: "1rem" }} className="hidden md:flex">
               <a href="/tools">Tools</a>
             </li>
           </ul>

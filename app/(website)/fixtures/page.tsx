@@ -43,7 +43,7 @@ const BTeamFutureFixtures: Fixture[] = [
 
 const FutureFixtures = ({ team }) => {
   return (
-    <div className="text-sm md:text-base p-2">
+    <div className="text-sm md:text-base p-2 flex-col">
       <h2 className="md:text-2xl font-semibold">Future Fixtures</h2>
       <table className="md:mr-16">
         <thead>
@@ -110,7 +110,7 @@ const FixturesPage: React.FC = () => {
         <option>B Team</option>
       </select>
       <LeagueTable teams={teams} div={team === "A Team" ? 2 : 4} />
-      <div className="md:flex md:justify-around md:pt-12">
+      <div className="flex justify-around md:pt-12 pt-5">
         <FutureFixtures team={team} />
       </div>
     </div>
@@ -166,7 +166,7 @@ const ATeams = [
     id: 4,
     position: "3",
     name: "Winchester A",
-    played: 4,
+    played: 1,
     wins: 0,
     draws: 0,
     losses: 1,

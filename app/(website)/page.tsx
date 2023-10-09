@@ -2,7 +2,7 @@ import Map from "../../components/Map";
 
 export default function AboutPage(): JSX.Element {
   return (
-    <div className="bg-slate-200 text-black text-lg text-center  h-screen lg:overflow-hidden flex-col items-center justify-center">
+    <div className="bg-slate-200 text-black text-lg text-center h-screen lg:overflow-hidden flex-col items-center justify-center">
       <h1 className="text-2xl pt-12">About Andover Chess Club</h1>
       <div className="text-lg">
         <p className="pt-5">
@@ -24,8 +24,8 @@ export default function AboutPage(): JSX.Element {
       <h2 className="text-xl pt-10">
         Come visit us at the Central Club in Andover
       </h2>
-      <div className="flex justify-center pt-4 w-full h-full bg-slate-200">
-        <div className="md:w-4/6 md:h-3/5">
+      <div className="flex justify-center pt-4 h-full bg-slate-200">
+        <div className="md:w-4/6 md:h-3/5 w-full p-2">
           <Map />
         </div>
       </div>
