@@ -10,12 +10,12 @@ export default function Example() {
         {({ open }) => (
           <>
             {/* Mobile menu button */}
-            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 h-10 w-10 z-10">
               <span className="sr-only">Open main menu</span>
               {open ? (
-                <RxCross1 className="h-6 w-6" aria-hidden="true" />
+                <RxCross1 className="h-10 w-10" aria-hidden="true" />
               ) : (
-                <GiHamburgerMenu className="h-6 w-6" aria-hidden="true" />
+                <GiHamburgerMenu className="h-10 w-10" aria-hidden="true" />
               )}
             </Disclosure.Button>
 
