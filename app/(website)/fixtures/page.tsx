@@ -27,14 +27,14 @@ const BTeamFutureFixtures: Fixture[] = [
   { date: "Tue 7th Nov 2023", opponent: "Fareham C", Location: "Home" },
   {
     date: "Thu 23rd Nov 2023",
-    opponent: "Southampton University C",
+    opponent: "Soton Uni C",
     Location: "Away",
   },
   { date: "	Tue 9th Jan 2024", opponent: "Basingstoke C", Location: "Home" },
   { date: "Tue 23rd Jan 2024", opponent: "Fareham C", Location: "Away" },
   {
     date: "Tue 20th Feb 2024",
-    opponent: "Southampton University C",
+    opponent: "Soton Uni C",
     Location: "Home",
   },
   { date: "Tue 12th Mar 2024", opponent: "Winchester C", Location: "Home" },
@@ -43,7 +43,7 @@ const BTeamFutureFixtures: Fixture[] = [
 
 const FutureFixtures = ({ team }) => {
   return (
-    <div className="text-sm md:text-base p-2 flex-col">
+    <div className="p-2 flex-col">
       <h2 className="md:text-2xl font-semibold">Future Fixtures</h2>
       <table className="md:mr-16">
         <thead>
@@ -75,7 +75,7 @@ const FutureFixtures = ({ team }) => {
                   } `}
                 >
                   <td className="md:px-10">{fixture.date}</td>
-                  <td className="md:px-10">{fixture.opponent}</td>
+                  <td className="md:px-10 px-4">{fixture.opponent}</td>
                   <td className="md:px-10">{fixture.Location}</td>
                 </tr>
               ))}
@@ -102,14 +102,29 @@ const FixturesPage: React.FC = () => {
   return (
     <div className="bg-slate-200 text-black text-lg text-center  h-screen lg:overflow-hidden">
       <h1 className="text-center text-2xl pt-12">Fixtures</h1>
-      <select
-        className="flex mx-auto rounded-md"
-        onChange={() => onTeamChange()}
-      >
-        <option>A Team</option>
-        <option>B Team</option>
-      </select>
-      <LeagueTable teams={teams} div={team === "A Team" ? 2 : 4} />
+      <div className="md:grid md:grid-cols-3 md:w-1/2 md:mx-auto md:mt-10">
+        <select
+          className="rounded-md text-black text-lg text-center h-10 md:w-40 w-24 mt-5 bg-blue-300 border border-black border-rounded-md"
+          onChange={() => onTeamChange()}
+        >
+          <option>A Team</option>
+          <option>B Team</option>
+        </select>
+        <div className="sm:flex sm:items-center">
+          <div className="sm:flex-auto">
+            <h1 className="text-base font-semibold leading-6 text-gray-900">
+              League Table
+            </h1>
+            <p className="mt-2 text-sm text-gray-700">
+              The Team you have selected is the{" "}
+              <strong className="font-semibold text-gray-900">{team}</strong>{" "}
+              They play in Division {team === "A Team" ? 2 : 4} of the
+              Southampton Chess League.
+            </p>
+          </div>
+        </div>
+      </div>
+      <LeagueTable teams={teams} />
       <div className="flex justify-around md:pt-12 pt-5">
         <FutureFixtures team={team} />
       </div>

@@ -1,4 +1,4 @@
-import Map from "../../components/Map";
+import Map from "@/components/Map";
 
 export default function AboutPage(): JSX.Element {
   return (
@@ -17,15 +17,15 @@ export default function AboutPage(): JSX.Element {
         <br />
         <p>
           Contact Us:
-          <br /> Email: lidevlin95@gmail.com
+          <br /> Email: scartridge1@gmail.com
           <br /> Phone: 07910060829
         </p>
       </div>
       <h2 className="text-xl pt-10">
         Come visit us at the Central Club in Andover
       </h2>
-      <div className="flex justify-center pt-4 h-full bg-slate-200">
-        <div className="md:w-4/6 md:h-3/5 w-full p-2">
+      <div className="flex justify-center pt-4 w-full h-1/2 bg-slate-200">
+        <div className="md:w-4/6 h-5/6 md:h-full w-5/6">
           <Map />
         </div>
       </div>

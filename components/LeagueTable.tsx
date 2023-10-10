@@ -1,22 +1,9 @@
 import Link from "next/link";
 import FormButton from "./FormButton";
-import HoverCardDemo from "@/components/HoverCard";
 
-const LeagueTable = ({ teams, div }) => {
+const LeagueTable = ({ teams }) => {
   return (
     <div className="lg:px-8 md:w-2/3 md:mx-auto p-2">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            League Table
-          </h1>
-          <p className="mt-2 text-sm text-gray-700">
-            The Team you have selected is the{" "}
-            <strong className="font-semibold text-gray-900">A Team.</strong>{" "}
-            They play in Division {div} of the Southampton Chess League.
-          </p>
-        </div>
-      </div>
       <div className="mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-300">
           <thead>
