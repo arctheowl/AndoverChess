@@ -17,10 +17,7 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    fontSize: theme.typography.pxToRem(12),
-    border: "1px solid #dadde9",
+    backgroundColor: "#f1f5f9",
   },
 }));
 
@@ -40,12 +37,10 @@ const FormButton = ({ result, date, oponent, boards, link }: Props) => {
   return (
     <HtmlTooltip
       title={
-        <Fragment>
-          <Typography color="inherit">Result Breakdown</Typography>
+        <div className="w-64 rounded-lg flex-col justify-around text-center text-lg text-black ">
+          <Typography color="inherit">Result Vs {oponent}</Typography>
           <p>{date}</p>
-          <Typography color="inherit">Vs {oponent}</Typography>
-
-          <table className="p-2 text-center">
+          <table className="p-10 text-center w-full">
             <thead>
               <tr className="border-2 border-slate-900">
                 <th className="border-2 border-slate-900 p-2">Board</th>
@@ -86,7 +81,7 @@ const FormButton = ({ result, date, oponent, boards, link }: Props) => {
               </Link>
             </span>
           ) : null}
-        </Fragment>
+        </div>
       }
     >
       <div
