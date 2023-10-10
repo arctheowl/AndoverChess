@@ -18,7 +18,7 @@ export default function AboutPage(): JSX.Element {
         <p>
           Contact Us:
           <br /> Email: scartridge1@gmail.com
-          <br /> Phone: 07910060829
+          <br /> Phone: 07917897427
         </p>
       </div>
       <h2 className="text-xl pt-10">
