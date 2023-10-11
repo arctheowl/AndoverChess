@@ -14,10 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <div className="bg-slate-200">
-        <Header />
-        <body className={"mt-14"}>{children}</body>
-      </div>
+      <body>
+        <div className="bg-slate-200 mt-14">
+          <Header />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
