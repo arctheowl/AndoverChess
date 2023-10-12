@@ -48,26 +48,14 @@ const FormButton = ({ result, date, oponent, boards, link }: Props) => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-2 border-slate-900">
-                <td className="border-2 border-slate-900">1</td>
-                <td>{boards?.[0]}</td>
-              </tr>
-              <tr className="border-2 border-slate-900">
-                <td className="border-2 border-slate-900">2</td>
-                <td>{boards?.[1]}</td>
-              </tr>
-              <tr className="border-2 border-slate-900">
-                <td className="border-2 border-slate-900">3</td>
-                <td>{boards?.[2]}</td>
-              </tr>
-              <tr className="border-2 border-slate-900">
-                <td className="border-2 border-slate-900">4</td>
-                <td>{boards?.[3]}</td>
-              </tr>
-              <tr className="border-2 border-slate-900">
-                <td className="border-2 border-slate-900">5</td>
-                <td>{boards?.[4]}</td>
-              </tr>
+              {boards?.map((board, id) => {
+                return (
+                  <tr className="border-2 border-slate-900" key={board + id}>
+                    <td className="border-2 border-slate-900">{id + 1}</td>
+                    <td>{board}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           {link ? (

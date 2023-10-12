@@ -1,7 +1,13 @@
 import Link from "next/link";
 import FormButton from "./FormButton";
+import { useEffect, useState } from "react";
 
 const LeagueTable = ({ teams }) => {
+  const [Finalteams, setTeams] = useState(teams);
+
+  useEffect(() => {
+    setTeams(teams);
+  }, [teams]);
   return (
     <div className="lg:px-8 md:w-2/3 md:mx-auto p-2">
       <div className="mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
@@ -79,9 +85,9 @@ const LeagueTable = ({ teams }) => {
           </thead>
           <tbody>
             {}
-            {teams.map((team, teamIdx) => (
+            {Finalteams.map((team, teamIdx) => (
               <tr
-                key={team.id}
+                key={team.name + team.position + team.points}
                 className={`${
                   teamIdx % 2 == 0 ? "bg-blue-100" : "bg-blue-200"
                 } `}
@@ -117,11 +123,11 @@ const LeagueTable = ({ teams }) => {
                         <Link
                           href={result.link}
                           target="_blank"
-                          key={result.link}
+                          key={result.link + result.date + result.oponent}
                         >
                           <FormButton
                             result={result.result}
-                            key={id}
+                            key={result.link + result.date + result.oponent}
                             date={result.date}
                             oponent={result.oponent}
                             boards={result.boards}
