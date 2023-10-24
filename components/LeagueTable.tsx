@@ -117,7 +117,7 @@ const LeagueTable = ({ teams }) => {
                   <div className="">{team.points}</div>
                 </td>
                 <td className="hidden md:table-cell">
-                  <div className="flex gap-3 justify-around">
+                  <div className="flex gap-3 pl-2">
                     {team.form.map((result, id) => {
                       return (
                         <Link

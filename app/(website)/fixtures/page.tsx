@@ -21,7 +21,6 @@ const ATeamFutureFixtures: Fixture[] = [
 ];
 
 const BTeamFutureFixtures: Fixture[] = [
-  { date: "Wed 11th Oct 2023", opponent: "Basingstoke C", Location: "Away" },
   { date: "Tue 24th Oct 2023", opponent: "Chandlers Ford C", Location: "Home" },
   { date: "Wed 1st Nov 2023", opponent: "Winchester C", Location: "Away" },
   { date: "Tue 7th Nov 2023", opponent: "Fareham C", Location: "Home" },
@@ -100,7 +99,7 @@ const FixturesPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-200 text-black text-lg text-center  h-screen lg:overflow-hidden">
+    <div className="bg-slate-200 text-black text-lg text-center h-screen overflow-auto">
       <h1 className="text-center text-2xl pt-12">Fixtures</h1>
       <div className="md:grid md:grid-cols-3 md:w-1/2 md:mx-auto md:mt-10">
         <select
@@ -139,13 +138,13 @@ const ATeams = [
     id: 2,
     position: "1",
     name: "Hamble A",
-    played: 1,
-    wins: 1,
+    played: 2,
+    wins: 2,
     draws: 0,
     losses: 0,
-    for: 4,
-    against: 1,
-    points: 2,
+    for: 7.5,
+    against: 2.5,
+    points: 4,
     form: [
       {
         result: "W",
@@ -154,18 +153,25 @@ const ATeams = [
         link: "https://ecflms.org.uk/lms/node/192718",
         boards: [1, 0.5, 1, 1, 0.5],
       },
+      {
+        result: "W",
+        date: "18-10-2023",
+        oponent: "Fareham B",
+        link: "https://ecflms.org.uk/lms/node/192731",
+        boards: [0.5, 1, 0.5, 0.5, 1],
+      },
     ],
   },
   {
     id: 3,
     position: "2",
     name: "Chandlers Ford A",
-    played: 1,
+    played: 2,
     wins: 1,
     draws: 0,
-    losses: 0,
-    for: 3,
-    against: 2,
+    losses: 1,
+    for: 5,
+    against: 5,
     points: 2,
     form: [
       {
@@ -175,6 +181,41 @@ const ATeams = [
         link: "https://ecflms.org.uk/lms/node/192717",
         boards: [1, 0.5, 1, 0.5, 0],
       },
+      {
+        result: "L",
+        date: "17-10-2023",
+        oponent: "Andover",
+        link: "https://ecflms.org.uk/lms/node/192729",
+        boards: [1, 0.5, 0, 0.5, 0],
+      },
+    ],
+  },
+  {
+    id: 1,
+    position: "4",
+    name: "Andover A",
+    played: 2,
+    wins: 1,
+    draws: 0,
+    losses: 1,
+    for: 4,
+    against: 6,
+    points: 2,
+    form: [
+      {
+        result: "L",
+        date: "4-10-2023",
+        oponent: "Hamble A",
+        link: "https://ecflms.org.uk/lms/node/192718",
+        boards: [0, 0.5, 0, 0, 0.5],
+      },
+      {
+        result: "W",
+        date: "17-10-2023",
+        oponent: "Chandlers Ford A",
+        link: "https://ecflms.org.uk/lms/node/192729",
+        boards: [0, 0.5, 1, 0.5, 1],
+      },
     ],
   },
   {
@@ -182,7 +223,7 @@ const ATeams = [
     position: "6",
     name: "Southampton B",
     played: 1,
-    wins: 2,
+    wins: 1,
     draws: 0,
     losses: 0,
     for: 3,
@@ -203,12 +244,12 @@ const ATeams = [
     id: 1,
     position: "5",
     name: "Fareham B",
-    played: 0,
+    played: 2,
     wins: 0,
     draws: 0,
-    losses: 0,
-    for: 0,
-    against: 0,
+    losses: 2,
+    for: 3.5,
+    against: 6.5,
     points: 0,
     form: [
       {
@@ -217,6 +258,13 @@ const ATeams = [
         oponent: "Southampton B",
         link: "https://ecflms.org.uk/lms/node/192722",
         boards: [0, 1, 1, 0, 0],
+      },
+      {
+        result: "L",
+        date: "18-10-2023",
+        oponent: "Hamble A",
+        link: "https://ecflms.org.uk/lms/node/192731",
+        boards: [0.5, 0, 0.5, 0.5, 0],
       },
     ],
   },
@@ -242,27 +290,6 @@ const ATeams = [
       },
     ],
   },
-  {
-    id: 1,
-    position: "4",
-    name: "Andover A",
-    played: 1,
-    wins: 0,
-    draws: 0,
-    losses: 1,
-    for: 1,
-    against: 4,
-    points: 0,
-    form: [
-      {
-        result: "L",
-        date: "4-10-2023",
-        oponent: "Hamble A",
-        link: "https://ecflms.org.uk/lms/node/192718",
-        boards: [0, 0.5, 0, 0, 0.5],
-      },
-    ],
-  },
 ];
 
 const BTeams = [
@@ -270,13 +297,13 @@ const BTeams = [
     id: 1,
     position: "1",
     name: "Chandlers Ford C",
-    played: 1,
-    wins: 1,
+    played: 2,
+    wins: 2,
     draws: 0,
     losses: 0,
-    for: 0,
-    against: 0,
-    points: 2,
+    for: 6,
+    against: 2,
+    points: 4,
     form: [
       {
         result: "W",
@@ -285,18 +312,46 @@ const BTeams = [
         link: "https://ecflms.org.uk/lms/node/192724",
         boards: [0.5, 1, 1, 1],
       },
+      {
+        result: "W",
+        date: "19-10-2023",
+        oponent: "Southampton Uni C",
+        link: "https://ecflms.org.uk/lms/node/192724",
+        boards: [1, 1, 0, 0.5],
+      },
+    ],
+  },
+  {
+    id: 5,
+    position: "2",
+    name: "Fareham C",
+    played: 1,
+    wins: 1,
+    draws: 0,
+    losses: 0,
+    for: 3.5,
+    against: 0.5,
+    points: 2,
+    form: [
+      {
+        result: "W",
+        date: "10-10-2023",
+        oponent: "Winchester C",
+        link: "https://ecflms.org.uk/lms/node/192730",
+        boards: [1, 0.5, 1, 1],
+      },
     ],
   },
   {
     id: 2,
-    position: "2",
+    position: "3",
     name: "Basingstoke C",
     played: 1,
     wins: 1,
     draws: 0,
     losses: 0,
-    for: 0,
-    against: 0,
+    for: 2.5,
+    against: 1.5,
     points: 2,
     form: [
       {
@@ -308,10 +363,31 @@ const BTeams = [
       },
     ],
   },
+  {
+    id: 6,
+    position: "4",
+    name: "Southampton Univesity C",
+    played: 1,
+    wins: 0,
+    draws: 0,
+    losses: 1,
+    for: 1.5,
+    against: 2.5,
+    points: 0,
+    form: [
+      {
+        result: "L",
+        date: "10-10-2023",
+        oponent: "Chandlers Ford C",
+        link: "https://ecflms.org.uk/lms/node/192734",
+        boards: [0, 0, 1, 0.5],
+      },
+    ],
+  },
 
   {
     id: 3,
-    position: "3",
+    position: "5",
     name: "Andover B",
     played: 1,
     wins: 0,
@@ -333,7 +409,7 @@ const BTeams = [
 
   {
     id: 4,
-    position: "4",
+    position: "6",
     name: "Winchester C",
     played: 1,
     wins: 0,
@@ -350,32 +426,13 @@ const BTeams = [
         link: "https://ecflms.org.uk/lms/node/192724",
         boards: [0.5, 0, 0, 0],
       },
+      {
+        result: "L",
+        date: "10-10-2023",
+        oponent: "Farham C",
+        link: "https://ecflms.org.uk/lms/node/192730",
+        boards: [0, 0.5, 0, 0],
+      },
     ],
-  },
-  {
-    id: 5,
-    position: "5",
-    name: "Fareham C",
-    played: 0,
-    wins: 0,
-    draws: 0,
-    losses: 0,
-    for: 0,
-    against: 0,
-    points: 0,
-    form: [],
-  },
-  {
-    id: 6,
-    position: "6",
-    name: "Southampton Univesity C",
-    played: 0,
-    wins: 0,
-    draws: 0,
-    losses: 0,
-    for: 0,
-    against: 0,
-    points: 0,
-    form: [],
   },
 ];
