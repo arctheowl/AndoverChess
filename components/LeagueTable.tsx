@@ -84,7 +84,6 @@ const LeagueTable = ({ teams }) => {
             </tr>
           </thead>
           <tbody>
-            {}
             {Finalteams.map((team, teamIdx) => (
               <tr
                 key={team.name + team.position + team.points}
@@ -93,7 +92,7 @@ const LeagueTable = ({ teams }) => {
                 } `}
               >
                 <td className="border-r border-gray-600">
-                  <div className="text-gray-900">{team.position}</div>
+                  <div className="text-gray-900">{teamIdx + 1}</div>
                 </td>
                 <td className="border-r border-gray-600">{team.name}</td>
                 <td className="border-r border-gray-600">{team.played}</td>
