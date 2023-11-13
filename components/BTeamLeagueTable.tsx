@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FormButton from "./FormButton";
 import { getBTeamTable } from "@/helper/GetTable";
+import { getForm } from "@/helper/GetForm";
 
 const LeagueTable = async () => {
   let TableResults = await getBTeamTable();
@@ -72,70 +73,76 @@ const LeagueTable = async () => {
                 PTs
               </th>
 
-              <th
+              {/* <th
                 scope="col"
                 className="px-3 py-3.5  text-sm font-semibold text-gray-900 hidden md:table-cell"
               >
                 <span className="">Form</span>
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
-            {TableResultsArray.map((team, teamIdx) => (
-              <tr
-                key={team.team + team.played + team.points}
-                className={`${
-                  teamIdx % 2 == 0 ? "bg-blue-100" : "bg-blue-200"
-                } `}
-              >
-                <td className="border-r border-gray-600">
-                  <div className="text-gray-900">{teamIdx + 1}</div>
-                </td>
-                <td className="border-r border-gray-600">{team.team}</td>
-                <td className="border-r border-gray-600">{team.played}</td>
-                <td className="border-r border-gray-600">{team.wins}</td>
-                <td className="border-r border-gray-600">
-                  <div className="">{team.draws}</div>
-                </td>
-                <td className="border-r border-gray-600">
-                  <div className="">{team.losses}</div>
-                </td>
-                <td className="border-r border-gray-600 hidden md:table-cell">
-                  <div className="">{team.for}</div>
-                </td>
-                <td className="border-r border-gray-600 hidden md:table-cell">
-                  <div className="">{team.against}</div>
-                </td>
-                <td className="border-r border-gray-600 hidden md:table-cell">
-                  <div className="">{team.for - team.against}</div>
-                </td>
-                <td className="border-r border-gray-600">
-                  <div className="">{team.points}</div>
-                </td>
-                <td className="hidden md:table-cell">
-                  <div className="flex gap-3 pl-2">
-                    {/* {team.form.map((result, id) => {
-                      return (
-                        <Link
-                          href={result.link}
-                          target="_blank"
-                          key={result.link + result.date + result.oponent}
-                        >
-                          <FormButton
-                            result={result.result}
+            {TableResultsArray.map(async (team, teamIdx) => {
+              // let Form;
+              // if (team.teamLink) {
+              //   Form = await getForm(team.teamLink, team.team);
+              // }
+              return (
+                <tr
+                  key={team.team + team.played + team.points}
+                  className={`${
+                    teamIdx % 2 == 0 ? "bg-blue-100" : "bg-blue-200"
+                  } `}
+                >
+                  <td className="border-r border-gray-600">
+                    <div className="text-gray-900">{teamIdx + 1}</div>
+                  </td>
+                  <td className="border-r border-gray-600">{team.team}</td>
+                  <td className="border-r border-gray-600">{team.played}</td>
+                  <td className="border-r border-gray-600">{team.wins}</td>
+                  <td className="border-r border-gray-600">
+                    <div className="">{team.draws}</div>
+                  </td>
+                  <td className="border-r border-gray-600">
+                    <div className="">{team.losses}</div>
+                  </td>
+                  <td className="border-r border-gray-600 hidden md:table-cell">
+                    <div className="">{team.for}</div>
+                  </td>
+                  <td className="border-r border-gray-600 hidden md:table-cell">
+                    <div className="">{team.against}</div>
+                  </td>
+                  <td className="border-r border-gray-600 hidden md:table-cell">
+                    <div className="">{team.for - team.against}</div>
+                  </td>
+                  <td className="border-r border-gray-600">
+                    <div className="">{team.points}</div>
+                  </td>
+                  {/* <td className="hidden md:table-cell">
+                    <div className="flex gap-3 pl-2">
+                      {Form.map((id, result) => {
+                        return (
+                          <Link
+                            href={`https://ecflms.org.uk${result.gameLink}`}
+                            target="_blank"
                             key={result.link + result.date + result.oponent}
-                            date={result.date}
-                            oponent={result.oponent}
-                            boards={result.boards}
-                            link={result.link}
-                          />
-                        </Link>
-                      );
-                    })} */}
-                  </div>
-                </td>
-              </tr>
-            ))}
+                          >
+                            <FormButton
+                              result={result.wld}
+                              key={result.link + result.date + result.oponent}
+                              date={result.date}
+                              oponent={result.oponent}
+                              boards={result.boards}
+                              link={result.link}
+                            />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </td> */}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

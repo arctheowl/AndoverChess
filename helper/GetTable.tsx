@@ -173,6 +173,7 @@ export const getBTeamTable = async () => {
         for: CleanPoints({ points: $(item[5]).text() }),
         against: CleanPoints({ points: $(item[6]).text() }),
         points: $(item[7]).text(),
+        teamLink: $(item[0]).find("a").attr("href"),
       };
     });
   return finaldata;

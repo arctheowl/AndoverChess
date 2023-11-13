@@ -73,21 +73,20 @@ const LeagueTable = async () => {
                 PTs
               </th>
 
-              <th
+              {/* <th
                 scope="col"
                 className="px-3 py-3.5  text-sm font-semibold text-gray-900 hidden md:table-cell"
               >
                 <span className="">Form</span>
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
             {TableResultsArray.map(async (team, teamIdx) => {
-              let Form;
-              if (team.teamLink) {
-                Form = await getForm(team.teamLink, team.team);
-              }
-              console.log(Form);
+              // let Form;
+              // if (team.teamLink) {
+              //   Form = await getForm(team.teamLink, team.team);
+              // }
               return (
                 <tr
                   key={team.team + team.played + team.points}
@@ -126,10 +125,9 @@ const LeagueTable = async () => {
                   <td className="border-r border-gray-600">
                     <div className="">{team.points}</div>
                   </td>
-                  <td className="hidden md:table-cell">
+                  {/* <td className="hidden md:table-cell">
                     <div className="flex gap-3 pl-2">
                       {Form.map((id, result) => {
-                        console.log(result);
                         return (
                           <Link
                             href={`https://ecflms.org.uk${result.gameLink}`}
@@ -148,7 +146,7 @@ const LeagueTable = async () => {
                         );
                       })}
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
