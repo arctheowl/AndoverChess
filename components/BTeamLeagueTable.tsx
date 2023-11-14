@@ -82,7 +82,7 @@ const LeagueTable = async () => {
             </tr>
           </thead>
           <tbody>
-            {TableResultsArray.map(async (team, teamIdx) => {
+            {TableResultsArray.map((team, teamIdx) => {
               // let Form;
               // if (team.teamLink) {
               //   Form = await getForm(team.teamLink, team.team);
