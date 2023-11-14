@@ -54,8 +54,8 @@ export async function getADivisionFixtures() {
 export const getATeamResults = async () => {
   let results = await getADivisionFixtures();
 
-  let ATeamResults = results.results.filter(
-    (i, result) => result.score !== "0 - 0" && result.team !== ""
+  let ATeamResults = results?.results.filter(
+    (i, result) => result?.score !== "0 - 0" && result?.team !== ""
   );
   return ATeamResults;
 };
@@ -92,10 +92,10 @@ export const getATeamTable = async () => {
 export async function getATeamFixtures() {
   let results = await getADivisionFixtures();
 
-  let ATeamFixtures = results.results.filter(
+  let ATeamFixtures = results?.results?.filter(
     (i, result) =>
-      (result.score === "0 - 0" && result.team === "Andover A") ||
-      (result.score === "0 - 0" && result.oponent === "Andover A")
+      (result?.score === "0 - 0" && result?.team === "Andover A") ||
+      (result?.score === "0 - 0" && result?.oponent === "Andover A")
   );
   return ATeamFixtures;
 }
@@ -134,7 +134,7 @@ export const getBTeamResults = async () => {
   let results = await getBDivisionFixtures();
 
   let BTeamResults = results.results.filter(
-    (i, result) => result.score !== "0 - 0" && result.team !== ""
+    (i, result) => result?.score !== "0 - 0" && result?.team !== ""
   );
   return BTeamResults;
 };
@@ -144,8 +144,8 @@ export async function getBTeamFixtures() {
 
   let BTeamFixtures = results.results.filter(
     (i, result) =>
-      (result.score === "0 - 0" && result.team === "Andover B") ||
-      (result.score === "0 - 0" && result.oponent === "Andover B")
+      (result?.score === "0 - 0" && result?.team === "Andover B") ||
+      (result?.score === "0 - 0" && result?.oponent === "Andover B")
   );
   return BTeamFixtures;
 }
