@@ -1,5 +1,4 @@
 import { getBTeamFixtures } from "@/helper/GetTable";
-import { Suspense } from "react";
 
 export async function BTeamFixtures() {
   const fetchFixtures = async () => {
@@ -36,14 +35,18 @@ export async function BTeamFixtures() {
         <tbody>
           {FutureBTeamFixtures?.map((i, team) => (
             <tr
-              key={team.team + team.oponent + team.date}
+              key={team?.team + team?.oponent + team?.date}
               className={`${i % 2 == 0 ? "bg-blue-100" : "bg-blue-200"} `}
             >
-              <td className="border-r border-gray-600 px-4">
-                <div className="text-gray-900">{team.team}</div>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                <div className="text-gray-900">{team?.team}</div>
               </td>
-              <td className="border-r border-gray-600 px-4">{team.oponent}</td>
-              <td className="border-r border-gray-600 px-4">{team.date}</td>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                {team?.oponent}
+              </td>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                {team?.date}
+              </td>
             </tr>
           ))}
         </tbody>

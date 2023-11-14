@@ -90,7 +90,7 @@ const LeagueTable = async () => {
               // }
               return (
                 <tr
-                  key={team.team + team.played + team.points}
+                  key={team?.team + team?.played + team?.points}
                   className={`${
                     teamIdx % 2 == 0 ? "bg-blue-100" : "bg-blue-200"
                   } `}
@@ -98,33 +98,26 @@ const LeagueTable = async () => {
                   <td className="border-r border-gray-600">
                     <div className="text-gray-900">{teamIdx + 1}</div>
                   </td>
+                  <td className="border-r border-gray-600">{team?.team}</td>
+                  <td className="border-r border-gray-600">{team?.played}</td>
+                  <td className="border-r border-gray-600">{team?.wins}</td>
                   <td className="border-r border-gray-600">
-                    <a
-                      href={`https://ecflms.org.uk${team.teamLink}`}
-                      target="_blank"
-                    >
-                      {team.team}
-                    </a>
-                  </td>
-                  <td className="border-r border-gray-600">{team.played}</td>
-                  <td className="border-r border-gray-600">{team.wins}</td>
-                  <td className="border-r border-gray-600">
-                    <div className="">{team.draws}</div>
+                    <div className="">{team?.draws}</div>
                   </td>
                   <td className="border-r border-gray-600">
-                    <div className="">{team.losses}</div>
+                    <div className="">{team?.losses}</div>
                   </td>
                   <td className="border-r border-gray-600 hidden md:table-cell">
-                    <div className="">{team.for}</div>
+                    <div className="">{team?.for}</div>
                   </td>
                   <td className="border-r border-gray-600 hidden md:table-cell">
-                    <div className="">{team.against}</div>
+                    <div className="">{team?.against}</div>
                   </td>
                   <td className="border-r border-gray-600 hidden md:table-cell">
-                    <div className="">{team.for - team.against}</div>
+                    <div className="">{team?.for - team?.against}</div>
                   </td>
                   <td className="border-r border-gray-600">
-                    <div className="">{team.points}</div>
+                    <div className="">{team?.points}</div>
                   </td>
                   {/* <td className="hidden md:table-cell">
                     <div className="flex gap-3 pl-2">

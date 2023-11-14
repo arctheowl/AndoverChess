@@ -1,15 +1,9 @@
-import { getADivisionFixtures } from "@/helper/GetTable";
-import { Suspense } from "react";
+import { getATeamFixtures } from "@/helper/GetTable";
 
 export async function ATeamFixtures() {
   const fetchFixtures = async () => {
-    let results = await getADivisionFixtures();
-    let FutureATeamFixtures = results.results.filter(
-      (i, result) =>
-        (result.score === "0 - 0" && result.team === "Andover A") ||
-        (result.score === "0 - 0" && result.oponent === "Andover A")
-    );
-    return FutureATeamFixtures;
+    let results = await getATeamFixtures();
+    return results;
   };
   const FutureATeamFixtures = await fetchFixtures();
 
@@ -41,14 +35,18 @@ export async function ATeamFixtures() {
         <tbody>
           {FutureATeamFixtures?.map((i, team) => (
             <tr
-              key={team.team + team.oponent + team.date}
+              key={team?.team + team?.oponent + team?.date}
               className={`${i % 2 == 0 ? "bg-blue-100" : "bg-blue-200"} `}
             >
-              <td className="border-r border-gray-600 px-4">
-                <div className="text-gray-900">{team.team}</div>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                <div className="text-gray-900">{team?.team}</div>
               </td>
-              <td className="border-r border-gray-600 px-4">{team.oponent}</td>
-              <td className="border-r border-gray-600 px-4">{team.date}</td>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                {team?.oponent}
+              </td>
+              <td className="border-r border-gray-600 px-2 md:px-4">
+                {team?.date}
+              </td>
             </tr>
           ))}
         </tbody>
