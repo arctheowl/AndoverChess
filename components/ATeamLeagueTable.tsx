@@ -1,7 +1,4 @@
-import Link from "next/link";
-import FormButton from "./FormButton";
 import { getATeamTable } from "@/helper/GetTable";
-import { getForm } from "@/helper/GetForm";
 
 const LeagueTable = async () => {
   let TableResults = await getATeamTable();
@@ -83,11 +80,6 @@ const LeagueTable = async () => {
           </thead>
           <tbody>
             {TableResultsArray.map((team, teamIdx) => {
-              console.log(team);
-              // let Form;
-              // if (team.teamLink) {
-              //   Form = await getForm(team.teamLink, team.team);
-              // }
               return (
                 <tr
                   key={team?.team + team?.played + team?.points}

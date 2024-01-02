@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 const FutureFixtures = async () => {
   useEffect(() => {
-    console.log("hello");
     const BTeamFixtures = fetch(
       "https://ecflms.org.uk/lms/league/plain/event/140736/SCL+Div+4",
       {
@@ -10,9 +9,7 @@ const FutureFixtures = async () => {
           "Access-Control-Allow-Origin": "*",
         },
       }
-    )
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+    ).then((res) => res.json());
   }, []);
   return (
     <div className="mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
