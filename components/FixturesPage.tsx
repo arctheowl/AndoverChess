@@ -43,7 +43,7 @@ export default function FixturesPage() {
         </div>
       </div>
       {/* <ErrorBoundary fallback={<div></div>}> */}
-      <Suspense
+      {/* <Suspense
         fallback={
           <div role="status mx-auto">
             <svg
@@ -65,13 +65,13 @@ export default function FixturesPage() {
             <span className="sr-only">Loading...</span>
           </div>
         }
-      >
-        {/* {team === "A Team" ? <ATeamLeagueTable /> : <BTeamLeagueTable />} */}
+      > */}
+      {/* {team === "A Team" ? <ATeamLeagueTable /> : <BTeamLeagueTable />} */}
 
-        <div className="flex justify-around md:pt-12 pt-5">
+      {/* <div className="flex justify-around md:pt-12 pt-5">
           {team === "A Team" ? <ATeamFixtures /> : <BTeamFixtures />}
-        </div>
-      </Suspense>
+        </div> */}
+      {/* </Suspense> */}
       {/* </ErrorBoundary> */}
     </div>
   );
