@@ -66,11 +66,11 @@ export default function FixturesPage() {
           </div>
         }
       >
-        {team === "A Team" ? <ATeamLeagueTable /> : <BTeamLeagueTable />}
+        {/* {team === "A Team" ? <ATeamLeagueTable /> : <BTeamLeagueTable />} */}
 
-        {/* <div className="flex justify-around md:pt-12 pt-5">
+        <div className="flex justify-around md:pt-12 pt-5">
           {team === "A Team" ? <ATeamFixtures /> : <BTeamFixtures />}
-        </div> */}
+        </div>
       </Suspense>
       {/* </ErrorBoundary> */}
     </div>
