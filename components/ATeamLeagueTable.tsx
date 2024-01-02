@@ -91,7 +91,7 @@ const LeagueTable = async () => {
                     <div className="text-gray-900">{teamIdx + 1}</div>
                   </td>
                   <td className="border-r border-gray-600">{team?.team}</td>
-                  <td className="border-r border-gray-600">{team?.played}</td>
+                  {/* <td className="border-r border-gray-600">{team?.played}</td>
                   <td className="border-r border-gray-600">{team?.wins}</td>
                   <td className="border-r border-gray-600">
                     <div className="">{team?.draws}</div>
@@ -110,7 +110,7 @@ const LeagueTable = async () => {
                   </td>
                   <td className="border-r border-gray-600">
                     <div className="">{team?.points}</div>
-                  </td>
+                  </td> */}
                   {/* <td className="hidden md:table-cell">
                     <div className="flex gap-3 pl-2">
                       {Form.map((id, result) => {
