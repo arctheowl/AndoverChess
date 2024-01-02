@@ -1,5 +1,8 @@
-export function ATeamFixtures() {
-  const Fixtures = [
+import { useEffect, useState } from "react";
+
+export function TeamFixtures({ team }) {
+  const [Fixtures, setFixtures] = useState([]);
+  const AFixtures = [
     {
       Home: "Andover A",
       Away: "Winchester A",
@@ -26,6 +29,43 @@ export function ATeamFixtures() {
       Date: "Tue 16th Apr 2024",
     },
   ];
+
+  const BFixtures = [
+    {
+      Home: "Andover B",
+      Away: "Basinstoke C",
+      Date: "Tue 9th Jan 2024",
+    },
+    {
+      Home: "Fareham C",
+      Away: "Andover B",
+      Date: "Tue 23rd Jan 2024",
+    },
+    {
+      Home: "Andover A",
+      Away: "Southampton Uni C",
+      Date: "Tue 20th Feb 2024",
+    },
+    {
+      Home: "Andover A",
+      Away: "Winchester C",
+      Date: "Tue 12th Mar 2024",
+    },
+    {
+      Home: "Chandlers Ford C",
+      Away: "Andover B",
+      Date: "Tue 26th Mar 2024",
+    },
+  ];
+
+  useEffect(() => {
+    if (team === "A Team") {
+      setFixtures(AFixtures);
+    }
+    if (team === "B Team") {
+      setFixtures(BFixtures);
+    }
+  });
 
   return (
     <div className="mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">

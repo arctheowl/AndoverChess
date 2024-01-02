@@ -1,7 +1,6 @@
 "use client";
 import React, { Suspense, useState } from "react";
-import { ATeamFixtures } from "./ATeamFixtures";
-import { BTeamFixtures } from "./BTeamFixtures";
+import { TeamFixtures } from "./ATeamFixtures";
 import ATeamLeagueTable from "./ATeamLeagueTable";
 import BTeamLeagueTable from "./BTeamLeagueTable";
 import { ErrorBoundary } from "react-error-boundary";
@@ -69,7 +68,7 @@ export default function FixturesPage() {
       {/* {team === "A Team" ? <ATeamLeagueTable /> : <BTeamLeagueTable />} */}
 
       <div className="flex justify-around md:pt-12 pt-5">
-        {team === "A Team" ? <ATeamFixtures /> : <BTeamFixtures />}
+        <TeamFixtures team={team} />
       </div>
       {/* </Suspense> */}
       {/* </ErrorBoundary> */}
