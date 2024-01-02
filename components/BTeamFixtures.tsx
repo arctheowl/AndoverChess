@@ -1,12 +1,33 @@
 import { getBTeamFixtures } from "@/helper/GetTable";
 
-export async function BTeamFixtures() {
-  const fetchFixtures = async () => {
-    let results = await getBTeamFixtures();
-    return results;
-  };
-  const FutureBTeamFixtures = await fetchFixtures();
-
+export function BTeamFixtures() {
+  const Fixtures = [
+    {
+      Home: "Andover B",
+      Away: "Basinstoke C",
+      Date: "Tue 9th Jan 2024",
+    },
+    {
+      Home: "Fareham C",
+      Away: "Andover B",
+      Date: "Tue 23rd Jan 2024",
+    },
+    {
+      Home: "Andover A",
+      Away: "Southampton Uni C",
+      Date: "Tue 20th Feb 2024",
+    },
+    {
+      Home: "Andover A",
+      Away: "Winchester C",
+      Date: "Tue 12th Mar 2024",
+    },
+    {
+      Home: "Chandlers Ford C",
+      Away: "Andover B",
+      Date: "Tue 26th Mar 2024",
+    },
+  ];
   return (
     <div className="mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
       <table className="min-w-full divide-y divide-gray-300">
@@ -33,19 +54,19 @@ export async function BTeamFixtures() {
           </tr>
         </thead>
         <tbody>
-          {FutureBTeamFixtures?.map((i, team) => (
+          {Fixtures?.map((team, i) => (
             <tr
-              key={team?.team + team?.oponent + team?.date}
+              key={team?.Home + team?.Away + team?.Date}
               className={`${i % 2 == 0 ? "bg-blue-100" : "bg-blue-200"} `}
             >
               <td className="border-r border-gray-600 px-2 md:px-4">
-                <div className="text-gray-900">{team?.team}</div>
+                <div className="text-gray-900">{team?.Home}</div>
               </td>
               <td className="border-r border-gray-600 px-2 md:px-4">
-                {team?.oponent}
+                {team?.Away}
               </td>
               <td className="border-r border-gray-600 px-2 md:px-4">
-                {team?.date}
+                {team?.Date}
               </td>
             </tr>
           ))}
