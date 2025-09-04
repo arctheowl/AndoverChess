@@ -1,4 +1,8 @@
+import { getCommitteeMembers, getMemberStats } from '@/data/members';
+
 export default function AboutPage() {
+  const committeeMembers = getCommitteeMembers();
+  const memberStats = getMemberStats();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -143,77 +147,31 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👨‍💼</span>
+            {committeeMembers.map((member) => (
+              <div key={member.id} className="text-center">
+                <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-emerald-800 text-2xl">{member.avatar}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+                <p className="text-emerald-800 font-medium mb-2">{member.role}</p>
+                <p className="text-gray-600 text-sm mb-3">
+                  {member.description}
+                </p>
+                {member.achievements && member.achievements.length > 0 && (
+                  <div className="text-xs text-gray-500">
+                    <div className="font-medium mb-1">Key Achievements:</div>
+                    <div className="space-y-1">
+                      {member.achievements.slice(0, 2).map((achievement, index) => (
+                        <div key={index} className="text-gray-600">• {achievement}</div>
+                      ))}
+                      {member.achievements.length > 2 && (
+                        <div className="text-gray-500">+{member.achievements.length - 2} more</div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">David Thompson</h3>
-              <p className="text-emerald-800 font-medium mb-2">Club President</p>
-              <p className="text-gray-600 text-sm">
-                Club member since 1982, David has been president for 15 years and is a 
-                former Hampshire champion.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👩‍💼</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">Sarah Mitchell</h3>
-              <p className="text-emerald-800 font-medium mb-2">Secretary</p>
-              <p className="text-gray-600 text-sm">
-                Sarah handles all club administration and has been instrumental in 
-                organizing our junior coaching program.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👨‍💼</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">Michael Chen</h3>
-              <p className="text-emerald-800 font-medium mb-2">Treasurer</p>
-              <p className="text-gray-600 text-sm">
-                Michael manages our finances and has helped secure funding for 
-                equipment and tournament prizes.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👨‍🏫</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">Robert Wilson</h3>
-              <p className="text-emerald-800 font-medium mb-2">Head Coach</p>
-              <p className="text-gray-600 text-sm">
-                A qualified chess coach with over 20 years of teaching experience, 
-                Robert leads our training sessions.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👨‍💻</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">James Anderson</h3>
-              <p className="text-emerald-800 font-medium mb-2">Tournament Director</p>
-              <p className="text-gray-600 text-sm">
-                James organizes our internal tournaments and manages our league 
-                team participation.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-800 text-2xl">👩‍🎓</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">Emma Davis</h3>
-              <p className="text-emerald-800 font-medium mb-2">Junior Coordinator</p>
-              <p className="text-gray-600 text-sm">
-                Emma runs our junior program and ensures young players have 
-                opportunities to develop their skills.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -230,20 +188,20 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold mb-2">15+</div>
-              <p className="text-emerald-100">County Champions</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">50+</div>
+              <div className="text-4xl font-bold mb-2">{memberStats.totalMembers}</div>
               <p className="text-emerald-100">Active Members</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold mb-2">25+</div>
-              <p className="text-emerald-100">Years in League</p>
+              <div className="text-4xl font-bold mb-2">{memberStats.committeeMembers}</div>
+              <p className="text-emerald-100">Committee Members</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold mb-2">100+</div>
-              <p className="text-emerald-100">Tournaments Hosted</p>
+              <div className="text-4xl font-bold mb-2">{memberStats.averageRating}</div>
+              <p className="text-emerald-100">Average Rating</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">{memberStats.totalAchievements}</div>
+              <p className="text-emerald-100">Total Achievements</p>
             </div>
           </div>
         </div>

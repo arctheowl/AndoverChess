@@ -220,6 +220,22 @@ export default function Home() {
                     <span className="font-semibold theme-text-primary">{team.points}/{team.maxPoints}</span>
                   </div>
                 </div>
+                
+                {/* Next Match */}
+                {team.upcomingMatches && team.upcomingMatches.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="text-xs theme-text-muted mb-1">Next Match</div>
+                    <div className="text-sm font-medium theme-text-primary">
+                      vs {team.upcomingMatches[0].opponent}
+                    </div>
+                    <div className="text-xs theme-text-secondary">
+                      {new Date(team.upcomingMatches[0].date).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short'
+                      })} • {team.upcomingMatches[0].isHome ? 'Home' : 'Away'}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

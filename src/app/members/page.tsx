@@ -1,106 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-
-interface Member {
-  id: number;
-  name: string;
-  role: string;
-  rating?: number;
-  achievements: string[];
-  joinDate: string;
-  image?: string;
-}
-
-const members: Member[] = [
-  {
-    id: 1,
-    name: 'David Thompson',
-    role: 'Club President',
-    rating: 1850,
-    achievements: ['Hampshire Champion 2018', 'Club Champion 2020', 'County Team Captain'],
-    joinDate: '1982'
-  },
-  {
-    id: 2,
-    name: 'Sarah Mitchell',
-    role: 'Secretary',
-    rating: 1650,
-    achievements: ['Women\'s Champion 2021', 'Junior Coach'],
-    joinDate: '2010'
-  },
-  {
-    id: 3,
-    name: 'Michael Chen',
-    role: 'Treasurer',
-    rating: 1750,
-    achievements: ['Rapid Champion 2022', 'Tournament Organizer'],
-    joinDate: '2015'
-  },
-  {
-    id: 4,
-    name: 'Robert Wilson',
-    role: 'Head Coach',
-    rating: 1950,
-    achievements: ['FIDE Master', 'Qualified Coach', 'Author of Chess Strategy Guide'],
-    joinDate: '2005'
-  },
-  {
-    id: 5,
-    name: 'James Anderson',
-    role: 'Tournament Director',
-    rating: 1700,
-    achievements: ['Blitz Champion 2023', 'League Team Player'],
-    joinDate: '2012'
-  },
-  {
-    id: 6,
-    name: 'Emma Davis',
-    role: 'Junior Coordinator',
-    rating: 1600,
-    achievements: ['Junior Coach', 'Women\'s Team Captain'],
-    joinDate: '2018'
-  },
-  {
-    id: 7,
-    name: 'Thomas Brown',
-    role: 'Member',
-    rating: 1550,
-    achievements: ['Most Improved Player 2023'],
-    joinDate: '2020'
-  },
-  {
-    id: 8,
-    name: 'Lisa Johnson',
-    role: 'Member',
-    rating: 1450,
-    achievements: ['Junior Champion 2022'],
-    joinDate: '2019'
-  }
-];
+import { getMembers, getCommitteeMembers, getRegularMembers, Member } from '@/data/members';
 
 export default function MembersPage() {
   const [filter, setFilter] = useState<'all' | 'committee' | 'members'>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredMembers = members.filter(member => {
+  const allMembers = getMembers();
+  const committeeMembers = getCommitteeMembers();
+  const regularMembers = getRegularMembers();
+
+  const filteredMembers = allMembers.filter(member => {
     const roleMatch = filter === 'all' || 
-      (filter === 'committee' && ['Club President', 'Secretary', 'Treasurer', 'Head Coach', 'Tournament Director', 'Junior Coordinator'].includes(member.role)) ||
-      (filter === 'members' && !['Club President', 'Secretary', 'Treasurer', 'Head Coach', 'Tournament Director', 'Junior Coordinator'].includes(member.role));
+      (filter === 'committee' && member.isCommittee) ||
+      (filter === 'members' && !member.isCommittee);
     
     const searchMatch = member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                        member.role.toLowerCase().includes(searchTerm.toLowerCase());
     
     return roleMatch && searchMatch;
   });
-
-  const committeeMembers = members.filter(member => 
-    ['Club President', 'Secretary', 'Treasurer', 'Head Coach', 'Tournament Director', 'Junior Coordinator'].includes(member.role)
-  );
-
-  const regularMembers = members.filter(member => 
-    !['Club President', 'Secretary', 'Treasurer', 'Head Coach', 'Tournament Director', 'Junior Coordinator'].includes(member.role)
-  );
 
   return (
     <div className="min-h-screen">
@@ -122,7 +42,7 @@ export default function MembersPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-emerald-800 mb-2">{members.length}</div>
+              <div className="text-4xl font-bold text-emerald-800 mb-2">{allMembers.length}</div>
               <p className="text-gray-600">Active Members</p>
             </div>
             <div>
@@ -157,27 +77,25 @@ export default function MembersPage() {
               <div key={member.id} className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div className="text-center mb-4">
                   <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-emerald-800 text-2xl font-bold">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                    <span className="text-emerald-800 text-2xl">{member.avatar}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
                   <p className="text-emerald-800 font-medium mb-2">{member.role}</p>
-                  {member.rating && (
-                    <p className="text-sm text-gray-600">Rating: {member.rating}</p>
-                  )}
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm text-gray-600">Member since {member.joinDate}</p>
+                  <p className="text-sm text-gray-600 mb-3">{member.description}</p>
                   <div>
-                    <p className="text-sm font-medium text-gray-900 mb-1">Achievements:</p>
+                    <p className="text-sm font-medium text-gray-900 mb-1">Key Achievements:</p>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      {member.achievements.map((achievement, index) => (
+                      {member.achievements.slice(0, 3).map((achievement, index) => (
                         <li key={index} className="flex items-center">
                           <span className="text-emerald-600 mr-2">•</span>
                           {achievement}
                         </li>
                       ))}
+                      {member.achievements.length > 3 && (
+                        <li className="text-gray-500 text-xs">+{member.achievements.length - 3} more</li>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -252,9 +170,13 @@ export default function MembersPage() {
               <div key={member.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="text-center mb-4">
                   <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-emerald-800 text-lg font-bold">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                    {member.avatar ? (
+                      <span className="text-emerald-800 text-2xl">{member.avatar}</span>
+                    ) : (
+                      <span className="text-emerald-800 text-lg font-bold">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
                   <p className="text-emerald-800 font-medium text-sm mb-2">{member.role}</p>
@@ -264,7 +186,7 @@ export default function MembersPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xs text-gray-600">Member since {member.joinDate}</p>
-                  {member.achievements.length > 0 && (
+                  {member.achievements && member.achievements.length > 0 && (
                     <div>
                       <p className="text-xs font-medium text-gray-900 mb-1">Achievements:</p>
                       <ul className="text-xs text-gray-600 space-y-1">

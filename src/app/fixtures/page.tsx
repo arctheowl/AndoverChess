@@ -1,97 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-
-interface Fixture {
-  id: number;
-  date: string;
-  time: string;
-  type: 'league' | 'tournament' | 'friendly' | 'training';
-  title: string;
-  opponent?: string;
-  venue: string;
-  status: 'upcoming' | 'completed' | 'cancelled';
-  result?: string;
-}
-
-const fixtures: Fixture[] = [
-  {
-    id: 1,
-    date: '2024-01-15',
-    time: '19:00',
-    type: 'league',
-    title: 'Hampshire League Division 1',
-    opponent: 'Southampton Chess Club',
-    venue: 'Home',
-    status: 'upcoming'
-  },
-  {
-    id: 2,
-    date: '2024-01-17',
-    time: '19:00',
-    type: 'training',
-    title: 'Wednesday Training Session',
-    venue: 'Andover Community Centre',
-    status: 'upcoming'
-  },
-  {
-    id: 3,
-    date: '2024-01-20',
-    time: '10:00',
-    type: 'tournament',
-    title: 'Club Championship Round 1',
-    venue: 'Andover Community Centre',
-    status: 'upcoming'
-  },
-  {
-    id: 4,
-    date: '2024-01-22',
-    time: '19:00',
-    type: 'league',
-    title: 'Hampshire League Division 1',
-    opponent: 'Portsmouth Chess Club',
-    venue: 'Away',
-    status: 'upcoming'
-  },
-  {
-    id: 5,
-    date: '2024-01-08',
-    time: '19:00',
-    type: 'league',
-    title: 'Hampshire League Division 1',
-    opponent: 'Winchester Chess Club',
-    venue: 'Home',
-    status: 'completed',
-    result: 'Won 3.5-2.5'
-  },
-  {
-    id: 6,
-    date: '2024-01-06',
-    time: '10:00',
-    type: 'tournament',
-    title: 'New Year Rapid Tournament',
-    venue: 'Andover Community Centre',
-    status: 'completed',
-    result: '1st Place: David Thompson'
-  },
-  {
-    id: 7,
-    date: '2024-01-03',
-    time: '19:00',
-    type: 'training',
-    title: 'Wednesday Training Session',
-    venue: 'Andover Community Centre',
-    status: 'completed'
-  }
-];
+import { fixtures, getUpcomingFixtures, getCompletedFixtures, Fixture } from '@/data/fixtures';
 
 export default function FixturesPage() {
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'completed'>('all');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'league' | 'tournament' | 'friendly' | 'training'>('all');
+  const [competitionFilter, setCompetitionFilter] = useState<'all' | 'league' | 'tournament' | 'internal'>('all');
 
   const filteredFixtures = fixtures.filter(fixture => {
     const statusMatch = filter === 'all' || fixture.status === filter;
-    const typeMatch = typeFilter === 'all' || fixture.type === typeFilter;
+    
+    // Determine fixture type based on competition
+    let fixtureType = 'league';
+    if (fixture.competition.includes('Tournament') || fixture.competition.includes('Rapid') || fixture.competition.includes('Blitz')) {
+      fixtureType = 'tournament';
+    } else if (fixture.competition.includes('Internal')) {
+      fixtureType = 'internal';
+    }
+    
+    const typeMatch = competitionFilter === 'all' || fixtureType === competitionFilter;
     return statusMatch && typeMatch;
   });
 
@@ -108,18 +35,15 @@ export default function FixturesPage() {
     }
   };
 
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'league':
-        return 'bg-purple-100 text-purple-800';
-      case 'tournament':
-        return 'bg-orange-100 text-orange-800';
-      case 'friendly':
-        return 'bg-green-100 text-green-800';
-      case 'training':
-        return 'bg-blue-100 text-blue-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+  const getCompetitionColor = (competition: string) => {
+    if (competition.includes('League')) {
+      return 'bg-purple-100 text-purple-800';
+    } else if (competition.includes('Tournament') || competition.includes('Rapid') || competition.includes('Blitz')) {
+      return 'bg-orange-100 text-orange-800';
+    } else if (competition.includes('Internal')) {
+      return 'bg-green-100 text-green-800';
+    } else {
+      return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -185,9 +109,9 @@ export default function FixturesPage() {
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => setTypeFilter('all')}
+                onClick={() => setCompetitionFilter('all')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  typeFilter === 'all'
+                  competitionFilter === 'all'
                     ? 'bg-emerald-800 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
@@ -195,9 +119,9 @@ export default function FixturesPage() {
                 All Types
               </button>
               <button
-                onClick={() => setTypeFilter('league')}
+                onClick={() => setCompetitionFilter('league')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  typeFilter === 'league'
+                  competitionFilter === 'league'
                     ? 'bg-emerald-800 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
@@ -205,9 +129,9 @@ export default function FixturesPage() {
                 League
               </button>
               <button
-                onClick={() => setTypeFilter('tournament')}
+                onClick={() => setCompetitionFilter('tournament')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  typeFilter === 'tournament'
+                  competitionFilter === 'tournament'
                     ? 'bg-emerald-800 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
@@ -215,14 +139,14 @@ export default function FixturesPage() {
                 Tournaments
               </button>
               <button
-                onClick={() => setTypeFilter('training')}
+                onClick={() => setCompetitionFilter('internal')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  typeFilter === 'training'
+                  competitionFilter === 'internal'
                     ? 'bg-emerald-800 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                Training
+                Internal
               </button>
             </div>
           </div>
@@ -246,20 +170,15 @@ export default function FixturesPage() {
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(fixture.type)}`}>
-                          {fixture.type.charAt(0).toUpperCase() + fixture.type.slice(1)}
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCompetitionColor(fixture.competition)}`}>
+                          {fixture.competition}
                         </span>
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(fixture.status)}`}>
                           {fixture.status.charAt(0).toUpperCase() + fixture.status.slice(1)}
                         </span>
                       </div>
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        {fixture.title}
-                        {fixture.opponent && (
-                          <span className="text-gray-600 font-normal">
-                            {' '}vs {fixture.opponent}
-                          </span>
-                        )}
+                        {fixture.homeTeam} vs {fixture.awayTeam}
                       </h3>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-gray-600">
                         <div className="flex items-center gap-2">
@@ -279,7 +198,7 @@ export default function FixturesPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
-                          <span>{fixture.venue}</span>
+                          <span>{fixture.venue === 'home' ? 'Home' : 'Away'}</span>
                         </div>
                       </div>
                       {fixture.result && (

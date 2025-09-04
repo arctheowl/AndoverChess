@@ -132,7 +132,7 @@ export const members: Member[] = [
 export const committeeMembers: CommitteeMember[] = [
   {
     id: '1',
-    name: 'David Thompson',
+    name: 'Stuart Knox',
     role: 'Club President',
     email: 'david.thompson@andoverchessclub.co.uk',
     phone: '01234 567890',
@@ -142,7 +142,7 @@ export const committeeMembers: CommitteeMember[] = [
   },
   {
     id: '2',
-    name: 'Sarah Mitchell',
+    name: 'Stephen Cartridge',
     role: 'Secretary',
     email: 'sarah.mitchell@andoverchessclub.co.uk',
     phone: '01234 567891',
@@ -162,8 +162,8 @@ export const committeeMembers: CommitteeMember[] = [
   },
   {
     id: '4',
-    name: 'Robert Wilson',
-    role: 'Head Coach',
+    name: 'Stephen Cartridge',
+    role: 'A Team Captain',
     email: 'robert.wilson@andoverchessclub.co.uk',
     phone: '01234 567893',
     avatar: '👨‍🏫',
@@ -172,8 +172,8 @@ export const committeeMembers: CommitteeMember[] = [
   },
   {
     id: '5',
-    name: 'James Anderson',
-    role: 'Tournament Director',
+    name: 'Liam Devlin',
+    role: 'B Team Captain',
     email: 'james.anderson@andoverchessclub.co.uk',
     phone: '01234 567894',
     avatar: '👨‍💻',
@@ -182,8 +182,8 @@ export const committeeMembers: CommitteeMember[] = [
   },
   {
     id: '6',
-    name: 'Emma Davis',
-    role: 'Junior Coordinator',
+    name: 'Will Jackson',
+    role: 'C Team Captain',
     email: 'emma.davis@andoverchessclub.co.uk',
     phone: '01234 567895',
     avatar: '👩‍🎓',
