@@ -43,7 +43,7 @@ export default function FixturesDisplay() {
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold text-emerald-600 capitalize">{fixture.venue}</div>
-                    <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString()}</div>
+                    <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString('en-GB')}</div>
                   </div>
                 </div>
                 <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {fixture.time}</div>
@@ -78,7 +78,7 @@ export default function FixturesDisplay() {
                     <div className="text-sm theme-text-muted capitalize">{fixture.result}</div>
                   </div>
                 </div>
-                <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString()}</div>
+                <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}</div>
               </div>
             ))}
           </div>

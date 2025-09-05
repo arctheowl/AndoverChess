@@ -18,6 +18,7 @@ export default function Navigation() {
     { href: '/teams', label: 'Teams' },
     { href: '/fixtures', label: 'Fixtures' },
     { href: '/news', label: 'News' },
+    { href: '/resources', label: 'Resources' },
     { href: '/contact', label: 'Contact' },
   ];
 

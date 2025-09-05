@@ -74,8 +74,8 @@ const getNextMatch = () => {
   }
   
   return {
-    nextMatch: `Next: ${weekday}`,
-    nextOpponent: `vs ${opponent}`
+    nextMatch: `Next Event: ${date.toLocaleDateString('en-GB')}`,
+    nextOpponent: `${opponent}`
   };
 };
 
@@ -142,7 +142,7 @@ export const meetingSchedule: MeetingSchedule[] = [
 
 export const venueInfo: VenueInfo = {
   name: 'Andover Central Club',
-  address: 'Andover Community Centre',
+  address: 'Clare Ho/East St, Andover SP10 1EP',
   capacity: '30+ players',
   facilities: ['Bar', 'Chess Equipment', 'Refreshments'],
   parking: 'Free car park next to the club',

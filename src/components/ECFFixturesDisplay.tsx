@@ -117,7 +117,7 @@ export default function ECFFixturesDisplay({
                       <div className="text-right">
                         <div className="text-lg font-bold text-emerald-600 capitalize">{fixture.venue}</div>
                         <div className="text-sm theme-text-muted">
-                          {new Date(fixture.date).toLocaleDateString()}
+                          {new Date(fixture.date).toLocaleDateString('en-GB')}
                         </div>
                       </div>
                     </div>
@@ -164,7 +164,7 @@ export default function ECFFixturesDisplay({
                       </div>
                     </div>
                     <div className="mt-2 text-xs theme-text-muted">
-                      {fixture.competition} • {new Date(fixture.date).toLocaleDateString()}
+                      {fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}
                     </div>
                     {fixture.notes && (
                       <div className="mt-2 text-xs theme-text-muted italic">

@@ -29,7 +29,7 @@ export default function Home() {
     const month = months[date.getMonth()];
     const day = date.getDate();
     
-    return `${weekday}, ${month} ${day}`;
+    return `${weekday}, ${day} ${month}`;
   };
   
   return (
@@ -170,7 +170,7 @@ export default function Home() {
                         <div className="text-sm theme-text-muted capitalize">{fixture.result}</div>
                       </div>
                     </div>
-                    <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString()}</div>
+                    <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}</div>
                   </div>
                 ))}
               </div>
@@ -196,7 +196,7 @@ export default function Home() {
                       </div>
                       <div className="text-right">
                         <div className="text-lg font-bold text-emerald-600 capitalize">{fixture.venue}</div>
-                        <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString()}</div>
+                        <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString('en-GB')}</div>
                       </div>
                     </div>
                     <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {fixture.time}</div>
@@ -337,12 +337,12 @@ export default function Home() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h5 className="font-medium theme-text-primary mb-1">Capacity</h5>
-                    <p className="theme-text-secondary">{venueInfo.capacity}</p>
+                    <h5 className="font-medium theme-text-primary mb-1">Club Nights</h5>
+                    <p className="theme-text-secondary">Tuesday 7:00 PM - 10:00 PM</p>
                   </div>
                   <div>
-                    <h5 className="font-medium theme-text-primary mb-1">Facilities</h5>
-                    <p className="theme-text-secondary">{venueInfo.facilities.slice(0, 2).join(', ')}</p>
+                    <h5 className="font-medium theme-text-primary mb-1">Capacity</h5>
+                    <p className="theme-text-secondary">{venueInfo.capacity}</p>
                   </div>
                   <div>
                     <h5 className="font-medium theme-text-primary mb-1">Parking</h5>

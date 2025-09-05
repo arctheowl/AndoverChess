@@ -90,9 +90,9 @@ export default function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">By Train</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">From Town</h4>
                       <p className="text-gray-600 text-sm">
-                        Andover train station is a 5-minute walk away. Regular services from London Waterloo and Southampton.
+                        Andover town centre is a 5-minute walk away.
                       </p>
                     </div>
                   </div>
