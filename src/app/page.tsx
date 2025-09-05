@@ -220,7 +220,21 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {teams.map((team) => {
-              const teamLetter = team.id === '3' ? 'J' : team.id;
+               let teamLetter = ""
+              switch (team.id) {
+                case '1':
+                  teamLetter = 'A';
+                  break;
+                case '2':
+                  teamLetter = 'B';
+                  break;
+                case '3':
+                  teamLetter = 'C';
+                  break;
+                default:
+                  teamLetter = 'A';
+                  break;
+              }
               const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
               
               return (
@@ -359,8 +373,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Join the Andover Chess Club</h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-3xl mx-auto">
-            Become part of Andover's most successful chess club. Whether you're a beginner 
-            or a master, there's a place for you in our team.
+            Become part of Andover&apos;s most successful chess club. Whether you&apos;re a beginner 
+            or a master, there&apos;s a place for you in our team.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

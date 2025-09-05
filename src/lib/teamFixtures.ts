@@ -5,7 +5,7 @@ export interface TeamMatch {
   date: string;
   time: string;
   opponent: string;
-  venue: 'home' | 'away';
+  venue: string;
   competition: string;
   isTournament: boolean;
   status: 'upcoming' | 'completed' | 'cancelled';

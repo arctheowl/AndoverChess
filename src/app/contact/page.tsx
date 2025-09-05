@@ -237,7 +237,7 @@ export default function ContactPage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Do I need to bring my own chess set?</h3>
               <p className="text-gray-600">
                 No, we provide all equipment including chess sets, clocks, and boards. 
-                However, you're welcome to bring your own if you prefer.
+                However, you&apos;re welcome to bring your own if you prefer.
               </p>
             </div>
             <div>

@@ -5,6 +5,7 @@ export interface ApiResponse<T> {
   data: T;
   count?: number;
   total?: number;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   summary?: any;
   error?: string;
   source?: string;
