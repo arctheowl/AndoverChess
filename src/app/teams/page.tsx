@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { teams } from '@/data/teams';
 import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass, getTeamBgClass, getTeamTextClass } from '@/lib/teamColors';
+import { getUpcomingTeamFixtures, getRecentTeamResults, formatTeamMatchDate, formatTeamMatchTime } from '@/lib/teamFixtures';
 
 export default function TeamsPage() {
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+  const teamDetailsRef = useRef<HTMLDivElement>(null);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -23,6 +25,25 @@ export default function TeamsPage() {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  const handleTeamSelection = (teamId: string) => {
+    const newSelectedTeam = selectedTeam === teamId ? null : teamId;
+    setSelectedTeam(newSelectedTeam);
+    
+    // If selecting a team (not deselecting), scroll to team details
+    if (newSelectedTeam && teamDetailsRef.current) {
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          teamDetailsRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }, 150); // Slightly longer delay to ensure smooth rendering
+      });
+    }
   };
 
   return (
@@ -51,16 +72,31 @@ export default function TeamsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {teams.map((team) => {
-              const teamLetter = team.id === '3' ? 'C' : team.id;
+              let teamLetter = ""
+              switch (team.id) {
+                case '1':
+                  teamLetter = 'A';
+                  break;
+                case '2':
+                  teamLetter = 'B';
+                  break;
+                case '3':
+                  teamLetter = 'C';
+                  break;
+                default:
+                  teamLetter = 'A';
+                  break;
+              }
               const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
               
               return (
                 <div 
                   key={team.id} 
-                  className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center cursor-pointer transition-transform hover:scale-105 ${
-                    selectedTeam === team.id ? 'ring-2 ring-emerald-500' : ''
+                  className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                    selectedTeam === team.id ? 'ring-2 ring-emerald-500 shadow-lg' : ''
                   }`}
-                  onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
+                  onClick={() => handleTeamSelection(team.id)}
+                  title="Click to view team details"
                 >
                   <div className={`w-16 h-16 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center mx-auto mb-4`}>
                     <span className="text-white text-2xl font-bold">{teamLetter}</span>
@@ -82,7 +118,7 @@ export default function TeamsPage() {
                   </div>
                 </div>
                 <div className="mt-4 text-xs text-gray-500 dark:text-gray-500">
-                  {team.upcomingMatches.length} upcoming matches
+                  {getUpcomingTeamFixtures(team.name).length} upcoming matches
                 </div>
                 </div>
               );
@@ -93,13 +129,27 @@ export default function TeamsPage() {
 
       {/* Team Details */}
       {selectedTeam && (
-        <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <section ref={teamDetailsRef} className="py-16 bg-gray-50 dark:bg-gray-900 animate-fadeIn">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {(() => {
               const team = teams.find(t => t.id === selectedTeam);
               if (!team) return null;
               
-              const teamLetter = team.id === '3' ? 'C' : team.id;
+             let teamLetter = ""
+              switch (team.id) {
+                case '1':
+                  teamLetter = 'A';
+                  break;
+                case '2':
+                  teamLetter = 'B';
+                  break;
+                case '3':
+                  teamLetter = 'C';
+                  break;
+                default:
+                  teamLetter = 'A';
+                  break;
+              }
               const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
 
               return (
@@ -114,76 +164,8 @@ export default function TeamsPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Upcoming Matches */}
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Upcoming Matches</h3>
-                      {team.upcomingMatches.length > 0 ? (
-                        <div className="space-y-4">
-                          {team.upcomingMatches.map((match, index) => (
-                            <div key={index} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                  {formatDate(match.date)}
-                                </span>
-                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                  match.isHome 
-                                    ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
-                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
-                                }`}>
-                                  {match.isHome ? 'Home' : 'Away'}
-                                </span>
-                              </div>
-                              <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                                vs {match.opponent}
-                              </div>
-                              <div className="text-sm text-gray-600 dark:text-gray-400">
-                                📍 {match.location}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-gray-600 dark:text-gray-400">No upcoming matches scheduled</p>
-                      )}
-                    </div>
-
-                    {/* Recent Matches */}
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Recent Matches</h3>
-                      {team.recentMatches.length > 0 ? (
-                        <div className="space-y-4">
-                          {team.recentMatches.map((match, index) => (
-                            <div key={index} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                  {formatDate(match.date)}
-                                </span>
-                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                  match.isHome 
-                                    ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
-                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
-                                }`}>
-                                  {match.isHome ? 'Home' : 'Away'}
-                                </span>
-                              </div>
-                              <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                                vs {match.opponent}
-                              </div>
-                              <div className="text-sm text-gray-600 dark:text-gray-400">
-                                📍 {match.location}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-gray-600 dark:text-gray-400">No recent matches available</p>
-                      )}
-                    </div>
-                  </div>
-
                   {/* Team Stats */}
-                  <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                  <div className="mt-8 py-8 border-t border-gray-200 dark:border-gray-700">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Season Statistics</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="text-center">
@@ -204,6 +186,114 @@ export default function TeamsPage() {
                       </div>
                     </div>
                   </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    {/* Recent Matches */}
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Recent Matches</h3>
+                      {(() => {
+                        const recentMatches = getRecentTeamResults(team.name);
+                        return recentMatches.length > 0 ? (
+                          <div className="space-y-4">
+                            {recentMatches.map((match) => (
+                              <div key={match.id} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                    {formatTeamMatchDate(match.date)}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    match.venue === 'home'
+                                      ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
+                                      : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
+                                  }`}>
+                                    {match.venue === 'home' ? 'Home' : 'Away'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    vs {match.opponent}
+                                  </span>
+                                  {match.result && (
+                                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                      match.result.includes('W') 
+                                        ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                                        : match.result.includes('L')
+                                        ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                                    }`}>
+                                      {match.result}
+                                    </span>
+                                  )}
+                                </div>
+                                {match.score && (
+                                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                                    Score: {match.score}
+                                  </div>
+                                )}
+                                {match.location && (
+                                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                                    📍 {match.location}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-gray-600 dark:text-gray-400">No recent matches available</p>
+                        );
+                      })()}
+                    </div>
+                    {/* Upcoming Matches */}
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Upcoming Matches</h3>
+                      {(() => {
+                        const upcomingMatches = getUpcomingTeamFixtures(team.name).slice(0, 5);
+                        return upcomingMatches.length > 0 ? (
+                          <div className="space-y-4">
+                            {upcomingMatches.map((match) => (
+                              <div key={match.id} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                    {formatTeamMatchDate(match.date)}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    match.venue === 'home'
+                                      ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
+                                      : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
+                                  }`}>
+                                    {match.venue === 'home' ? 'Home' : 'Away'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    vs {match.opponent}
+                                  </span>
+                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                    {formatTeamMatchTime(match.time)}
+                                  </span>
+                                </div>
+                                {match.location && (
+                                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                                    📍 {match.location}
+                                  </div>
+                                )}
+                                {match.notes && (
+                                  <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                                    {match.notes}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-gray-600 dark:text-gray-400">No upcoming matches scheduled</p>
+                        );
+                      })()}
+                    </div>
+
+                  </div>
+
+                  
                 </div>
               );
             })()}

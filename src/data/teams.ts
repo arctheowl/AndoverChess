@@ -31,14 +31,14 @@ export const teams: Team[] = [
     "id": "1",
     "name": "A Team",
     "division": "Southampton League Division 2",
-    "position": 4,
-    "played": 10,
-    "won": 3,
-    "drawn": 3,
-    "lost": 4,
-    "points": 9,
+    "position": 3,
+    "played": 0,
+    "won": 0,
+    "drawn": 0,
+    "lost": 0,
+    "points": 0,
     "maxPoints": 20,
-    "record": "W3 D3 L4",
+    "record": "W0 D0 L0",
     "description": "Our premier team competing at the highest level in Southampton chess",
     "color": "emerald",
     "upcomingMatches": [
@@ -74,24 +74,24 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      {
-        "date": "2026-03-04",
-        "opponent": "Basingstoke E",
-        "location": "Basingstoke",
-        "isHome": false
-      },
-      {
-        "date": "2026-03-11",
-        "opponent": "Basingstoke B",
-        "location": "Basingstoke",
-        "isHome": false
-      },
-      {
-        "date": "2026-03-31",
-        "opponent": "Fareham B",
-        "location": "Andover A",
-        "isHome": true
-      }
+      // {
+      //   "date": "2026-03-04",
+      //   "opponent": "Basingstoke E",
+      //   "location": "Basingstoke",
+      //   "isHome": false
+      // },
+      // {
+      //   "date": "2026-03-11",
+      //   "opponent": "Basingstoke B",
+      //   "location": "Basingstoke",
+      //   "isHome": false
+      // },
+      // {
+      //   "date": "2026-03-31",
+      //   "opponent": "Fareham B",
+      //   "location": "Andover A",
+      //   "isHome": true
+      // }
     ]
   },
   {
@@ -99,13 +99,13 @@ export const teams: Team[] = [
     "name": "B Team",
     "division": "Southampton League Division 4",
     "position": 3,
-    "played": 10,
-    "won": 4,
-    "drawn": 4,
-    "lost": 2,
-    "points": 12,
+    "played": 0,
+    "won": 0,
+    "drawn": 0,
+    "lost": 0,
+    "points": 0,
     "maxPoints": 20,
-    "record": "W4 D4 L2",
+    "record": "W0 D0 L0",
     "description": "Developing players and providing competitive experience",
     "color": "blue",
     "upcomingMatches": [
@@ -141,24 +141,24 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      {
-        "date": "2026-02-17",
-        "opponent": "Hamble B",
-        "location": "Andover",
-        "isHome": true
-      },
-      {
-        "date": "2026-02-24",
-        "opponent": "Chandlers Ford D",
-        "location": "Chandlers Ford",
-        "isHome": false
-      },
-      {
-        "date": "2026-03-17",
-        "opponent": "Southampton Univserity C",
-        "location": "Andover",
-        "isHome": true
-      }
+      // {
+      //   "date": "2026-02-17",
+      //   "opponent": "Hamble B",
+      //   "location": "Andover",
+      //   "isHome": true
+      // },
+      // {
+      //   "date": "2026-02-24",
+      //   "opponent": "Chandlers Ford D",
+      //   "location": "Chandlers Ford",
+      //   "isHome": false
+      // },
+      // {
+      //   "date": "2026-03-17",
+      //   "opponent": "Southampton Univserity C",
+      //   "location": "Andover",
+      //   "isHome": true
+      // }
     ]
   },
   {
@@ -166,13 +166,13 @@ export const teams: Team[] = [
     "name": "C Team",
     "division": "Southampton League Division 5",
     "position": 3,
-    "played": 10,
-    "won": 4,
-    "drawn": 4,
-    "lost": 2,
-    "points": 12,
+    "played": 0,
+    "won": 0,
+    "drawn": 0,
+    "lost": 0,
+    "points": 0,
     "maxPoints": 20,
-    "record": "W4 D4 L2",
+    "record": "W0 D0 L0",
     "description": "Talent representing the future of Andover Chess Club",
     "color": "green",
     "upcomingMatches": [
@@ -208,24 +208,24 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      {
-        "date": "2026-02-10",
-        "opponent": "Southampton C",
-        "location": "Andover",
-        "isHome": true
-      },
-      {
-        "date": "2026-02-19",
-        "opponent": "Salisbury C",
-        "location": "Salisbury",
-        "isHome": false
-      },
-      {
-        "date": "2026-03-10",
-        "opponent": "Chandlers Ford E",
-        "location": "Andover",
-        "isHome": true
-      }
+      // {
+      //   "date": "2026-02-10",
+      //   "opponent": "Southampton C",
+      //   "location": "Andover",
+      //   "isHome": true
+      // },
+      // {
+      //   "date": "2026-02-19",
+      //   "opponent": "Salisbury C",
+      //   "location": "Salisbury",
+      //   "isHome": false
+      // },
+      // {
+      //   "date": "2026-03-10",
+      //   "opponent": "Chandlers Ford E",
+      //   "location": "Andover",
+      //   "isHome": true
+      // }
     ]
   }
 ];

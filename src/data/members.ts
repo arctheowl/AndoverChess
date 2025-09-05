@@ -137,7 +137,7 @@ export const committeeMembers: CommitteeMember[] = [
     email: 'david.thompson@andoverchessclub.co.uk',
     phone: '01234 567890',
     avatar: '👨‍💼',
-    description: 'Club member since 1982, David has been president for 15 years and is a former Hampshire champion.',
+    description: 'Out longest serving member and club president, with a love of chess dating back to his youth.',
     achievements: ['Hampshire Champion 1995', 'Club President 2009-present', 'Life Member']
   },
   {
@@ -147,7 +147,7 @@ export const committeeMembers: CommitteeMember[] = [
     email: 'sarah.mitchell@andoverchessclub.co.uk',
     phone: '01234 567891',
     avatar: '👩‍💼',
-    description: 'Sarah handles all club administration and has been instrumental in organizing our junior coaching program.',
+    description: 'Stephen Cartridge handles all club administration and has been instrumental in organizing our club.',
     achievements: ['Junior Coordinator 2010-2015', 'Secretary 2015-present', 'Administrative Excellence Award']
   },
   // {
@@ -167,7 +167,7 @@ export const committeeMembers: CommitteeMember[] = [
     email: 'robert.wilson@andoverchessclub.co.uk',
     phone: '01234 567893',
     avatar: '👨‍🏫',
-    description: 'A qualified chess coach with over 20 years of teaching experience, Robert leads our training sessions.',
+    description: 'Having played chess for over 20 years, Stephen leads our A team.',
     achievements: ['Qualified Chess Coach', 'Hampshire Coach of the Year 2020', '20+ Years Teaching Experience']
   },
   {
@@ -177,7 +177,7 @@ export const committeeMembers: CommitteeMember[] = [
     email: 'james.anderson@andoverchessclub.co.uk',
     phone: '01234 567894',
     avatar: '👨‍💻',
-    description: 'James organizes our internal tournaments and manages our league team participation.',
+    description: 'Having captained our B team for the last 2 seasons he coulesn\'t say no to one more season.',
     achievements: ['Tournament Director 2019-present', 'League Captain', 'Tournament Organization Expert']
   },
   {
@@ -187,7 +187,7 @@ export const committeeMembers: CommitteeMember[] = [
     email: 'emma.davis@andoverchessclub.co.uk',
     phone: '01234 567895',
     avatar: '👩‍🎓',
-    description: 'Emma runs our junior program and ensures young players have opportunities to develop their skills.',
+    description: 'New to the captaincy, but not new to the club.',
     achievements: ['Junior Coordinator 2020-present', 'Youth Development Award 2022', 'Junior Program Specialist']
   }
 ];

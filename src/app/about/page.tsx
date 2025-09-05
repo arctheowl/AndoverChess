@@ -19,7 +19,7 @@ export default function AboutPage() {
       </section>
 
       {/* History Section */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -81,13 +81,13 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold text-gray-900">Online Expansion</h4>
                     <p className="text-gray-600 text-sm">Launched online tournaments and training</p>
-                  </div> */}
+                  </div> 
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Mission & Values */}
       <section className="py-16 bg-gray-50">
@@ -207,7 +207,7 @@ export default function AboutPage() {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-16 bg-emerald-800 text-white">
+      {/* <section className="py-16 bg-emerald-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Club Achievements</h2>
@@ -235,7 +235,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
