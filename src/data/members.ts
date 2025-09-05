@@ -143,23 +143,23 @@ export const committeeMembers: CommitteeMember[] = [
   {
     id: '2',
     name: 'Stephen Cartridge',
-    role: 'Secretary',
+    role: 'Secretary & Treasurer',
     email: 'sarah.mitchell@andoverchessclub.co.uk',
     phone: '01234 567891',
     avatar: '👩‍💼',
     description: 'Sarah handles all club administration and has been instrumental in organizing our junior coaching program.',
     achievements: ['Junior Coordinator 2010-2015', 'Secretary 2015-present', 'Administrative Excellence Award']
   },
-  {
-    id: '3',
-    name: 'Michael Chen',
-    role: 'Treasurer',
-    email: 'michael.chen@andoverchessclub.co.uk',
-    phone: '01234 567892',
-    avatar: '👨‍💼',
-    description: 'Michael manages our finances and has helped secure funding for equipment and tournament prizes.',
-    achievements: ['Treasurer 2018-present', 'Tournament Organizer', 'Financial Management Award']
-  },
+  // {
+  //   id: '3',
+  //   name: 'Michael Chen',
+  //   role: 'Treasurer',
+  //   email: 'michael.chen@andoverchessclub.co.uk',
+  //   phone: '01234 567892',
+  //   avatar: '👨‍💼',
+  //   description: 'Michael manages our finances and has helped secure funding for equipment and tournament prizes.',
+  //   achievements: ['Treasurer 2018-present', 'Tournament Organizer', 'Financial Management Award']
+  // },
   {
     id: '4',
     name: 'Stephen Cartridge',

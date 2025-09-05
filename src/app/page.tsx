@@ -3,14 +3,34 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
-import { clubStats, achievements, meetingSchedule, venueInfo } from '@/data/clubInfo';
-import { getRecentResults, getUpcomingFixtures } from '@/data/fixtures';
+import { clubStats, achievements, venueInfo } from '@/data/clubInfo';
+import { getRecentResults, getUpcomingFixtures, fixtures } from '@/data/fixtures';
 import { teams } from '@/data/teams';
+import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass } from '@/lib/teamColors';
 
 export default function Home() {
   const { theme } = useTheme();
   const recentResults = getRecentResults();
   const upcomingFixtures = getUpcomingFixtures();
+  
+  // Get next 3 upcoming events
+  const next3Events = fixtures
+    .filter(fixture => fixture.status === 'upcoming')
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 3);
+
+  // Utility function to format dates consistently
+  const formatEventDate = (dateString: string) => {
+    const date = new Date(dateString + 'T00:00:00');
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    const weekday = weekdays[date.getDay()];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    
+    return `${weekday}, ${month} ${day}`;
+  };
   
   return (
     <div className="min-h-screen">
@@ -76,16 +96,16 @@ export default function Home() {
                   <p className="text-emerald-100">Active Members</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-emerald-200 mb-2">{clubStats.countyChampions}+</div>
-                  <p className="text-emerald-100">County Champions</p>
+                  <div className="text-4xl font-bold text-emerald-200 mb-2">{clubStats.countyChampions}</div>
+                  <p className="text-emerald-100">League Teams</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-emerald-200 mb-2">{clubStats.yearsOfExcellence}</div>
-                  <p className="text-emerald-100">Years of Excellence</p>
+                  <p className="text-emerald-100">Years of Experience</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-emerald-200 mb-2">{clubStats.tournamentsWon}+</div>
-                  <p className="text-emerald-100">Tournaments Won</p>
+                  <p className="text-emerald-100">Games Played</p>
                 </div>
               </div>
             </div>
@@ -199,11 +219,15 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {teams.map((team) => (
-              <div key={team.id} className={`bg-gradient-to-br from-${team.color}-50 to-${team.color}-100 dark:from-${team.color}-900/20 dark:to-${team.color}-800/20 rounded-lg p-6 text-center`}>
-                <div className={`w-16 h-16 bg-${team.color}-600 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <span className="text-white text-2xl font-bold">{team.id === '3' ? 'J' : team.id}</span>
-                </div>
+            {teams.map((team) => {
+              const teamLetter = team.id === '3' ? 'J' : team.id;
+              const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
+              
+              return (
+                <div key={team.id} className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center border-2 ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}>
+                  <div className={`w-16 h-16 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <span className="text-white text-2xl font-bold">{teamLetter}</span>
+                  </div>
                 <h3 className="text-xl font-bold theme-text-primary mb-2">{team.name}</h3>
                 <p className="theme-text-secondary mb-4">{team.division}</p>
                 <div className="space-y-2 text-sm">
@@ -236,8 +260,9 @@ export default function Home() {
                     </div>
                   </div>
                 )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -247,23 +272,44 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold theme-text-primary mb-6">Training Schedule</h2>
+              <h2 className="text-3xl font-bold theme-text-primary mb-6">Upcoming Events</h2>
               <div className="space-y-6">
-                {meetingSchedule.map((schedule, index) => (
-                  <div key={index} className="flex items-center space-x-4 theme-card p-4">
-                    <div className={`w-12 h-12 bg-${schedule.color}-600 rounded-full flex items-center justify-center`}>
-                      <span className="text-white font-bold">{schedule.day}</span>
+                {next3Events.map((event, index) => (
+                  <div key={event.id} className="flex items-center space-x-4 theme-card p-4">
+                    <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">
+                        {index + 1}
+                      </span>
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold theme-text-primary">{schedule.type}</h3>
-                      <p className="theme-text-secondary">{schedule.time}</p>
-                      <p className="text-sm theme-text-muted">{schedule.description}</p>
+                      <h3 className="font-semibold theme-text-primary">
+                        {event.homeTeam} {event.awayTeam ? 'vs' : ''} {event.awayTeam}
+                      </h3>
+                      <p className="theme-text-secondary">
+                        {formatEventDate(event.date)} • {event.time}
+                      </p>
+                      <p className="text-sm theme-text-muted">
+                        {event.competition} • {event.venue === 'home' ? 'Home' : 'Away'}
+                      </p>
                     </div>
                     <div className="text-right">
-                      <span className={`bg-${schedule.color}-100 dark:bg-${schedule.color}-900 text-${schedule.color}-800 dark:text-${schedule.color}-200 text-xs px-2 py-1 rounded-full`}>{schedule.status}</span>
+                      <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 text-xs px-2 py-1 rounded-full">
+                        {event.isTournament ? 'Tournament' : 'League'}
+                      </span>
                     </div>
                   </div>
                 ))}
+              </div>
+              <div className="mt-6">
+                <Link 
+                  href="/fixtures" 
+                  className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
+                >
+                  View All Fixtures
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
             </div>
 

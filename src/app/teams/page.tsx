@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { teams } from '@/data/teams';
+import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass, getTeamBgClass, getTeamTextClass } from '@/lib/teamColors';
 
 export default function TeamsPage() {
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
@@ -49,17 +50,21 @@ export default function TeamsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {teams.map((team) => (
-              <div 
-                key={team.id} 
-                className={`bg-gradient-to-br from-${team.color}-50 to-${team.color}-100 dark:from-${team.color}-900/20 dark:to-${team.color}-800/20 rounded-lg p-6 text-center cursor-pointer transition-transform hover:scale-105 ${
-                  selectedTeam === team.id ? 'ring-2 ring-emerald-500' : ''
-                }`}
-                onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
-              >
-                <div className={`w-16 h-16 bg-${team.color}-600 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <span className="text-white text-2xl font-bold">{team.id === '3' ? 'C' : team.id}</span>
-                </div>
+            {teams.map((team) => {
+              const teamLetter = team.id === '3' ? 'C' : team.id;
+              const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
+              
+              return (
+                <div 
+                  key={team.id} 
+                  className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center cursor-pointer transition-transform hover:scale-105 ${
+                    selectedTeam === team.id ? 'ring-2 ring-emerald-500' : ''
+                  }`}
+                  onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
+                >
+                  <div className={`w-16 h-16 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <span className="text-white text-2xl font-bold">{teamLetter}</span>
+                  </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{team.name}</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">{team.division}</p>
                 <div className="space-y-2 text-sm">
@@ -79,8 +84,9 @@ export default function TeamsPage() {
                 <div className="mt-4 text-xs text-gray-500 dark:text-gray-500">
                   {team.upcomingMatches.length} upcoming matches
                 </div>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -92,6 +98,9 @@ export default function TeamsPage() {
             {(() => {
               const team = teams.find(t => t.id === selectedTeam);
               if (!team) return null;
+              
+              const teamLetter = team.id === '3' ? 'C' : team.id;
+              const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
 
               return (
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
@@ -100,8 +109,8 @@ export default function TeamsPage() {
                       <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{team.name}</h2>
                       <p className="text-lg text-gray-600 dark:text-gray-400">{team.division}</p>
                     </div>
-                    <div className={`w-20 h-20 bg-${team.color}-600 rounded-full flex items-center justify-center`}>
-                      <span className="text-white text-3xl font-bold">{team.id === '3' ? 'C' : team.id}</span>
+                    <div className={`w-20 h-20 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center`}>
+                      <span className="text-white text-3xl font-bold">{teamLetter}</span>
                     </div>
                   </div>
 
@@ -112,15 +121,15 @@ export default function TeamsPage() {
                       {team.upcomingMatches.length > 0 ? (
                         <div className="space-y-4">
                           {team.upcomingMatches.map((match, index) => (
-                            <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                            <div key={index} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
                               <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm font-medium text-gray-900 dark:text-white">
                                   {formatDate(match.date)}
                                 </span>
                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                   match.isHome 
-                                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400'
-                                    : 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'
+                                    ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
+                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
                                 }`}>
                                   {match.isHome ? 'Home' : 'Away'}
                                 </span>
@@ -145,15 +154,15 @@ export default function TeamsPage() {
                       {team.recentMatches.length > 0 ? (
                         <div className="space-y-4">
                           {team.recentMatches.map((match, index) => (
-                            <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                            <div key={index} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
                               <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm font-medium text-gray-900 dark:text-white">
                                   {formatDate(match.date)}
                                 </span>
                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                   match.isHome 
-                                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400'
-                                    : 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'
+                                    ? `${getTeamBgClass(teamColor)} ${getTeamTextClass(teamColor)} dark:bg-${getTeamColorClasses(teamColor, 'secondary')}/20 dark:text-${getTeamColorClasses(teamColor, 'secondary')}-400`
+                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
                                 }`}>
                                   {match.isHome ? 'Home' : 'Away'}
                                 </span>

@@ -123,8 +123,8 @@ export const teams: Team[] = [
       },
       {
         "date": "2025-11-05",
-        "opponent": "Hanble B",
-        "location": "Hanble",
+        "opponent": "Hamble B",
+        "location": "Hamble",
         "isHome": false
       },
       {

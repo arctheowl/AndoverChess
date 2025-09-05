@@ -146,8 +146,9 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {committeeMembers.map((member) => (
+          {/* First two committee members side by side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {committeeMembers.slice(0, 2).map((member) => (
               <div key={member.id} className="text-center">
                 <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-emerald-800 text-2xl">{member.avatar}</span>
@@ -157,7 +158,7 @@ export default function AboutPage() {
                 <p className="text-gray-600 text-sm mb-3">
                   {member.description}
                 </p>
-                {member.achievements && member.achievements.length > 0 && (
+                {/* {member.achievements && member.achievements.length > 0 && (
                   <div className="text-xs text-gray-500">
                     <div className="font-medium mb-1">Key Achievements:</div>
                     <div className="space-y-1">
@@ -169,7 +170,36 @@ export default function AboutPage() {
                       )}
                     </div>
                   </div>
-                )}
+                )} */}
+              </div>
+            ))}
+          </div>
+
+          {/* Remaining committee members in 3-column layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {committeeMembers.slice(2).map((member) => (
+              <div key={member.id} className="text-center">
+                <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-emerald-800 text-2xl">{member.avatar}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+                <p className="text-emerald-800 font-medium mb-2">{member.role}</p>
+                <p className="text-gray-600 text-sm mb-3">
+                  {member.description}
+                </p>
+                {/* {member.achievements && member.achievements.length > 0 && (
+                  <div className="text-xs text-gray-500">
+                    <div className="font-medium mb-1">Key Achievements:</div>
+                    <div className="space-y-1">
+                      {member.achievements.slice(0, 2).map((achievement, index) => (
+                        <div key={index} className="text-gray-600">• {achievement}</div>
+                      ))}
+                      {member.achievements.length > 2 && (
+                        <div className="text-gray-500">+{member.achievements.length - 2} more</div>
+                      )}
+                    </div>
+                  </div>
+                )} */}
               </div>
             ))}
           </div>
