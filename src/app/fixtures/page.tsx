@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { fixtures, Fixture } from '@/data/fixtures';
 import { getTeamColorClasses, getTeamBorderClass, getTeamBgClass, getTeamTextClass, getTeamGradientClass, getTeamDarkGradientClass } from '@/lib/teamColors';
 
@@ -10,7 +11,7 @@ interface FilterState {
   team: 'all' | 'A' | 'B' | 'C';
   competition: 'all' | 'league' | 'tournament' | 'internal';
   venue: 'all' | 'home' | 'away';
-  month: 'all' | string;
+  season: 'all' | string;
 }
 
 export default function FixturesPage() {
@@ -19,7 +20,7 @@ export default function FixturesPage() {
     team: 'all',
     competition: 'all',
     venue: 'all',
-    month: 'all'
+    season: '2025-2026' // Default to current season
   });
 
   const [showFilters, setShowFilters] = useState(false);
@@ -46,12 +47,10 @@ export default function FixturesPage() {
       // Venue filter
       const venueMatch = filters.venue === 'all' || fixture.venue === filters.venue;
       
-      // Month filter
-      const fixtureDate = new Date(fixture.date);
-      const fixtureMonth = fixtureDate.toISOString().slice(0, 7); // YYYY-MM format
-      const monthMatch = filters.month === 'all' || fixtureMonth === filters.month;
+      // Season filter
+      const seasonMatch = filters.season === 'all' || fixture.season === filters.season;
       
-      return statusMatch && teamMatch && competitionMatch && venueMatch && monthMatch;
+      return statusMatch && teamMatch && competitionMatch && venueMatch && seasonMatch;
     })
     .sort((a, b) => {
       // Sort by date (earliest first)
@@ -70,23 +69,28 @@ export default function FixturesPage() {
       team: 'all',
       competition: 'all',
       venue: 'all',
-      month: 'all'
+      season: '2025-2026' // Reset to current season
     });
   };
 
   const getActiveFiltersCount = () => {
-    return Object.values(filters).filter(value => value !== 'all').length;
+    return Object.entries(filters).filter(([key, value]) => {
+      if (key === 'season') {
+        return value !== 'all' && value !== '2025-2026'; // Don't count current season as active filter
+      }
+      return value !== 'all';
+    }).length;
   };
 
-  // Get unique months from fixtures for month filter
-  const getAvailableMonths = () => {
-    const months = new Set<string>();
+  // Get unique seasons from fixtures for season filter
+  const getAvailableSeasons = () => {
+    const seasons = new Set<string>();
     fixtures.forEach(fixture => {
-      const date = new Date(fixture.date);
-      const monthKey = date.toISOString().slice(0, 7);
-      months.add(monthKey);
+      if (fixture.season) {
+        seasons.add(fixture.season);
+      }
     });
-    return Array.from(months).sort();
+    return Array.from(seasons).sort().reverse(); // Most recent season first
   };
 
   const generateICalContent = (fixture: Fixture) => {
@@ -393,26 +397,22 @@ END:VEVENT
                   </select>
                 </div>
 
-                {/* Month Filter */}
+                {/* Season Filter */}
                 <div>
                   <label className="block text-sm font-medium theme-text-secondary mb-2">
-                    Month
+                    Season
                   </label>
                   <select
-                    value={filters.month}
-                    onChange={(e) => updateFilter('month', e.target.value)}
+                    value={filters.season}
+                    onChange={(e) => updateFilter('season', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
-                    <option value="all">All Months</option>
-                    {getAvailableMonths().map(month => {
-                      const date = new Date(month + '-01');
-                      const monthName = date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-                      return (
-                        <option key={month} value={month}>
-                          {monthName}
-                        </option>
-                      );
-                    })}
+                    <option value="all">All Seasons</option>
+                    {getAvailableSeasons().map(season => (
+                      <option key={season} value={season}>
+                        {season}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -422,31 +422,31 @@ END:VEVENT
                 <h3 className="text-sm font-medium theme-text-secondary mb-3">Quick Filters</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
-                    onClick={() => setFilters({ status: 'upcoming', team: 'all', competition: 'all', venue: 'all', month: 'all' })}
+                    onClick={() => setFilters({ status: 'upcoming', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
                     className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors"
                   >
                     Upcoming Matches
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'completed', team: 'all', competition: 'all', venue: 'all', month: 'all' })}
+                    onClick={() => setFilters({ status: 'completed', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
                     className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors"
                   >
                     Recent Results
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'A', competition: 'league', venue: 'all', month: 'all' })}
+                    onClick={() => setFilters({ status: 'all', team: 'A', competition: 'league', venue: 'all', season: '2025-2026' })}
                     className={`px-3 py-1 text-sm ${getTeamBgClass('A')} ${getTeamTextClass('A')} rounded-full hover:bg-${getTeamColorClasses('A', 'hover')} transition-colors`}
                   >
                     A Team League
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'internal', venue: 'all', month: 'all' })}
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'internal', venue: 'all', season: '2025-2026' })}
                     className="px-3 py-1 text-sm bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition-colors"
                   >
                     Internal Events
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'home', month: 'all' })}
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'home', season: '2025-2026' })}
                     className="px-3 py-1 text-sm bg-orange-100 text-orange-800 rounded-full hover:bg-orange-200 transition-colors"
                   >
                     Home Matches
@@ -592,13 +592,42 @@ END:VEVENT
                       )}
                       {fixture.result && (
                         <div className="mt-3">
-                          <span className="text-sm font-medium theme-text-primary">Result: </span>
-                          <span className="text-sm theme-text-secondary">{fixture.result}</span>
+                          <span className="text-lg font-medium theme-text-primary">Result: </span>
+                          <span className="text-lg theme-text-secondary">{
+                            (() => {
+                              switch (fixture.result) {
+                                case 'Win':
+                                  return 'Win ✅';
+                                case 'Loss':
+                                  return 'Loss ❌';
+                            case 'Draw':
+                              return 'Draw ➖';
+                            default:
+                              return fixture.result;
+                          }
+                          })()
+                          }</span>
                         </div>
                       )}
+                      
+                      {/* Match Details Link */}
+                      {/* {!fixture.isTournament && (
+                        <div className="mt-3">
+                          <Link
+                            href={`/match/${fixture.id}`}
+                            className="inline-flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 font-medium transition-colors"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            View Match Details
+                          </Link>
+                        </div>
+                      )} */}
                     </div>
-                    {fixture.status === 'upcoming' && (
-                      <div className="lg:flex-shrink-0">
+                    <div className="lg:flex-shrink-0 flex flex-col gap-2">
+                      {fixture.status === 'upcoming' && (
                         <button 
                           onClick={() => downloadICal(fixture)}
                           className="bg-emerald-800 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center gap-2"
@@ -608,8 +637,20 @@ END:VEVENT
                           </svg>
                           Add to Calendar
                         </button>
-                      </div>
-                    )}
+                      )}
+                      {!fixture.isTournament && fixture.status === 'completed' && (
+                        <Link
+                          href={`/match/${fixture.id}`}
+                          className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2 text-center justify-center"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                          Match Details
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))
