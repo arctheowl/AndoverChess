@@ -45,7 +45,7 @@ export default function ResourcesPage() {
         {
           name: "Hampshire Chess Association",
           description: "Local chess association for Hampshire players",
-          url: "https://www.hampshirechess.org.uk",
+          url: "https://www.hampshirechess.co.uk",
           icon: "🏛️",
           features: ["Local Events", "County Chess"]
         },

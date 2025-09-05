@@ -90,44 +90,44 @@ export default function AboutPage() {
       </section> */}
 
       {/* Mission & Values */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission & Values</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold theme-text-primary mb-4">Our Mission & Values</h2>
+            <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
               We're committed to promoting chess as a sport, art, and educational tool in our community.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-emerald-800 text-xl">🎯</span>
+            <div className="theme-card p-6 shadow-sm">
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/20 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-emerald-800 dark:text-emerald-300 text-xl">🎯</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Our Mission</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold theme-text-primary mb-3">Our Mission</h3>
+              <p className="theme-text-secondary">
                 To provide a welcoming environment where chess enthusiasts of all ages and skill 
                 levels can learn, play, and develop their passion for the game.
               </p>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-emerald-800 text-xl">🤝</span>
+            <div className="theme-card p-6 shadow-sm">
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/20 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-emerald-800 dark:text-emerald-300 text-xl">🤝</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Inclusivity</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold theme-text-primary mb-3">Inclusivity</h3>
+              <p className="theme-text-secondary">
                 We welcome players of all backgrounds, ages, and abilities. Our club is built 
                 on respect, sportsmanship, and the joy of learning together.
               </p>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-emerald-800 text-xl">📈</span>
+            <div className="theme-card p-6 shadow-sm">
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/20 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-emerald-800 dark:text-emerald-300 text-xl">📈</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Excellence</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold theme-text-primary mb-3">Excellence</h3>
+              <p className="theme-text-secondary">
                 We strive for excellence in everything we do, from the quality of our coaching 
                 to the organization of our tournaments and events.
               </p>
@@ -137,11 +137,11 @@ export default function AboutPage() {
       </section>
 
       {/* Committee Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Club Committee</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold theme-text-primary mb-4">Club Committee</h2>
+            <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
               Meet the dedicated volunteers who keep our club running smoothly.
             </p>
           </div>
@@ -150,12 +150,12 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {committeeMembers.slice(0, 2).map((member) => (
               <div key={member.id} className="text-center">
-                <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-emerald-800 text-2xl">{member.avatar}</span>
+                <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-emerald-800 dark:text-emerald-300 text-2xl">{member.avatar}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
-                <p className="text-emerald-800 font-medium mb-2">{member.role}</p>
-                <p className="text-gray-600 text-sm mb-3">
+                <h3 className="text-xl font-semibold theme-text-primary mb-1">{member.name}</h3>
+                <p className="text-emerald-800 dark:text-emerald-300 font-medium mb-2">{member.role}</p>
+                <p className="theme-text-secondary text-sm mb-3">
                   {member.description}
                 </p>
                 {/* {member.achievements && member.achievements.length > 0 && (
@@ -179,12 +179,12 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {committeeMembers.slice(2).map((member) => (
               <div key={member.id} className="text-center">
-                <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-emerald-800 text-2xl">{member.avatar}</span>
+                <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-emerald-800 dark:text-emerald-300 text-2xl">{member.avatar}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
-                <p className="text-emerald-800 font-medium mb-2">{member.role}</p>
-                <p className="text-gray-600 text-sm mb-3">
+                <h3 className="text-xl font-semibold theme-text-primary mb-1">{member.name}</h3>
+                <p className="text-emerald-800 dark:text-emerald-300 font-medium mb-2">{member.role}</p>
+                <p className="theme-text-secondary text-sm mb-3">
                   {member.description}
                 </p>
                 {/* {member.achievements && member.achievements.length > 0 && (

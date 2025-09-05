@@ -324,18 +324,18 @@ END:VEVENT
 
           {/* Filter Controls */}
           {showFilters && (
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div className="theme-card rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 
                 {/* Status Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium theme-text-secondary mb-2">
                     Status
                   </label>
                   <select
                     value={filters.status}
                     onChange={(e) => updateFilter('status', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
                     <option value="all">All Status</option>
                     <option value="upcoming">Upcoming</option>
@@ -345,13 +345,13 @@ END:VEVENT
 
                 {/* Team Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium theme-text-secondary mb-2">
                     Team
                   </label>
                   <select
                     value={filters.team}
                     onChange={(e) => updateFilter('team', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
                     <option value="all">All Teams</option>
                     <option value="A">A Team</option>
@@ -362,13 +362,13 @@ END:VEVENT
 
                 {/* Competition Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium theme-text-secondary mb-2">
                     Competition
                   </label>
                   <select
                     value={filters.competition}
                     onChange={(e) => updateFilter('competition', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
                     <option value="all">All Competitions</option>
                     <option value="league">League Matches</option>
@@ -379,13 +379,13 @@ END:VEVENT
 
                 {/* Venue Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium theme-text-secondary mb-2">
                     Venue
                   </label>
                   <select
                     value={filters.venue}
                     onChange={(e) => updateFilter('venue', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
                     <option value="all">All Venues</option>
                     <option value="home">Home</option>
@@ -395,13 +395,13 @@ END:VEVENT
 
                 {/* Month Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium theme-text-secondary mb-2">
                     Month
                   </label>
                   <select
                     value={filters.month}
                     onChange={(e) => updateFilter('month', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 theme-text-primary focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium"
                   >
                     <option value="all">All Months</option>
                     {getAvailableMonths().map(month => {
@@ -419,7 +419,7 @@ END:VEVENT
 
               {/* Quick Filter Buttons */}
               <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Quick Filters</h3>
+                <h3 className="text-sm font-medium theme-text-secondary mb-3">Quick Filters</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setFilters({ status: 'upcoming', team: 'all', competition: 'all', venue: 'all', month: 'all' })}
@@ -458,7 +458,7 @@ END:VEVENT
 
           {/* Results Summary and Download Button */}
           <div className="mt-4 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-sm theme-text-secondary mb-4">
               Showing {filteredFixtures.length} of {fixtures.length} fixtures
               {getActiveFiltersCount() > 0 && (
                 <span className="ml-2 text-emerald-600">
@@ -486,18 +486,18 @@ END:VEVENT
       </section>
 
       {/* Fixtures List */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
             {filteredFixtures.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No fixtures found matching your filters.</p>
+                <p className="theme-text-muted text-lg">No fixtures found matching your filters.</p>
               </div>
             ) : (
               filteredFixtures.map((fixture) => (
                 <div
                   key={fixture.id}
-                  className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="theme-card border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex-1">
@@ -514,10 +514,10 @@ END:VEVENT
                           </span>
                         )}
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      <h3 className="text-xl font-semibold theme-text-primary mb-2">
                         {fixture.homeTeam} { fixture.awayTeam ? 'vs' : ''} {fixture.awayTeam}
                       </h3>
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-gray-600">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 theme-text-secondary">
                         <div className="flex items-center gap-2">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -547,7 +547,7 @@ END:VEVENT
                               <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                               </svg>
-                              <span className="text-sm text-gray-600">{fixture.location}</span>
+                              <span className="text-sm theme-text-secondary">{fixture.location}</span>
                             </div>
                           )}
                           {fixture.address && (
@@ -556,7 +556,7 @@ END:VEVENT
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                               </svg>
-                              <span className="text-sm text-gray-600">{fixture.address}</span>
+                              <span className="text-sm theme-text-secondary">{fixture.address}</span>
                             </div>
                           )}
                         </div>
@@ -569,7 +569,7 @@ END:VEVENT
                             <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span className="text-sm text-gray-600">{fixture.notes}</span>
+                            <span className="text-sm theme-text-secondary">{fixture.notes}</span>
                           </div>
                         </div>
                       )}
@@ -592,8 +592,8 @@ END:VEVENT
                       )}
                       {fixture.result && (
                         <div className="mt-3">
-                          <span className="text-sm font-medium text-gray-900">Result: </span>
-                          <span className="text-sm text-gray-600">{fixture.result}</span>
+                          <span className="text-sm font-medium theme-text-primary">Result: </span>
+                          <span className="text-sm theme-text-secondary">{fixture.result}</span>
                         </div>
                       )}
                     </div>
@@ -619,25 +619,25 @@ END:VEVENT
       </section>
 
       {/* Calendar Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Regular Schedule</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold theme-text-primary mb-4">Regular Schedule</h2>
+            <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
               Our regular weekly sessions and activities
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="theme-card rounded-lg p-6 shadow-sm">
               <div className="text-center mb-4">
-                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-emerald-800 text-2xl">T</span>
+                <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-emerald-800 dark:text-emerald-300 text-2xl">T</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Tuesday Evenings</h3>
-                <p className="text-gray-600">7:00 PM - 10:00 PM</p>
+                <h3 className="text-xl font-semibold theme-text-primary">Tuesday Evenings</h3>
+                <p className="theme-text-secondary">7:00 PM - 10:00 PM</p>
               </div>
-              <ul className="space-y-2 text-gray-600">
+              <ul className="space-y-2 theme-text-secondary">
                 <li>• Casual games and practice</li>
                 <li>• Strategy discussions</li>
                 <li>• New member welcome</li>

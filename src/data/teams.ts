@@ -2,6 +2,7 @@ export interface Team {
   id: string;
   name: string;
   division: string;
+  divisionLink: string;
   position: number;
   played: number;
   won: number;
@@ -31,6 +32,7 @@ export const teams: Team[] = [
     "id": "1",
     "name": "A Team",
     "division": "Southampton League Division 2",
+    "divisionLink": "https://lms.englishchess.org.uk/lms/event/8398/view",
     "position": 3,
     "played": 0,
     "won": 0,
@@ -98,6 +100,7 @@ export const teams: Team[] = [
     "id": "2",
     "name": "B Team",
     "division": "Southampton League Division 4",
+    "divisionLink": "https://lms.englishchess.org.uk/lms/event/8400/view",
     "position": 3,
     "played": 0,
     "won": 0,
@@ -165,6 +168,7 @@ export const teams: Team[] = [
     "id": "3",
     "name": "C Team",
     "division": "Southampton League Division 5",
+    "divisionLink": "https://lms.englishchess.org.uk/lms/event/8401/view",
     "position": 3,
     "played": 0,
     "won": 0,
