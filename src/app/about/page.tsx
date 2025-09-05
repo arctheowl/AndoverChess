@@ -48,14 +48,14 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Key Milestones</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-white text-sm font-bold">1895</span>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Club Founded</h4>
                     <p className="text-gray-600 text-sm">First meeting held at Andover Library</p>
                   </div>
-                </div>
+                {/* </div>
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-white text-sm font-bold">1985</span>
@@ -81,7 +81,7 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold text-gray-900">Online Expansion</h4>
                     <p className="text-gray-600 text-sm">Launched online tournaments and training</p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

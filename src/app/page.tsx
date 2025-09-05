@@ -68,7 +68,7 @@ export default function Home() {
                   <span className="block text-emerald-200">Chess Club</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-                  Hampshire's Premier Chess Club • Since 1895
+                  Andover's Premier Chess Club • Since 1895
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link
@@ -359,7 +359,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Join the Andover Chess Club</h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-3xl mx-auto">
-            Become part of Hampshire's most successful chess club. Whether you're a beginner 
+            Become part of Andover's most successful chess club. Whether you're a beginner 
             or a master, there's a place for you in our team.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
