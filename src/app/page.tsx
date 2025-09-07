@@ -186,10 +186,10 @@ export default function Home() {
                 Recent Results
               </h2>
               <div className="space-y-4">
-                {recentResults.map((fixture) => (
+                {recentResults.map((fixture) =>  (
                   <div key={fixture.id} className={`theme-card p-4 border-l-4 ${
-                    fixture.result === 'won' ? 'border-green-500' : 
-                    fixture.result === 'lost' ? 'border-red-500' : 'border-yellow-500'
+                    fixture.result === 'Win' ? 'border-green-500' : 
+                    fixture.result === 'Loss' ? 'border-red-500' : 'border-yellow-500'
                   }`}>
                     <div className="flex justify-between items-center">
                       <div>
@@ -198,8 +198,8 @@ export default function Home() {
                       </div>
                       <div className="text-right">
                         <div className={`text-2xl font-bold ${
-                          fixture.result === 'won' ? 'text-green-600' : 
-                          fixture.result === 'lost' ? 'text-red-600' : 'text-yellow-600'
+                          fixture.result === 'Win' ? 'text-green-600' : 
+                          fixture.result === 'Loss' ? 'text-red-600' : 'text-yellow-600'
                         }`}>{fixture.score}</div>
                         <div className="text-sm theme-text-muted capitalize">{fixture.result}</div>
                       </div>

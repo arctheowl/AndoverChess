@@ -16,7 +16,7 @@ interface FilterState {
 
 export default function FixturesPage() {
   const [filters, setFilters] = useState<FilterState>({
-    status: 'all',
+    status: 'upcoming', // Default to showing only upcoming fixtures
     team: 'all',
     competition: 'all',
     venue: 'all',
@@ -65,7 +65,7 @@ export default function FixturesPage() {
 
   const clearAllFilters = () => {
     setFilters({
-      status: 'all',
+      status: 'upcoming', // Reset to upcoming fixtures
       team: 'all',
       competition: 'all',
       venue: 'all',
@@ -77,6 +77,9 @@ export default function FixturesPage() {
     return Object.entries(filters).filter(([key, value]) => {
       if (key === 'season') {
         return value !== 'all' && value !== '2025-2026'; // Don't count current season as active filter
+      }
+      if (key === 'status') {
+        return value !== 'all' && value !== 'upcoming'; // Don't count upcoming as active filter (it's default)
       }
       return value !== 'all';
     }).length;
@@ -432,6 +435,12 @@ END:VEVENT
                     className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors"
                   >
                     Recent Results
+                  </button>
+                  <button
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
+                    className="px-3 py-1 text-sm bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors"
+                  >
+                    All Fixtures
                   </button>
                   <button
                     onClick={() => setFilters({ status: 'all', team: 'A', competition: 'league', venue: 'all', season: '2025-2026' })}
