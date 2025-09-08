@@ -42,7 +42,7 @@ export const teams: Team[] = [
     "points": 0,
     "maxPoints": 20,
     "record": "W0 D0 L0",
-    "description": "Our premier team competing at the highest level in Southampton chess",
+    "description": "Our premier team competing at the higher Southampton chess leagues",
     "color": "emerald",
     "upcomingMatches": [
       {
@@ -78,39 +78,39 @@ export const teams: Team[] = [
     ],
     "recentMatches": [
       {
-        "date": "2024-12-15",
-        "opponent": "Basingstoke E",
-        "location": "Basingstoke",
-        "isHome": false,
-        "result": "Win"
-      },
-      {
-        "date": "2024-12-08",
-        "opponent": "Basingstoke B",
-        "location": "Basingstoke",
-        "isHome": false,
+        "date": "2025-03-25",
+        "opponent": "Hamble A",
+        "location": "Andover",
+        "isHome": true,
         "result": "Loss"
       },
       {
-        "date": "2024-12-01",
-        "opponent": "Fareham B",
-        "location": "Andover",
-        "isHome": true,
-        "result": "Win"
-      },
-      {
-        "date": "2024-11-24",
-        "opponent": "Southampton A",
-        "location": "Southampton",
-        "isHome": false,
-        "result": "Draw"
-      },
-      {
-        "date": "2024-11-17",
+        "date": "2025-03-11",
         "opponent": "Winchester A",
         "location": "Andover",
         "isHome": true,
         "result": "Win"
+      },
+      {
+        "date": "2025-03-04",
+        "opponent": "Fareham B",
+        "location": "Fareham",
+        "isHome": false,
+        "result": "Win"
+      },
+      {
+        "date": "2025-01-21",
+        "opponent": "Chandlers Ford B",
+        "location": "Chandlers Ford",
+        "isHome": false,
+        "result": "Loss"
+      },
+      {
+        "date": "2025-01-14",
+        "opponent": "Salisbury A",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Draw"
       }
     ]
   },
