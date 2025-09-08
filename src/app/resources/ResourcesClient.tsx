@@ -25,7 +25,7 @@ export default function ResourcesClient() {
         {
           name: "ECF Membership",
           description: "How to join the English Chess Federation",
-          url: "https://www.englishchess.org.uk/membership/",
+          url: "https://www.englishchess.org.uk/join-us/",
           icon: "👥",
           features: ["Membership", "Benefits", "Registration"]
         }
@@ -45,14 +45,14 @@ export default function ResourcesClient() {
         {
           name: "Hampshire Chess Association",
           description: "Local chess association for Hampshire players",
-          url: "https://www.hampshirechess.org.uk/",
+          url: "https://www.hampshirechess.co.uk/",
           icon: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
           features: ["Local", "Hampshire", "Association"]
         },
         {
           name: "Southampton Chess League",
           description: "View all events in the Southampton Chess League",
-          url: "https://www.southamptonchess.org.uk/",
+          url: "https://lms.englishchess.org.uk/lms/organisation/415",
           icon: "🏆",
           features: ["League", "Southampton", "Competitions"]
         }

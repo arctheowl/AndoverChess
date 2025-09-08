@@ -21,80 +21,80 @@ interface FilterState {
 }
 
 const newsItems: NewsItem[] = [
-  {
-    id: 1,
-    title: 'Club Championship 2024 - Registration Now Open',
-    content: 'We are pleased to announce that registration for the 2024 Club Championship is now open. This year\'s tournament will feature both rapid and classical time controls, with separate sections for different rating levels. The tournament will run from February through April, with games played on Wednesday evenings. Prizes will be awarded to the top three finishers in each section. Please contact James Anderson for registration details.',
-    excerpt: 'Registration is now open for our annual club championship tournament, featuring multiple sections and time controls.',
-    date: '2024-01-10',
-    category: 'tournament',
-    author: 'James Anderson',
-    featured: true
-  },
-  {
-    id: 2,
-    title: 'Victory Against Southampton in League Match',
-    content: 'Our team secured an impressive 4-2 victory against Southampton Chess Club in last night\'s Hampshire League Division 1 match. David Thompson led the way with a brilliant win on board 1, while Sarah Mitchell and Michael Chen also secured full points. The team now sits in second place in the league table with three matches remaining.',
-    excerpt: 'Andover Chess Club defeats Southampton 4-2 in a crucial league match, moving into second place.',
-    date: '2024-01-08',
-    category: 'result',
-    author: 'Sarah Mitchell'
-  },
-  {
-    id: 3,
-    title: 'New Junior Coaching Program Launches',
-    content: 'We are excited to announce the launch of our new junior coaching program, starting this Saturday. The program will be led by Emma Davis and will include structured lessons, practice games, and regular tournaments. Sessions will run from 10:00 AM to 12:00 PM every Saturday morning. The program is open to players aged 8-16 of all skill levels. Equipment will be provided.',
-    excerpt: 'A new comprehensive junior coaching program begins this Saturday, offering structured lessons and practice for young players.',
-    date: '2024-01-05',
-    category: 'announcement',
-    author: 'Emma Davis'
-  },
-  {
-    id: 4,
-    title: 'Robert Wilson Publishes Chess Strategy Guide',
-    content: 'Club member Robert Wilson has published his first chess strategy guide, "Tactical Patterns for Club Players". The book focuses on common tactical motifs that every club player should know, with over 200 carefully selected positions and exercises. Robert will be signing copies at the club this Tuesday evening. The book is available for purchase at a special club member discount.',
-    excerpt: 'Club member Robert Wilson releases his first chess strategy guide, focusing on tactical patterns for club players.',
-    date: '2024-01-03',
-    category: 'general',
-    author: 'Robert Wilson'
-  },
-  {
-    id: 5,
-    title: 'New Year Rapid Tournament Results',
-    content: 'The New Year Rapid Tournament concluded yesterday with some exciting games and close finishes. In the Open section, David Thompson took first place with 4.5/5, while Sarah Mitchell finished second with 4/5. The U1600 section was won by Michael Chen with a perfect 5/5 score. Special congratulations to our junior players who showed great improvement throughout the tournament.',
-    excerpt: 'David Thompson wins the Open section while Michael Chen dominates the U1600 section in our New Year Rapid Tournament.',
-    date: '2024-01-01',
-    category: 'result',
-    author: 'Tournament Director'
-  },
-  {
-    id: 6,
-    title: 'Club Equipment Upgrade Complete',
-    content: 'We are pleased to announce that our club equipment upgrade is now complete. Thanks to generous donations from members and a grant from the local council, we have purchased 20 new tournament-quality chess sets, 15 digital clocks, and 10 demonstration boards. The new equipment will be available for use during club sessions and tournaments.',
-    excerpt: 'New tournament-quality chess sets, digital clocks, and demonstration boards are now available at the club.',
-    date: '2023-12-28',
-    category: 'announcement',
-    author: 'Club Secretary'
-  },
-  {
-    id: 7,
-    title: 'Christmas Social Event Success',
-    content: 'Our annual Christmas social event was a great success, with over 40 members and their families attending. The evening featured a simultaneous exhibition by club champion David Thompson, a chess-themed quiz, and plenty of festive food and drinks. Thank you to everyone who helped organize the event and to all who attended.',
-    excerpt: 'Over 40 members enjoyed our annual Christmas social event featuring a simultaneous exhibition and chess quiz.',
-    date: '2023-12-20',
-    category: 'general',
-    author: 'Social Committee'
-  },
-  {
-    id: 8,
-    title: 'Junior Team Wins County Championship',
-    content: 'Our junior team has won the Hampshire Junior Team Championship for the third consecutive year! The team, consisting of Lisa Johnson, Thomas Brown, and two other junior members, scored 3.5/4 in the final round to secure the title. This is a fantastic achievement and reflects the quality of our junior coaching program.',
-    excerpt: 'Andover Chess Club junior team secures their third consecutive Hampshire Junior Team Championship victory.',
-    date: '2023-12-15',
-    category: 'result',
-    author: 'Junior Coordinator',
-    featured: true
-  }
+  // {
+  //   id: 1,
+  //   title: 'Club Championship 2024 - Registration Now Open',
+  //   content: 'We are pleased to announce that registration for the 2024 Club Championship is now open. This year\'s tournament will feature both rapid and classical time controls, with separate sections for different rating levels. The tournament will run from February through April, with games played on Wednesday evenings. Prizes will be awarded to the top three finishers in each section. Please contact James Anderson for registration details.',
+  //   excerpt: 'Registration is now open for our annual club championship tournament, featuring multiple sections and time controls.',
+  //   date: '2024-01-10',
+  //   category: 'tournament',
+  //   author: 'James Anderson',
+  //   featured: true
+  // },
+  // {
+  //   id: 2,
+  //   title: 'Victory Against Southampton in League Match',
+  //   content: 'Our team secured an impressive 4-2 victory against Southampton Chess Club in last night\'s Hampshire League Division 1 match. David Thompson led the way with a brilliant win on board 1, while Sarah Mitchell and Michael Chen also secured full points. The team now sits in second place in the league table with three matches remaining.',
+  //   excerpt: 'Andover Chess Club defeats Southampton 4-2 in a crucial league match, moving into second place.',
+  //   date: '2024-01-08',
+  //   category: 'result',
+  //   author: 'Sarah Mitchell'
+  // },
+  // {
+  //   id: 3,
+  //   title: 'New Junior Coaching Program Launches',
+  //   content: 'We are excited to announce the launch of our new junior coaching program, starting this Saturday. The program will be led by Emma Davis and will include structured lessons, practice games, and regular tournaments. Sessions will run from 10:00 AM to 12:00 PM every Saturday morning. The program is open to players aged 8-16 of all skill levels. Equipment will be provided.',
+  //   excerpt: 'A new comprehensive junior coaching program begins this Saturday, offering structured lessons and practice for young players.',
+  //   date: '2024-01-05',
+  //   category: 'announcement',
+  //   author: 'Emma Davis'
+  // },
+  // {
+  //   id: 4,
+  //   title: 'Robert Wilson Publishes Chess Strategy Guide',
+  //   content: 'Club member Robert Wilson has published his first chess strategy guide, "Tactical Patterns for Club Players". The book focuses on common tactical motifs that every club player should know, with over 200 carefully selected positions and exercises. Robert will be signing copies at the club this Tuesday evening. The book is available for purchase at a special club member discount.',
+  //   excerpt: 'Club member Robert Wilson releases his first chess strategy guide, focusing on tactical patterns for club players.',
+  //   date: '2024-01-03',
+  //   category: 'general',
+  //   author: 'Robert Wilson'
+  // },
+  // {
+  //   id: 5,
+  //   title: 'New Year Rapid Tournament Results',
+  //   content: 'The New Year Rapid Tournament concluded yesterday with some exciting games and close finishes. In the Open section, David Thompson took first place with 4.5/5, while Sarah Mitchell finished second with 4/5. The U1600 section was won by Michael Chen with a perfect 5/5 score. Special congratulations to our junior players who showed great improvement throughout the tournament.',
+  //   excerpt: 'David Thompson wins the Open section while Michael Chen dominates the U1600 section in our New Year Rapid Tournament.',
+  //   date: '2024-01-01',
+  //   category: 'result',
+  //   author: 'Tournament Director'
+  // },
+  // {
+  //   id: 6,
+  //   title: 'Club Equipment Upgrade Complete',
+  //   content: 'We are pleased to announce that our club equipment upgrade is now complete. Thanks to generous donations from members and a grant from the local council, we have purchased 20 new tournament-quality chess sets, 15 digital clocks, and 10 demonstration boards. The new equipment will be available for use during club sessions and tournaments.',
+  //   excerpt: 'New tournament-quality chess sets, digital clocks, and demonstration boards are now available at the club.',
+  //   date: '2023-12-28',
+  //   category: 'announcement',
+  //   author: 'Club Secretary'
+  // },
+  // {
+  //   id: 7,
+  //   title: 'Christmas Social Event Success',
+  //   content: 'Our annual Christmas social event was a great success, with over 40 members and their families attending. The evening featured a simultaneous exhibition by club champion David Thompson, a chess-themed quiz, and plenty of festive food and drinks. Thank you to everyone who helped organize the event and to all who attended.',
+  //   excerpt: 'Over 40 members enjoyed our annual Christmas social event featuring a simultaneous exhibition and chess quiz.',
+  //   date: '2023-12-20',
+  //   category: 'general',
+  //   author: 'Social Committee'
+  // },
+  // {
+  //   id: 8,
+  //   title: 'Junior Team Wins County Championship',
+  //   content: 'Our junior team has won the Hampshire Junior Team Championship for the third consecutive year! The team, consisting of Lisa Johnson, Thomas Brown, and two other junior members, scored 3.5/4 in the final round to secure the title. This is a fantastic achievement and reflects the quality of our junior coaching program.',
+  //   excerpt: 'Andover Chess Club junior team secures their third consecutive Hampshire Junior Team Championship victory.',
+  //   date: '2023-12-15',
+  //   category: 'result',
+  //   author: 'Junior Coordinator',
+  //   featured: true
+  // }
 ];
 
 export default function NewsClient() {
@@ -213,7 +213,7 @@ export default function NewsClient() {
             </div>
 
             {/* Author Filter */}
-            <div>
+            {/* <div>
               <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Author
               </label>
@@ -228,12 +228,12 @@ export default function NewsClient() {
                   <option key={author} value={author}>{author}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Additional Filters */}
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
+            {/* <div>
               <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Month
               </label>
@@ -248,9 +248,9 @@ export default function NewsClient() {
                   <option key={month} value={month}>{month}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label htmlFor="featured" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Type
               </label>
@@ -264,7 +264,7 @@ export default function NewsClient() {
                 <option value="featured">Featured</option>
                 <option value="regular">Regular</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
