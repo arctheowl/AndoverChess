@@ -1,4 +1,5 @@
 import { fixtures, Fixture } from '@/data/fixtures';
+import { teams } from '@/data/teams';
 
 export interface TeamMatch {
   id: string;
@@ -89,7 +90,39 @@ export function getCompletedTeamFixtures(teamName: string): TeamMatch[] {
  * @returns Array of recent completed fixtures for the team
  */
 export function getRecentTeamResults(teamName: string): TeamMatch[] {
-  return getCompletedTeamFixtures(teamName).slice(0, 5);
+  // First try to get from fixtures data
+  const fixtureResults = getCompletedTeamFixtures(teamName).slice(0, 5);
+  
+  // If we have fixture results, use them
+  if (fixtureResults.length > 0) {
+    return fixtureResults;
+  }
+  
+  // Otherwise, get from team data (for sample data)
+  // const team = teams.find((t: any) => t.name === teamName);
+  
+  // if (team && team.recentMatches) {
+  //   return team.recentMatches
+  //     .filter((match: any) => match.result) // Only include matches with results
+  //     .slice(0, 5)
+  //     .map((match: any) => ({
+  //       id: `team-${teamName}-${match.date}`,
+  //       date: match.date,
+  //       time: '19:00', // Default time for team matches
+  //       opponent: match.opponent,
+  //       venue: match.isHome ? 'home' : 'away',
+  //       competition: 'League Match',
+  //       isTournament: false,
+  //       status: 'completed' as const,
+  //       result: match.result,
+  //       location: match.location,
+  //       address: undefined,
+  //       notes: undefined,
+  //       moreInfoLink: undefined
+  //     }));
+  // }
+  
+  return [];
 }
 
 /**

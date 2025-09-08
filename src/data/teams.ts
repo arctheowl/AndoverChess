@@ -24,6 +24,7 @@ export interface Team {
     opponent: string;
     location: string;
     isHome: boolean;
+    result?: string;
   }>;
 }
 
@@ -76,24 +77,41 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      // {
-      //   "date": "2026-03-04",
-      //   "opponent": "Basingstoke E",
-      //   "location": "Basingstoke",
-      //   "isHome": false
-      // },
-      // {
-      //   "date": "2026-03-11",
-      //   "opponent": "Basingstoke B",
-      //   "location": "Basingstoke",
-      //   "isHome": false
-      // },
-      // {
-      //   "date": "2026-03-31",
-      //   "opponent": "Fareham B",
-      //   "location": "Andover A",
-      //   "isHome": true
-      // }
+      {
+        "date": "2024-12-15",
+        "opponent": "Basingstoke E",
+        "location": "Basingstoke",
+        "isHome": false,
+        "result": "Win"
+      },
+      {
+        "date": "2024-12-08",
+        "opponent": "Basingstoke B",
+        "location": "Basingstoke",
+        "isHome": false,
+        "result": "Loss"
+      },
+      {
+        "date": "2024-12-01",
+        "opponent": "Fareham B",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Win"
+      },
+      {
+        "date": "2024-11-24",
+        "opponent": "Southampton A",
+        "location": "Southampton",
+        "isHome": false,
+        "result": "Draw"
+      },
+      {
+        "date": "2024-11-17",
+        "opponent": "Winchester A",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Win"
+      }
     ]
   },
   {
@@ -144,24 +162,41 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      // {
-      //   "date": "2026-02-17",
-      //   "opponent": "Hamble B",
-      //   "location": "Andover",
-      //   "isHome": true
-      // },
-      // {
-      //   "date": "2026-02-24",
-      //   "opponent": "Chandlers Ford D",
-      //   "location": "Chandlers Ford",
-      //   "isHome": false
-      // },
-      // {
-      //   "date": "2026-03-17",
-      //   "opponent": "Southampton Univserity C",
-      //   "location": "Andover",
-      //   "isHome": true
-      // }
+      {
+        "date": "2024-12-14",
+        "opponent": "Hamble B",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Win"
+      },
+      {
+        "date": "2024-12-07",
+        "opponent": "Chandlers Ford D",
+        "location": "Chandlers Ford",
+        "isHome": false,
+        "result": "Loss"
+      },
+      {
+        "date": "2024-11-30",
+        "opponent": "Southampton University C",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Draw"
+      },
+      {
+        "date": "2024-11-23",
+        "opponent": "Basingstoke D",
+        "location": "Basingstoke",
+        "isHome": false,
+        "result": "Win"
+      },
+      {
+        "date": "2024-11-16",
+        "opponent": "Winchester B",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Loss"
+      }
     ]
   },
   {
@@ -212,24 +247,41 @@ export const teams: Team[] = [
       }
     ],
     "recentMatches": [
-      // {
-      //   "date": "2026-02-10",
-      //   "opponent": "Southampton C",
-      //   "location": "Andover",
-      //   "isHome": true
-      // },
-      // {
-      //   "date": "2026-02-19",
-      //   "opponent": "Salisbury C",
-      //   "location": "Salisbury",
-      //   "isHome": false
-      // },
-      // {
-      //   "date": "2026-03-10",
-      //   "opponent": "Chandlers Ford E",
-      //   "location": "Andover",
-      //   "isHome": true
-      // }
+      {
+        "date": "2024-12-13",
+        "opponent": "Southampton C",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Win"
+      },
+      {
+        "date": "2024-12-06",
+        "opponent": "Salisbury C",
+        "location": "Salisbury",
+        "isHome": false,
+        "result": "Win"
+      },
+      {
+        "date": "2024-11-29",
+        "opponent": "Chandlers Ford E",
+        "location": "Andover",
+        "isHome": true,
+        "result": "Loss"
+      },
+      {
+        "date": "2024-11-22",
+        "opponent": "Basingstoke E",
+        "location": "Basingstoke",
+        "isHome": false,
+        "result": "Draw"
+      },
+      {
+        "date": "2024-11-15",
+        "opponent": "Southampton C",
+        "location": "Southampton",
+        "isHome": false,
+        "result": "Win"
+      }
     ]
   }
 ];

@@ -8,10 +8,75 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Andover Chess Club",
-  description: "Welcome to Andover Chess Club - A community of chess enthusiasts in Andover",
+  title: {
+    default: "Andover Chess Club - Hampshire's Premier Chess Club Since 1895",
+    template: "%s | Andover Chess Club"
+  },
+  description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play. Located in Andover, Hampshire.",
+  keywords: [
+    "Andover Chess Club",
+    "Hampshire chess",
+    "chess club Andover",
+    "chess tournaments Hampshire",
+    "chess league Hampshire",
+    "chess lessons Andover",
+    "chess community Hampshire",
+    "English Chess Federation",
+    "chess beginners",
+    "chess coaching"
+  ],
+  authors: [{ name: "Andover Chess Club" }],
+  creator: "Andover Chess Club",
+  publisher: "Andover Chess Club",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://andoverchessclub.co.uk'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Andover Chess Club - Hampshire's Premier Chess Club",
+    description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play.",
+    url: 'https://andoverchessclub.co.uk',
+    siteName: 'Andover Chess Club',
+    images: [
+      {
+        url: '/AndoverChessLogo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Andover Chess Club Logo',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Andover Chess Club - Hampshire's Premier Chess Club",
+    description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play.",
+    images: ['/AndoverChessLogo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
+  verification: {
+    google: 'your-google-verification-code', // Replace with actual verification code
   },
 };
 
@@ -20,8 +85,50 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Andover Chess Club",
+    "alternateName": "Andover Chess Club",
+    "url": "https://andoverchessclub.co.uk",
+    "logo": "https://andoverchessclub.co.uk/AndoverChessLogo.png",
+    "description": "Hampshire's premier chess club since 1895, welcoming players of all levels for league matches, tournaments, and casual play.",
+    "foundingDate": "1895",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Clare Ho, East St",
+      "addressLocality": "Andover",
+      "addressRegion": "Hampshire",
+      "postalCode": "SP10 1EP",
+      "addressCountry": "GB"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+44-1234-567890",
+      "contactType": "General Inquiry",
+      "availableLanguage": "English"
+    },
+    "sameAs": [
+      "https://www.facebook.com/andoverchessclub",
+      "https://twitter.com/andoverchess"
+    ],
+    "sport": "Chess",
+    "memberOf": {
+      "@type": "Organization",
+      "name": "English Chess Federation"
+    }
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider>
           <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">

@@ -34,14 +34,14 @@ export default function Navigation() {
                   alt="Andover Chess Club Logo"
                   width={40}
                   height={40}
-                  className={`logo-transition ${theme === 'dark' ? 'opacity-0' : 'opacity-100'}`}
+                  className={`logo-transition rounded-full ${theme === 'dark' ? 'opacity-0' : 'opacity-100'}`}
                 />
                 <Image
                   src="/AndoverChessLogoDark.png"
                   alt="Andover Chess Club Logo"
                   width={40}
                   height={40}
-                  className={`logo-transition absolute inset-0 ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}
+                  className={`logo-transition absolute inset-0 rounded-full ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}
                 />
               </div>
               <span className="font-bold text-xl">Andover Chess Club</span>

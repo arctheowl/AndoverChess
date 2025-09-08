@@ -4,8 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import { fixtures, Fixture, BoardResult, MatchStats, getMatchStats } from '@/data/fixtures';
-import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses } from '@/lib/teamColors';
+import { fixtures, getMatchStats } from '@/data/fixtures';
+
 
 export default function MatchPage() {
   const params = useParams();

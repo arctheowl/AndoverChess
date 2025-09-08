@@ -7,6 +7,8 @@ import { clubStats, achievements, venueInfo, meetingSchedule, contactInfo } from
 import { getRecentResults, getUpcomingFixtures, fixtures } from '@/data/fixtures';
 import { teams } from '@/data/teams';
 import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass } from '@/lib/teamColors';
+import SEOStructuredData from '@/components/SEOStructuredData';
+import TeamFormDisplay from '@/components/TeamFormDisplay';
 
 export default function Home() {
   const { theme } = useTheme();
@@ -34,6 +36,7 @@ export default function Home() {
   
   return (
     <div className="min-h-screen">
+      <SEOStructuredData />
       {/* Hero Section with Dynamic Background */}
       <section className="relative theme-gradient text-white overflow-hidden">
         {/* Background Pattern */}
@@ -47,19 +50,19 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
            
-                <div className="w-52 h-52 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto lg:mx-0 mb-6 shadow-2xl p-4">
-                  <div className="relative w-full h-full">
+                <div className="w-52 h-52 bg-white dark:bg-gray-800 flex items-center justify-center mx-auto lg:mx-0 mb-6 shadow-2xl rounded-full">
+                  <div className="relative w-full h-full flex items-center justify-center p-4">
                     <Image
                       src="/AndoverChessLogo.png"
                       alt="Andover Chess Club Logo"
                       fill
-                      className="object-contain logo-transition dark:opacity-0"
+                      className="object-contain logo-transition dark:opacity-0 rounded-full"
                     />
                     <Image
                       src="/AndoverChessLogoDark.png"
                       alt="Andover Chess Club Logo"
                       fill
-                      className="object-contain logo-transition opacity-0 dark:opacity-100"
+                      className="object-contain logo-transition opacity-0 dark:opacity-100 rounded-full"
                     />
                   </div>
                 </div>
@@ -68,7 +71,7 @@ export default function Home() {
                   <span className="block text-emerald-200">Chess Club</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-                  Andover's Premier Chess Club • Since 1895
+                  Andover's Premier Chess Club • Since 1889
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link
@@ -291,6 +294,9 @@ export default function Home() {
                     <span className="theme-text-secondary">Points:</span>
                     <span className="font-semibold theme-text-primary">{team.points}/{team.maxPoints}</span>
                   </div>
+                </div>
+                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                  <TeamFormDisplay teamName={team.name} />
                 </div>
                 
                 {/* Next Match */}
