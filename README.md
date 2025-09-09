@@ -169,4 +169,4 @@ For support or questions about the Andover Chess Club website, please contact th
 
 ---
 
-**Andover Chess Club** - Promoting chess in the Andover community since 1895.
+**Andover Chess Club** - Promoting chess in the Andover community since 1889.

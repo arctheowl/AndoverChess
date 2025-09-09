@@ -9,10 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Andover Chess Club - Hampshire's Premier Chess Club Since 1895",
+    default: "Andover Chess Club - Hampshire's Premier Chess Club Since 1889",
     template: "%s | Andover Chess Club"
   },
-  description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play. Located in Andover, Hampshire.",
+  description: "Join Andover Chess Club, Hampshire's premier chess club since 1889. We welcome players of all levels for league matches, tournaments, and casual play. Located in Andover, Hampshire.",
   keywords: [
     "Andover Chess Club",
     "Hampshire chess",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Andover Chess Club - Hampshire's Premier Chess Club",
-    description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play.",
+    description: "Join Andover Chess Club, Hampshire's premier chess club since 1889. We welcome players of all levels for league matches, tournaments, and casual play.",
     url: 'https://andoverchessclub.co.uk',
     siteName: 'Andover Chess Club',
     images: [
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Andover Chess Club - Hampshire's Premier Chess Club",
-    description: "Join Andover Chess Club, Hampshire's premier chess club since 1895. We welcome players of all levels for league matches, tournaments, and casual play.",
+    description: "Join Andover Chess Club, Hampshire's premier chess club since 1889. We welcome players of all levels for league matches, tournaments, and casual play.",
     images: ['/AndoverChessLogo.png'],
   },
   robots: {
@@ -92,8 +92,8 @@ export default function RootLayout({
     "alternateName": "Andover Chess Club",
     "url": "https://andoverchessclub.co.uk",
     "logo": "https://andoverchessclub.co.uk/AndoverChessLogo.png",
-    "description": "Hampshire's premier chess club since 1895, welcoming players of all levels for league matches, tournaments, and casual play.",
-    "foundingDate": "1895",
+    "description": "Hampshire's premier chess club since 1889, welcoming players of all levels for league matches, tournaments, and casual play.",
+    "foundingDate": "1889",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Clare Ho, East St",

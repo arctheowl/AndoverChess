@@ -80,7 +80,7 @@ export default function AboutPage() {
                   <p>
                     In our formative years, the club engaged in friendly matches with neighboring 
                     clubs, notably Salisbury. We joined the Hampshire Chess League during the 
-                    1895/96 season, participating in the Hampshire Trophy knockout tournament.
+                    1889/96 season, participating in the Hampshire Trophy knockout tournament.
                   </p>
                 </div>
               </div>
@@ -163,11 +163,11 @@ export default function AboutPage() {
                 <div className="flex items-center">
                   <div className="w-1/2 pr-8"></div>
                   <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 z-10">
-                    <span className="text-white text-sm font-bold">1895</span>
+                    <span className="text-white text-sm font-bold">1889</span>
                   </div>
                   <div className="w-1/2 pl-8">
                     <div className="theme-card p-4 shadow-sm">
-                      <div className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">1895/96</div>
+                      <div className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">1889/96</div>
                       <h4 className="font-semibold theme-text-primary">Hampshire League Entry</h4>
                       <p className="theme-text-secondary text-sm">Joined Hampshire Chess League and Hampshire Trophy</p>
                     </div>

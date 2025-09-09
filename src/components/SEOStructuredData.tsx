@@ -48,11 +48,11 @@ export default function SEOStructuredData() {
     "@context": "https://schema.org",
     "@type": "SportsClub",
     "name": "Andover Chess Club",
-    "description": "Hampshire's premier chess club since 1895, welcoming players of all levels for league matches, tournaments, and casual play.",
+    "description": "Hampshire's premier chess club since 1889, welcoming players of all levels for league matches, tournaments, and casual play.",
     "url": "https://andoverchessclub.co.uk",
     "logo": "https://andoverchessclub.co.uk/AndoverChessLogo.png",
     "image": "https://andoverchessclub.co.uk/AndoverChessLogo.png",
-    "foundingDate": "1895",
+    "foundingDate": "1889",
     "sport": "Chess",
     "address": {
       "@type": "PostalAddress",

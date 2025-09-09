@@ -150,10 +150,10 @@ export const venueInfo: VenueInfo = {
 };
 
 export const clubHistory = {
-  founded: '1895',
+  founded: '1889',
   milestones: [
     {
-      year: '1895',
+      year: '1889',
       title: 'Club Founded',
       description: 'First meeting held at Andover Library'
     },
