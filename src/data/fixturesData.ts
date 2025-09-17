@@ -498,6 +498,21 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     notes: "5 round Standard Play, with 4 sections Open, U2000, U1800, and U1600. 90 min+ 15 sec. All sections ECF rated, Open section also FIDE rated. NOTE we have moved venue.",
     venueKey: "oxford-leonardo-hotel",
     moreInfoLink: "https://kidlingtonchess.org.uk/"
+  },
+   {
+    id: "internal-11",
+    homeTeam: "London Chess Classic 2025",
+    awayTeam: "",
+    season: "2025-2026",
+    date: "2025-11-26",
+    time: "9:30",
+    venue: "away",
+    competition: "London Chess Classic 2025",
+    isTournament: true,
+    status: "upcoming",
+    notes: "The LCC Festival will give players of all standards the opportunity to enjoy many different forms of the game of chess: blitz, rapid, classical.",
+    venueKey: "london-chess-classic",
+    moreInfoLink: "https://www.londonchessclassic.com/"
   }
 ];
 

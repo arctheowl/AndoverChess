@@ -25,7 +25,7 @@ export default function ResourcesClient() {
         {
           name: "ECF Membership",
           description: "How to join the English Chess Federation",
-          url: "https://www.englishchess.org.uk/join-us/",
+          url: "https://www.englishchess.org.uk/ecf-membership-rates-and-joining-details/",
           icon: "👥",
           features: ["Membership", "Benefits", "Registration"]
         }

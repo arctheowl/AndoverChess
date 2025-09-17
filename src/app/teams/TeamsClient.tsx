@@ -94,13 +94,22 @@ export default function TeamsClient() {
               return (
                 <div 
                   key={team.id} 
-                  className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                  className={`rounded-lg p-6 text-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg  ${
+                    teamColor === 'A' ? 'bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-600/20 ' : 
+                    teamColor === 'B' ? 'bg-gradient-to-br from-sky-50 to-sky-100 dark:from-sky-900/20 dark:to-sky-600/20' : 
+                    teamColor === 'C' ? 'bg-gradient-to-br from-violet-50 to-violet-100 dark:from-violet-900/20 dark:to-violet-600/20' : 
+                    'bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-600/20'
+                  } ${
                     selectedTeam === team.id ? 'ring-2 ring-emerald-500 shadow-lg' : ''
                   }`}
                   onClick={() => handleTeamSelection(team.id)}
                   title="Click to view team details"
                 >
-                  <div className={`w-16 h-16 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                    teamColor === 'A' ? 'bg-emerald-600 ' : 
+                    teamColor === 'B' ? 'bg-sky-600' : 
+                    teamColor === 'C' ? 'bg-violet-600' : 'bg-emerald-600'
+                  }`}>
                     <span className="text-white text-2xl font-bold">{teamLetter}</span>
                   </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{team.name}</h3>
@@ -176,7 +185,11 @@ export default function TeamsClient() {
                         </svg>
                       </Link>
                     </div>
-                    <div className={`w-20 h-20 bg-${getTeamColorClasses(teamColor, 'secondary')} rounded-full flex items-center justify-center`}>
+                    <div className={`w-20 h-20 rounded-full flex items-center justify-center ${
+                      teamColor === 'A' ? 'bg-emerald-600' : 
+                      teamColor === 'B' ? 'bg-sky-600' : 
+                      teamColor === 'C' ? 'bg-violet-600' : 'bg-emerald-600'
+                    }`}>
                       <span className="text-white text-3xl font-bold">{teamLetter}</span>
                     </div>
                   </div>
@@ -213,7 +226,11 @@ export default function TeamsClient() {
                         return recentMatches.length > 0 ? (
                           <div className="space-y-4">
                             {recentMatches.map((match) => (
-                              <div key={match.id} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
+                              <div key={match.id} className={`border rounded-lg p-4 ${
+                                teamColor === 'A' ? 'border-emerald-200 dark:border-emerald-600/70' : 
+                                teamColor === 'B' ? 'border-sky-200 dark:border-sky-600/70' : 
+                                teamColor === 'C' ? 'border-violet-200 dark:border-violet-600/70' : 'border-emerald-200 dark:border-emerald-600/70'
+                              }`}>
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                                     {formatTeamMatchDate(match.date)}
@@ -251,7 +268,11 @@ export default function TeamsClient() {
                         return upcomingMatches.length > 0 ? (
                           <div className="space-y-4">
                             {upcomingMatches.slice(0, 5).map((match) => (
-                              <div key={match.id} className={`border ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 rounded-lg p-4`}>
+                              <div key={match.id} className={`border rounded-lg p-4 ${
+                                teamColor === 'A' ? 'border-emerald-200 dark:border-emerald-600/70' : 
+                                teamColor === 'B' ? 'border-sky-200 dark:border-sky-600/70' : 
+                                teamColor === 'C' ? 'border-violet-200 dark:border-violet-600/70' : 'border-emerald-200 dark:border-emerald-600/70'
+                              }`}>
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                                     {formatTeamMatchDate(match.date)}
