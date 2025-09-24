@@ -13,6 +13,11 @@ export default function MatchPage() {
   const matchId = params.id as string;
   const [isClient, setIsClient] = useState(false);
 
+  // Set client state after component mounts
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // Find the match by ID
   const match = fixtures.find(f => f.id === matchId);
 
@@ -40,11 +45,6 @@ export default function MatchPage() {
   const isCompleted = match.status === 'completed';
   const isUpcoming = match.status === 'upcoming';
   const isCancelled = match.status === 'cancelled';
-
-  // Set client state after component mounts
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const getResultColor = (result: string) => {
     switch (result) {
