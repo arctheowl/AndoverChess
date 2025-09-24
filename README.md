@@ -93,7 +93,6 @@ npm run build
 # or
 yarn build
 ```
-
 ### Running Production Build
 
 ```bash
