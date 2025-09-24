@@ -151,6 +151,56 @@ import { getClubInfo, getTournamentVenue } from './clubAddresses';
 
 // Board results and match details for completed fixtures
 const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes?: string }> = {
+  "andover-b-2025-09-23": {
+    "boardResults": [
+      {
+        "board": 1,
+        "homePlayer": "Liam Devlin",
+        "awayPlayer": "Mike White",
+        "homeRating": 1688,
+        "awayRating": 1624,
+        "result": "1-0",
+        "gameLength": "47 moves",
+        // "opening": "Sicilian Defense",
+        // "notes": "Strong tactical play from Fareham"
+      },
+      {
+        "board": 2,
+        "homePlayer": "Nicholas Morris",
+        "awayPlayer": "OskariVirtanen",
+        "homeRating": 1499,
+        "awayRating": 1497,
+        "result": "1-0",
+        "gameLength": "33 moves",
+        // "opening": "Queen's Gambit Declined",
+        // "notes": "Good endgame technique from Fareham"
+      },
+      {
+        "board": 3,
+        "homePlayer": "Gavin Stonham",
+        "awayPlayer": "Prabhakar Mohan",
+        "homeRating": 1479,
+        "awayRating": 1379,
+        "result": "1-0",
+        // "gameLength": "42 moves",
+        // "opening": "English Opening",
+        // "notes": "Tactical oversight in the middlegame"
+      },
+      {
+        "board": 4,
+        "homePlayer": "Gregg Tipler",
+        "awayPlayer": "David Green",
+        "homeRating": 0,
+        "awayRating": 1186,
+        "result": "1-0",
+        "gameLength": "32 moves",
+        // "opening": "French Defense",
+        // "notes": "Decisive victory for Fareham"
+      },
+    ],
+    "matchNotes": "With a great start to the season Andover B have won their first match 4-0 against Winchester B. <br/> <br/> Thank you to Winchester for making the trip. The scoreline is flattering but all of the games were close with 2 going down to minutes on the clock. <br/> <br/> A big congratulations to Gregg Tipler who won his first game as an Andover player."
+  },
+
   // Andover A Team - 2024/2025 Season Board Results
   "andover-a-2024-09-24": {
     "boardResults": [

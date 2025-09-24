@@ -71,7 +71,7 @@ export default function Home() {
                   <span className="block text-emerald-200">Chess Club</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-                  Andover's Premier Chess Club • Since 1889
+                  Representing Andover • Since 1889
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link
@@ -190,10 +190,14 @@ export default function Home() {
               </h2>
               <div className="space-y-4">
                 {recentResults.map((fixture) =>  (
-                  <div key={fixture.id} className={`theme-card p-4 border-l-4 ${
-                    fixture.result === 'Win' ? 'border-green-500' : 
-                    fixture.result === 'Loss' ? 'border-red-500' : 'border-yellow-500'
-                  }`}>
+                  <Link 
+                    key={fixture.id} 
+                    href={`/match/${fixture.id}`}
+                    className={`block theme-card p-4 border-l-4 transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer no-underline ${
+                      fixture.result === 'Win' ? 'border-green-500 hover:border-green-600' : 
+                      fixture.result === 'Loss' ? 'border-red-500 hover:border-red-600' : 'border-yellow-500 hover:border-yellow-600'
+                    }`}
+                  >
                     <div className="flex justify-between items-center">
                       <div>
                         <div className="font-semibold theme-text-primary">{fixture.homeTeam}</div>
@@ -208,7 +212,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -300,20 +304,27 @@ export default function Home() {
                 </div>
                 
                 {/* Next Match */}
-                {team.upcomingMatches && team.upcomingMatches.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <div className="text-xs theme-text-muted mb-1">Next Match</div>
-                    <div className="text-sm font-medium theme-text-primary">
-                      vs {team.upcomingMatches[0].opponent}
+                {(() => {
+                  // Filter upcoming matches to only show future dates
+                  const futureMatches = team.upcomingMatches?.filter(match => 
+                    new Date(match.date) > new Date()
+                  ) || [];
+                  
+                  return futureMatches.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <div className="text-xs theme-text-muted mb-1">Next Match</div>
+                      <div className="text-sm font-medium theme-text-primary">
+                        vs {futureMatches[0].opponent}
+                      </div>
+                      <div className="text-xs theme-text-secondary">
+                        {new Date(futureMatches[0].date).toLocaleDateString('en-GB', {
+                          day: 'numeric',
+                          month: 'short'
+                        })} • {futureMatches[0].isHome ? 'Home' : 'Away'}
+                      </div>
                     </div>
-                    <div className="text-xs theme-text-secondary">
-                      {new Date(team.upcomingMatches[0].date).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'short'
-                      })} • {team.upcomingMatches[0].isHome ? 'Home' : 'Away'}
-                    </div>
-                  </div>
-                )}
+                  );
+                })()}
                 </div>
               );
             })}

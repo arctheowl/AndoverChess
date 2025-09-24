@@ -352,7 +352,7 @@ export const completedFixtures2024_25: SimpleFixture[] = [
 // 2025-2026 Season Upcoming Tournaments
 export const upcomingTournaments2025_26: SimpleFixture[] = [
   {
-    id: "internal-1",
+    id: "tournament-hampshire-rapid-2025-09-06",
     homeTeam: "2025 Hampshire Rapid Championships",
     awayTeam: "",
     season: "2025-2026",
@@ -367,7 +367,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://www.hampshirechess.co.uk/rapidblitz2025/"
   },
   {
-    id: "internal-2",
+    id: "tournament-hampshire-blitz-2025-09-07",
     homeTeam: "2025 Hampshire Blitz Championships",
     awayTeam: "",
     season: "2025-2026",
@@ -382,7 +382,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://www.hampshirechess.co.uk/rapidblitz2025/"
   },
   {
-    id: "internal-3",
+    id: "tournament-oxford-fide-2025-09-20",
     homeTeam: "Oxford Fide Congress",
     awayTeam: "",
     season: "2025-2026",
@@ -397,7 +397,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://congress.org.uk/congress/531/home"
   },
   {
-    id: "internal-4",
+    id: "tournament-swindon-rapidplay-2025-10-04",
     homeTeam: "8th Swindon Rapidplay",
     awayTeam: "",
     season: "2025-2026",
@@ -410,7 +410,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     notes: "Public tournament - all members welcome"
   },
   {
-    id: "internal-5",
+    id: "tournament-hampshire-junior-blitz-2025-10-05",
     homeTeam: "Hampshire Open Junior FIDE Blitz",
     awayTeam: "",
     season: "2025-2026",
@@ -425,7 +425,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://www.eventbrite.co.uk/e/hampshire-open-junior-fide-blitz-2025-tickets-1055001490859"
   },
   {
-    id: "internal-6",
+    id: "tournament-isle-of-wight-rapid-blitz-2025-10-04",
     homeTeam: "Isle of Wight Rapid & Blitz Championship",
     awayTeam: "",
     season: "2025-2026",
@@ -440,7 +440,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://www.iowchess.com/event-details/isle-of-wight-rapid-blitz-championship"
   },
   {
-    id: "internal-7",
+    id: "tournament-fareham-congress-2025-10-10",
     homeTeam: "Castle Chess 28th Fareham Congress",
     awayTeam: "",
     season: "2025-2026",
@@ -455,7 +455,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://britchess.wufoo.com/cabinet/8602bf11-a3e4-4cc2-89f2-0cb2ccb5beee"
   },
   {
-    id: "internal-8",
+    id: "tournament-hampshire-congress-2025-11-07",
     homeTeam: "Hampshire Chess Congress 2025",
     awayTeam: "",
     season: "2025-2026",
@@ -470,7 +470,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://congress.org.uk/congress/618/home"
   },
   {
-    id: "internal-9",
+    id: "tournament-reading-rapidplay-2025-12-06",
     homeTeam: "2nd University of Reading Rapidplay",
     awayTeam: "",
     season: "2025-2026",
@@ -485,7 +485,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://britchess.wufoo.com/cabinet/da8a7215-3e0e-4013-8f29-6a917ded6596"
   },
   {
-    id: "internal-10",
+    id: "tournament-kidlington-congress-2026-01-31",
     homeTeam: "47th Kidlington Chess Congress 2026",
     awayTeam: "",
     season: "2025-2026",
@@ -500,7 +500,7 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
     moreInfoLink: "https://kidlingtonchess.org.uk/"
   },
    {
-    id: "internal-11",
+    id: "tournament-london-chess-classic-2025-11-26",
     homeTeam: "London Chess Classic 2025",
     awayTeam: "",
     season: "2025-2026",
@@ -519,21 +519,23 @@ export const upcomingTournaments2025_26: SimpleFixture[] = [
 // 2025-2026 Season Upcoming League Matches
 export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
   {
-    id: "ical-1",
+    id: "andover-b-2025-09-23",
     homeTeam: "Andover B",
     awayTeam: "Winchester B",
     season: "2025-2026",
     date: "2025-09-23",
     time: "19:30",
     venue: "home",
+    result: "Win",
+    score: "4-0",
     competition: "Southampton Chess League",
     isTournament: false,
-    status: "upcoming",
+    status: "completed",
     notes: "Andover B Vs Winchester B - Andover",
     venueKey: "andover"
   },
   {
-    id: "ical-2",
+    id: "andover-a-2025-09-29",
     homeTeam: "Ringwood A",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -547,7 +549,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "ringwood"
   },
   {
-    id: "ical-3",
+    id: "andover-c-2025-10-07",
     homeTeam: "Chandlers Ford E",
     awayTeam: "Andover C",
     season: "2025-2026",
@@ -561,7 +563,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "chandlers-ford"
   },
   {
-    id: "ical-4",
+    id: "andover-a-2025-10-21",
     homeTeam: "Andover A",
     awayTeam: "Basingstoke B",
     season: "2025-2026",
@@ -575,7 +577,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-5",
+    id: "andover-c-2025-10-28",
     homeTeam: "Andover C",
     awayTeam: "Basingstoke E",
     season: "2025-2026",
@@ -589,7 +591,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-6",
+    id: "andover-a-2025-10-28",
     homeTeam: "Southampton A",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -603,7 +605,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "southampton"
   },
   {
-    id: "ical-7",
+    id: "andover-b-2025-10-30",
     homeTeam: "Southampton Univesrity C",
     awayTeam: "Andover B",
     season: "2025-2026",
@@ -617,7 +619,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "southampton-university"
   },
   {
-    id: "ical-8",
+    id: "andover-b-2025-11-05",
     homeTeam: "Hamble B",
     awayTeam: "Andover B",
     season: "2025-2026",
@@ -631,7 +633,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "hamble"
   },
   {
-    id: "ical-9",
+    id: "andover-b-2025-11-11",
     homeTeam: "Andover B",
     awayTeam: "Basingstoke D",
     season: "2025-2026",
@@ -645,7 +647,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-10",
+    id: "andover-c-2025-11-18",
     homeTeam: "Southampton C",
     awayTeam: "Andover C",
     season: "2025-2026",
@@ -659,7 +661,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "southampton"
   },
   {
-    id: "ical-11",
+    id: "andover-a-2025-11-18",
     homeTeam: "Andover A",
     awayTeam: "Winchester A",
     season: "2025-2026",
@@ -673,7 +675,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-12",
+    id: "andover-b-2025-11-25",
     homeTeam: "Andover B",
     awayTeam: "Chandlers Ford D",
     season: "2025-2026",
@@ -687,7 +689,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-13",
+    id: "andover-a-2025-12-02",
     homeTeam: "Fareham B",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -701,7 +703,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "fareham"
   },
   {
-    id: "ical-14",
+    id: "andover-a-2025-12-09",
     homeTeam: "Chandlers Ford B",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -715,7 +717,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "chandlers-ford"
   },
   {
-    id: "ical-15",
+    id: "andover-c-2025-12-16",
     homeTeam: "Andover C",
     awayTeam: "Salisbury C",
     season: "2025-2026",
@@ -729,7 +731,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-16",
+    id: "andover-b-2026-01-13",
     homeTeam: "Andover B",
     awayTeam: "Salisbury C",
     season: "2025-2026",
@@ -743,7 +745,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-17",
+    id: "andover-a-2026-01-20",
     homeTeam: "Andover A",
     awayTeam: "Ringwood A",
     season: "2025-2026",
@@ -757,7 +759,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-18",
+    id: "andover-b-2026-01-27",
     homeTeam: "Winchester B",
     awayTeam: "Andover B",
     season: "2025-2026",
@@ -771,7 +773,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "winchester"
   },
   {
-    id: "ical-19",
+    id: "andover-a-2026-02-03",
     homeTeam: "Andover A",
     awayTeam: "Chandlers Ford B",
     season: "2025-2026",
@@ -785,7 +787,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-20",
+    id: "andover-b-2026-02-10",
     homeTeam: "Basingstoke D",
     awayTeam: "Andover B",
     season: "2025-2026",
@@ -799,7 +801,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "basingstoke"
   },
   {
-    id: "ical-21",
+    id: "andover-c-2026-02-17",
     homeTeam: "Andover C",
     awayTeam: "Southampton C",
     season: "2025-2026",
@@ -813,7 +815,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-22",
+    id: "andover-b-2026-02-24",
     homeTeam: "Andover B",
     awayTeam: "Hamble B",
     season: "2025-2026",
@@ -827,7 +829,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-23",
+    id: "andover-a-2026-03-03",
     homeTeam: "Winchester A",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -841,7 +843,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "winchester"
   },
   {
-    id: "ical-24",
+    id: "andover-c-2026-03-10",
     homeTeam: "Salisbury C",
     awayTeam: "Andover C",
     season: "2025-2026",
@@ -855,7 +857,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "salisbury"
   },
   {
-    id: "ical-25",
+    id: "andover-b-2026-03-17",
     homeTeam: "Chandlers Ford D",
     awayTeam: "Andover B",
     season: "2025-2026",
@@ -869,7 +871,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "chandlers-ford"
   },
   {
-    id: "ical-26",
+    id: "andover-a-2026-03-24",
     homeTeam: "Basingstoke E",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -883,7 +885,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "basingstoke"
   },
   {
-    id: "ical-27",
+    id: "andover-c-2026-03-31",
     homeTeam: "Andover C",
     awayTeam: "Chandlers Ford E",
     season: "2025-2026",
@@ -897,7 +899,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-28",
+    id: "andover-a-2026-04-07",
     homeTeam: "Basingstoke B",
     awayTeam: "Andover A",
     season: "2025-2026",
@@ -911,7 +913,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "basingstoke"
   },
   {
-    id: "ical-29",
+    id: "andover-b-2026-04-14",
     homeTeam: "Andover B",
     awayTeam: "Southampton Univserity C",
     season: "2025-2026",
@@ -925,7 +927,7 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venueKey: "andover"
   },
   {
-    id: "ical-30",
+    id: "andover-a-2026-04-21",
     homeTeam: "Andover A",
     awayTeam: "Fareham B",
     season: "2025-2026",

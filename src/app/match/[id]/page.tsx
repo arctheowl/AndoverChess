@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import DOMPurify from 'dompurify';
+import { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 import { fixtures, getMatchStats } from '@/data/fixtures';
 
@@ -11,6 +11,7 @@ export default function MatchPage() {
   const params = useParams();
   const router = useRouter();
   const matchId = params.id as string;
+  const [isClient, setIsClient] = useState(false);
 
   // Find the match by ID
   const match = fixtures.find(f => f.id === matchId);
@@ -39,6 +40,11 @@ export default function MatchPage() {
   const isCompleted = match.status === 'completed';
   const isUpcoming = match.status === 'upcoming';
   const isCancelled = match.status === 'cancelled';
+
+  // Set client state after component mounts
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const getResultColor = (result: string) => {
     switch (result) {
@@ -128,14 +134,19 @@ export default function MatchPage() {
   const renderHtmlContent = (htmlString: string) => {
     if (!htmlString) return null;
     
-    // Sanitize the HTML content to prevent XSS attacks
-    const sanitizedHtml = DOMPurify.sanitize(htmlString, {
-      ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'b', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'a', 'span', 'div'],
-      ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id']
-    });
+    // On server side or before client hydration, return plain text
+    if (!isClient) {
+      return <div>{htmlString.replace(/<[^>]*>/g, '')}</div>;
+    }
     
-    // Parse the sanitized HTML into React elements
-    return parse(sanitizedHtml);
+    // Simple HTML sanitization for client side (basic but safer than dangerouslySetInnerHTML)
+    const sanitizedHtml = htmlString
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+      .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe tags
+      .replace(/on\w+="[^"]*"/gi, '') // Remove event handlers
+      .replace(/javascript:/gi, ''); // Remove javascript: URLs
+    
+    return <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />;
   };
 
   return (
@@ -171,6 +182,11 @@ export default function MatchPage() {
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                   {match.homeTeam} vs {match.awayTeam}
                 </h1>
+                {match.matchStats && (
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {match.matchStats.homeScore} - {match.matchStats.awayScore}
+                  </div>
+                )}
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                   isCompleted ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' :
                   isUpcoming ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' :
@@ -346,19 +362,19 @@ export default function MatchPage() {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-2">
-                    {matchStats.draws}
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Draws</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
                     {matchStats.averageRating.home}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Avg Home Rating</div>
                 </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+                    {matchStats.averageRating.away}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Avg Away Rating</div>
+                </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              {/* <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Team Ratings</h4>
@@ -367,15 +383,9 @@ export default function MatchPage() {
                       <div>Away: {matchStats.averageRating.away}</div>
                     </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Final Score</h4>
-                    <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                      <div>Home: {matchStats.homeScore}</div>
-                      <div>Away: {matchStats.awayScore}</div>
-                    </div>
-                  </div>
+                  
                 </div>
-              </div>
+              </div> */}
             </div>
           );
         })()}
