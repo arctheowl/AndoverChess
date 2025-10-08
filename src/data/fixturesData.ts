@@ -542,9 +542,11 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     date: "2025-09-29",
     time: "19:30",
     venue: "away",
+    result: "Loss",
+    score: "3-2",
     competition: "Southampton Chess League",
     isTournament: false,
-    status: "upcoming",
+    status: "completed",
     notes: "Ringwood A Vs Andover A - Ringwood",
     venueKey: "ringwood"
   },

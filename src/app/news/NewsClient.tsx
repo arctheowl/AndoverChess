@@ -1,6 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { Chess } from 'chess.js';
+
+interface ChessPosition {
+  type: 'image' | 'puzzle';
+  fen: string; // FEN notation for the position
+  puzzleSolution?: string; // For puzzle positions
+  puzzleHint?: string; // For puzzle positions
+  positionTitle?: string; // Optional title for the position
+}
 
 interface NewsItem {
   id: number;
@@ -11,6 +20,7 @@ interface NewsItem {
   category: 'tournament' | 'announcement' | 'result' | 'general';
   author: string;
   featured?: boolean;
+  chessPosition?: ChessPosition;
 }
 
 interface FilterState {
@@ -20,7 +30,201 @@ interface FilterState {
   featured: 'all' | 'featured' | 'regular';
 }
 
+// Chess Board Component
+function ChessBoard({ fen, size = 400 }: { fen: string; size?: number }) {
+  const chess = new Chess(fen);
+  const board = chess.board();
+  
+  const pieceSymbols: { [key: string]: string } = {
+    'wK': '♔', 'wQ': '♕', 'wR': '♖', 'wB': '♗', 'wN': '♘', 'wP': '♙',
+    'bK': '♚', 'bQ': '♛', 'bR': '♜', 'bB': '♝', 'bN': '♞', 'bP': '♟'
+  };
+
+  const getPieceSymbol = (piece: any) => {
+    if (!piece) return '';
+    return pieceSymbols[`${piece.color}${piece.type.toUpperCase()}`] || '';
+  };
+
+  const getPieceColor = (piece: any) => {
+    if (!piece) return '';
+    // White pieces (filled symbols) - use dark color for contrast
+    // Black pieces (outlined symbols) - use dark color for contrast
+    return 'text-gray-900 dark:text-white drop-shadow-sm';
+  };
+
+  return (
+    <div className="inline-block border-2 border-gray-800 dark:border-gray-300 shadow-lg">
+      <div 
+        className="grid grid-cols-8 gap-0"
+        style={{ width: size, height: size }}
+      >
+        {board.map((row, rowIndex) =>
+          row.map((piece, colIndex) => {
+            const isLight = (rowIndex + colIndex) % 2 === 0;
+            return (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className={`flex items-center justify-center text-2xl font-bold border border-gray-300 dark:border-gray-600 ${
+                  isLight ? 'bg-amber-50 dark:bg-amber-900' : 'bg-amber-600 dark:bg-amber-700'
+                }`}
+                style={{ width: size / 8, height: size / 8 }}
+              >
+                <span className={getPieceColor(piece)}>
+                  {getPieceSymbol(piece)}
+                </span>
+              </div>
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Chess Position Components
+function ChessPositionImage({ position }: { position: ChessPosition }) {
+  if (position.type !== 'image' || !position.fen) return null;
+
+  return (
+    <div className="my-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+      {position.positionTitle && (
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          {position.positionTitle}
+        </h4>
+      )}
+      <div className="flex justify-center">
+        <ChessBoard fen={position.fen} size={320} />
+      </div>
+    </div>
+  );
+}
+
+function ChessPuzzle({ position }: { position: ChessPosition }) {
+  const [showHint, setShowHint] = useState(false);
+  const [showSolution, setShowSolution] = useState(false);
+  const [userMoves, setUserMoves] = useState<string[]>([]);
+
+  if (position.type !== 'puzzle' || !position.fen) return null;
+
+  const handleMove = (move: string) => {
+    setUserMoves([...userMoves, move]);
+  };
+
+  const resetPuzzle = () => {
+    setUserMoves([]);
+    setShowHint(false);
+    setShowSolution(false);
+  };
+
+  return (
+    <div className="my-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+      {position.positionTitle && (
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          {position.positionTitle}
+        </h4>
+      )}
+      
+      <div className="text-center mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          Try to find the best move in this position!
+        </p>
+        
+        <ChessBoard fen={position.fen} size={320} />
+      </div>
+
+      <div className="flex flex-wrap gap-2 justify-center mb-4">
+        <button
+          onClick={() => setShowHint(!showHint)}
+          className="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-xs rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+        >
+          {showHint ? 'Hide Hint' : 'Show Hint'}
+        </button>
+        <button
+          onClick={() => setShowSolution(!showSolution)}
+          className="px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-xs rounded-full hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+        >
+          {showSolution ? 'Hide Solution' : 'Show Solution'}
+        </button>
+        <button
+          onClick={resetPuzzle}
+          className="px-3 py-1 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 text-xs rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+        >
+          Reset
+        </button>
+      </div>
+
+      {showHint && position.puzzleHint && (
+        <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg mb-2">
+          <p className="text-sm text-blue-800 dark:text-blue-200">
+            <strong>Hint:</strong> {position.puzzleHint}
+          </p>
+        </div>
+      )}
+
+      {showSolution && position.puzzleSolution && (
+        <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+          <p className="text-sm text-green-800 dark:text-green-200">
+            <strong>Solution:</strong> {position.puzzleSolution}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const newsItems: NewsItem[] = [
+  {
+    id: 1,
+    title: 'Tactical Tuesday: The Greek Gift Sacrifice',
+    content: `This week's tactical theme focuses on one of the most beautiful sacrifices in chess - the Greek Gift sacrifice. This classic attacking pattern involves sacrificing a bishop on h7 (or h2 for Black) to expose the enemy king.
+
+The Greek Gift typically occurs in positions where:
+- The enemy king is castled kingside
+- The h7 square is only defended by the king
+- You have a bishop that can reach h7
+- You have other pieces ready to follow up the attack
+
+In the position shown below, White can deliver the classic Greek Gift with Bxh7+. After Kxh7, White follows up with Ng5+ and Qh5, creating a devastating attack on the exposed king.
+
+This sacrifice is named after the famous Greek mythological story, but in chess, it's a practical weapon that every attacking player should know!`,
+    excerpt: 'Learn about the classic Greek Gift sacrifice - one of chess\'s most beautiful attacking patterns.',
+    author: 'James Anderson',
+    date: '2024-01-15',
+    category: 'general',
+    featured: true,
+    chessPosition: {
+      type: 'image',
+      fen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 4 4',
+      positionTitle: 'Greek Gift Sacrifice - Bxh7+'
+    }
+  },
+  {
+    id: 2,
+    title: 'Weekly Puzzle: Find the Winning Move',
+    content: `Test your tactical skills with this week's puzzle! In the position below, it's White to move. Can you find the winning combination?
+
+This puzzle comes from a recent game played in our club championship. The position looks complex, but there's a beautiful tactical sequence that leads to a decisive advantage.
+
+Take your time to analyze the position. Look for:
+- Pinned pieces
+- Weak squares around the king
+- Potential sacrifices
+- Forcing moves that limit your opponent's options
+
+Good luck, and remember - sometimes the best move is the one that looks impossible!`,
+    excerpt: 'Challenge yourself with this week\'s tactical puzzle from our club championship.',
+    author: 'Sarah Mitchell',
+    date: '2024-01-22',
+    category: 'general',
+    featured: false,
+    chessPosition: {
+      type: 'puzzle',
+      fen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 4 4',
+      positionTitle: 'Find the Winning Move',
+      puzzleHint: 'Look for a sacrifice that opens up the enemy king position',
+      puzzleSolution: 'Bxf7+! Kxf7 2. Ng5+ Ke8 3. Qh5+ g6 4. Qe5+ Be7 5. Qxe7#'
+    }
+  },
   // {
   //   id: 1,
   //   title: 'Club Championship 2024 - Registration Now Open',
@@ -106,6 +310,7 @@ export default function NewsClient() {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
 
   const filteredNews = newsItems.filter(item => {
     const searchMatch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -281,9 +486,10 @@ export default function NewsClient() {
               {filteredNews.map((item) => (
                 <article
                   key={item.id}
-                  className={`bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ${
+                  className={`bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                     item.featured ? 'ring-2 ring-emerald-500' : ''
                   }`}
+                  onClick={() => setSelectedArticle(item)}
                 >
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
@@ -318,6 +524,69 @@ export default function NewsClient() {
           )}
         </div>
       </section>
+
+      {/* Article Modal */}
+      {selectedArticle && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(selectedArticle.category)}`}>
+                    {selectedArticle.category.charAt(0).toUpperCase() + selectedArticle.category.slice(1)}
+                  </span>
+                  {selectedArticle.featured && (
+                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 text-xs font-medium rounded-full">
+                      Featured
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={() => setSelectedArticle(null)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Article Title */}
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                {selectedArticle.title}
+              </h1>
+
+              {/* Article Meta */}
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                <span>By {selectedArticle.author}</span>
+                <time dateTime={selectedArticle.date}>
+                  {formatDate(selectedArticle.date)}
+                </time>
+              </div>
+
+              {/* Article Content */}
+              <div className="prose prose-gray dark:prose-invert max-w-none">
+                <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {selectedArticle.content}
+                </div>
+
+                {/* Chess Position */}
+                {selectedArticle.chessPosition && (
+                  <>
+                    {selectedArticle.chessPosition.type === 'image' && (
+                      <ChessPositionImage position={selectedArticle.chessPosition} />
+                    )}
+                    {selectedArticle.chessPosition.type === 'puzzle' && (
+                      <ChessPuzzle position={selectedArticle.chessPosition} />
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

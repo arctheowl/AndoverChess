@@ -201,6 +201,66 @@ const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes
     "matchNotes": "With a great start to the season Andover B have won their first match 4-0 against Winchester B. <br/> <br/> Thank you to Winchester for making the trip. The scoreline is flattering but all of the games were close with 2 going down to minutes on the clock. <br/> <br/> A big congratulations to Gregg Tipler who won his first game as an Andover player."
   },
 
+  "andover-a-2025-09-29": {
+    "boardResults": [
+      {
+        "board": 1,
+        "homePlayer": "Anderson, Peter W",
+        "awayPlayer": " Hardman, Michael J",
+        "homeRating": 2131,
+        "awayRating": 1948,
+        "result": "½-½",
+        // "gameLength": "45 moves",
+        // "opening": "Sicilian Defense",
+        // "notes": "Strong tactical play from Ringwood"
+      },
+      {
+        "board": 2,
+        "homePlayer": "Melling, Hugo",
+        "awayPlayer": "Knox, Stuart W",
+        "homeRating": 1929,
+        "awayRating": 1886,
+        "result": "½-½",
+        // "gameLength": "45 moves",
+        // "opening": "Sicilian Defense",
+        // "notes": "Strong tactical play from Ringwood"
+      },
+      {
+        "board": 3,
+        "homePlayer": "Steele, Kevin G",
+        "awayPlayer": "Clancy, Martin J",
+        "homeRating": 1828,
+        "awayRating": 1789,
+        "result": "½-½",
+        // "gameLength": "45 moves",
+        // "opening": "Sicilian Defense",
+        // "notes": "Strong tactical play from Ringwood"
+      },
+      {
+        "board": 4,
+        "homePlayer": "Willetts, Graham J",
+        "awayPlayer": "Cartridge, S",
+        "homeRating": 1777,
+        "awayRating": 1740,
+        "result": "1-0",
+        // "gameLength": "45 moves",
+        // "opening": "Sicilian Defense",
+        // "notes": "Strong tactical play from Ringwood"
+      },
+      {
+        "board": 5,
+        "homePlayer": "Perrin, Richard D",
+        "awayPlayer": "Jones, Steven Edwin",
+        "homeRating": 1778 ,
+        "awayRating": 1653,
+        "result": "½-½",
+          // "gameLength": "45 moves",
+          // "opening": "Sicilian Defense",
+          // "notes": "Strong tactical play from Ringwood"
+      },
+    ],
+  },
+
   // Andover A Team - 2024/2025 Season Board Results
   "andover-a-2024-09-24": {
     "boardResults": [
