@@ -1063,6 +1063,52 @@ const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes
       }
     ],
     "matchNotes": "A very close match that ended in a 2-2 draw, although Graham Payne (Andover) beat Isaac Yip (CF) on the fifth board in a rated game that will be entered on to LMS by Graham Stuart. we look forward to the return match at Andover in February."
+  },
+
+  "andover-c-2025-10-07": {
+    "boardResults": [
+      {
+        "board": 1,
+        "homePlayer": "Strachan, RobB",
+        "awayPlayer": "Roberts, Andrew",
+        "homeRating": 1297,
+        "awayRating": 0,
+        "result": "0-1",
+        // "opening": "Sicilian Defense",
+        // "notes": "Andover C victory on board 1"
+      },
+      {
+        "board": 2,
+        "homePlayer": "Weaver, AlanG",
+        "awayPlayer": "Dinkele, Andrew",
+        "homeRating": 1271,
+        "awayRating": 1303,
+        "result": "½-½",
+        // "opening": "Queen's Gambit Declined",
+        // "notes": "Well-contested draw"
+      },
+      {
+        "board": 3,
+        "homePlayer": "Parish, GeoffB",
+        "awayPlayer": "Austin, Kane",
+        "homeRating": 1187,
+        "awayRating": 0,
+        "result": "0-1",
+        // "opening": "English Opening",
+        // "notes": "Andover C victory on board 3"
+      },
+      {
+        "board": 4,
+        "homePlayer": "Dunleavy, Steve RB",
+        "awayPlayer": "Jackson, William A",
+        "homeRating": 988,
+        "awayRating": 1195,
+        "result": "0-1",
+        // "opening": "French Defense",
+        // "notes": "Andover C victory on board 4"
+      }
+    ],
+    "matchNotes": "Chandlers Ford E hosted Andover C on Tuesday 7th October. Andover C secured a convincing 3.5-0.5 victory, with only board 2 ending in a draw. The average rating for Chandlers Ford E was 1183, while Andover C's average was 625."
   }
 };
 

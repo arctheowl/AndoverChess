@@ -560,7 +560,9 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[] = [
     venue: "away",
     competition: "Southampton Chess League",
     isTournament: false,
-    status: "upcoming",
+    status: "completed",
+    result: "Win",
+    score: "0.5-3.5",
     notes: "Chandlers Ford E Vs Andover C - Chandlers Ford",
     venueKey: "chandlers-ford"
   },
