@@ -33,7 +33,7 @@ export interface Fixture {
   venue: 'home' | 'away';
   competition: string;
   isTournament: boolean;
-  status: 'upcoming' | 'completed' | 'cancelled';
+  status: 'upcoming' | 'completed' | 'cancelled' | 'postponed';
   result?: string;
   score?: string;
   notes?: string;
@@ -1109,14 +1109,128 @@ const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes
       }
     ],
     "matchNotes": "Chandlers Ford E hosted Andover C on Tuesday 7th October. Andover C secured a convincing 3.5-0.5 victory, with only board 2 ending in a draw. The average rating for Chandlers Ford E was 1183, while Andover C's average was 625."
+  },
+  // New board results from LMS update
+  "andover-c-2025-10-28": {
+    "boardResults": [
+      {
+        board: 1,
+        homePlayer: "Roberts, Andrew",
+        awayPlayer: "Guerrero, Dan",
+        homeRating: 1742,
+        awayRating: 1360,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 2,
+        homePlayer: "Dinkele, Andrew",
+        awayPlayer: "Bealby, Martin",
+        homeRating: 1302,
+        awayRating: 0,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 3,
+        homePlayer: "Austin, Kane",
+        awayPlayer: "Thota, Siva",
+        homeRating: 1687,
+        awayRating: 0,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 4,
+        homePlayer: "New Player",
+        awayPlayer: "Foster, John",
+        homeRating: 0,
+        awayRating: 0,
+        result: "½-½",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      }
+    ]
+  },
+  "andover-a-2025-10-28": {
+    "boardResults": [
+      {
+        board: 1,
+        homePlayer: "Buckmaster, Martin J",
+        awayPlayer: "Hardman, Michael",
+        homeRating: 2040,
+        awayRating: 1953,
+        result: "½-½",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 2,
+        homePlayer: "Jones, Gareth Aneurin",
+        awayPlayer: "Knox, Stuart",
+        homeRating: 1913,
+        awayRating: 1891,
+        result: "½-½",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 3,
+        homePlayer: "Hordnes, Niclas",
+        awayPlayer: "Steele, Kevin",
+        homeRating: 1881,
+        awayRating: 1790,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 4,
+        homePlayer: "McLeod, Fraser N",
+        awayPlayer: "Cartridge",
+        homeRating: 1827,
+        awayRating: 1731,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 5,
+        homePlayer: "Smith, Callum A",
+        awayPlayer: "Jones, Steven Edwin",
+        homeRating: 1791,
+        awayRating: 1656,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      }
+    ]
   }
+
+  
 };
 
 // Function to determine fixture status based on date
-const getFixtureStatus = (fixture: SimpleFixture): 'upcoming' | 'completed' | 'cancelled' => {
+const getFixtureStatus = (fixture: SimpleFixture): 'upcoming' | 'completed' | 'cancelled' | 'postponed' => {
   // If status is explicitly set to cancelled, keep it
   if (fixture.status === 'cancelled') {
     return 'cancelled';
+  }
+  // Preserve postponed explicitly
+  if (fixture.status === 'postponed') {
+    return 'postponed';
   }
   
   // If status is explicitly set to completed, keep it
