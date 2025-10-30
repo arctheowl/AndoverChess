@@ -9,7 +9,7 @@ export interface TeamMatch {
   venue: string;
   competition: string;
   isTournament: boolean;
-  status: 'upcoming' | 'completed' | 'cancelled';
+  status: 'upcoming' | 'completed' | 'cancelled' | 'postponed';
   result?: string;
   score?: string;
   notes?: string;
