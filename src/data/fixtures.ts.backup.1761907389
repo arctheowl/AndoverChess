@@ -1217,57 +1217,7 @@ const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes
         notes: ""
       }
     ]
-  },
-  // New board results from LMS update
-  "andover-b-2025-10-30": {
-    "boardResults": [
-      {
-        board: 1,
-        homePlayer: "New Player",
-        awayPlayer: "Devlin, Liam",
-        homeRating: 0,
-        awayRating: 1696,
-        result: "0-1",
-        gameLength: "",
-        opening: "",
-        notes: ""
-      },
-      {
-        board: 2,
-        homePlayer: "Li, Timber",
-        awayPlayer: "Roberts, Andrew",
-        homeRating: 1637,
-        awayRating: 1742,
-        result: "0-1",
-        gameLength: "",
-        opening: "",
-        notes: ""
-      },
-      {
-        board: 3,
-        homePlayer: "New Player",
-        awayPlayer: "Morris, Nicholas",
-        homeRating: 0,
-        awayRating: 1509,
-        result: "1-0",
-        gameLength: "",
-        opening: "",
-        notes: ""
-      },
-      {
-        board: 4,
-        homePlayer: "Aumeerally, Muhammad",
-        awayPlayer: "Stonham, Gavin",
-        homeRating: 1198,
-        awayRating: 1477,
-        result: "0-1",
-        gameLength: "",
-        opening: "",
-        notes: ""
-      }
-    ]
   }
-
 
   
 };

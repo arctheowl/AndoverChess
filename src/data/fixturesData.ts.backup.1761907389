@@ -378,25 +378,7 @@ export const completedFixtures2024_25: SimpleFixture[] = [
     score: "4-1",
     notes: "Southampton A vs Andover A - Andover",
     venueKey: ""
-  },
-  // New fixtures from LMS update
-  {
-    id: "andover-b-2025-10-30",
-    season: "2025-2026",
-    homeTeam: "Southampton University C",
-    awayTeam: "Andover B",
-    date: "2025-10-30",
-    time: "19:30",
-    venue: "away",
-    competition: "SCL Div 4",
-    isTournament: false,
-    status: "completed",
-    result: "Win",
-    score: "1-3",
-    notes: "Southampton University C vs Andover B - Andover",
-    venueKey: ""
   }
-
 
 ];
 
@@ -634,6 +616,21 @@ export const upcomingLeagueMatches2025_26: SimpleFixture[]
     notes: "Andover A Vs Basingstoke B - Andover",
     venueKey: "andover"
   },
+  {
+    id: "andover-b-2025-10-30",
+    homeTeam: "Southampton Univesrity C",
+    awayTeam: "Andover B",
+    season: "2025-2026",
+    date: "2025-10-30",
+    time: "19:30",
+    venue: "away",
+    competition: "Southampton Chess League",
+    isTournament: false,
+    status: "upcoming",
+    notes: "Southampton Univesrity C Vs Andover B - Southampton Univesrity",
+    venueKey: "southampton-university"
+  },
+
   {
     id: "andover-b-2025-11-05",
     homeTeam: "Hamble B",
