@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
-import { fixtures, getMatchStats } from '@/data/fixtures';
+import { fixtures as staticFixtures, getMatchStats, Fixture } from '@/data/fixtures';
 
 
 export default function MatchPage() {
@@ -12,23 +12,73 @@ export default function MatchPage() {
   const router = useRouter();
   const matchId = params.id as string;
   const [isClient, setIsClient] = useState(false);
+  const [match, setMatch] = useState<Fixture | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Set client state after component mounts
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Find the match by ID
-  const match = fixtures.find(f => f.id === matchId);
+  // Fetch match dynamically
+  useEffect(() => {
+    async function fetchMatch() {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // First try static fixtures (for tournaments)
+        const staticMatch = staticFixtures.find(f => f.id === matchId);
+        if (staticMatch) {
+          setMatch(staticMatch);
+          setLoading(false);
+          return;
+        }
+        
+        // Try to fetch from API
+        const response = await fetch(`/api/fixtures/${matchId}`);
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+          setMatch(data.data);
+        } else {
+          setError(data.error || 'Match not found');
+        }
+      } catch (err) {
+        console.error('Error fetching match:', err);
+        setError('Failed to load match details');
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  if (!match) {
+    if (matchId) {
+      fetchMatch();
+    }
+  }, [matchId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">Loading match details...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !match) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Match Not Found</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-              The match you're looking for doesn't exist or has been removed.
+              {error || "The match you're looking for doesn't exist or has been removed."}
             </p>
             <Link
               href="/fixtures"

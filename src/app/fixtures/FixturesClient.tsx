@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { fixtures, Fixture } from '@/data/fixtures';
+import { fixtures as staticFixtures, Fixture } from '@/data/fixtures';
 import { getTeamColorClasses, getTeamBorderClass, getTeamBgClass, getTeamTextClass, getTeamGradientClass, getTeamDarkGradientClass } from '@/lib/teamColors';
 
 interface FilterState {
@@ -23,6 +23,67 @@ export default function FixturesClient() {
   });
 
   const [showFilters, setShowFilters] = useState(false);
+  const [fixtures, setFixtures] = useState<Fixture[]>(staticFixtures);
+  const [loadingFixtures, setLoadingFixtures] = useState(true);
+
+  // Fetch dynamic fixtures on mount
+  useEffect(() => {
+    async function fetchFixtures() {
+      try {
+        const response = await fetch('/api/fixtures/lms');
+        const data = await response.json();
+        
+        if (data.success && data.data && data.data.length > 0) {
+          // Convert scraped fixtures to Fixture format
+          const convertedFixtures: Fixture[] = data.data.map((f: any) => {
+            // Determine season from date
+            const year = parseInt(f.date.split('-')[0]);
+            const season = `${year}-${year + 1}`;
+            
+            return {
+              id: f.id,
+              season,
+              homeTeam: f.homeTeam,
+              awayTeam: f.awayTeam,
+              date: f.date,
+              time: f.time,
+              venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
+              competition: f.competition || 'Southampton Chess League',
+              isTournament: false,
+              status: f.status || 'upcoming',
+              result: f.result,
+              score: f.score,
+              notes: f.notes,
+              moreInfoLink: f.fixtureUrl,
+            };
+          });
+          
+          // Deduplicate by ID (in case of duplicates)
+          const uniqueFixtures = Array.from(
+            new Map(convertedFixtures.map(fixture => [fixture.id, fixture])).values()
+          );
+          
+          // Merge with static tournament fixtures (which are not in LMS)
+          const tournamentFixtures = staticFixtures.filter(f => f.isTournament);
+          const allFixtures = [...uniqueFixtures, ...tournamentFixtures];
+          
+          // Deduplicate again in case a tournament has the same ID as a league match
+          const finalFixtures = Array.from(
+            new Map(allFixtures.map(fixture => [fixture.id, fixture])).values()
+          );
+          
+          setFixtures(finalFixtures);
+        }
+      } catch (error) {
+        console.error('Error fetching dynamic fixtures:', error);
+        // Keep static fixtures as fallback
+      } finally {
+        setLoadingFixtures(false);
+      }
+    }
+
+    fetchFixtures();
+  }, []);
 
   const filteredFixtures = fixtures
     .filter(fixture => {
@@ -496,6 +557,12 @@ END:VEVENT
       {/* Fixtures List */}
       <section className="py-16 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {loadingFixtures ? (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+              <p className="mt-4 theme-text-muted text-lg">Loading fixtures...</p>
+            </div>
+          ) : (
           <div className="space-y-6">
             {filteredFixtures.length === 0 ? (
               <div className="text-center py-12">
@@ -648,6 +715,7 @@ END:VEVENT
               ))
             )}
           </div>
+          )}
         </div>
       </section>
 

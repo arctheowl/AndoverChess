@@ -101,6 +101,11 @@ npm start
 yarn start
 ```
 
+
+5. Match Updates
+
+Fixtures are now automatically updated dynamically from LMS when pages are loaded. No manual updates are required.
+
 ## Project Structure
 
 ```

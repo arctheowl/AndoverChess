@@ -1266,10 +1266,163 @@ const boardResultsData: Record<string, { boardResults: BoardResult[]; matchNotes
         notes: ""
       }
     ]
-  }
-
-
-  
+  },
+  // New board results from LMS update
+  "andover-a-2025-11-04": {
+    "boardResults": [
+      {
+        board: 1,
+        homePlayer: "Marusenko, Petr",
+        awayPlayer: "Knight, Colin",
+        homeRating: 2134,
+        awayRating: 1728,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 2,
+        homePlayer: "Hardman, Michael J",
+        awayPlayer: "Shaddick, John",
+        homeRating: 1959,
+        awayRating: 1589,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 3,
+        homePlayer: "Knox, Stuart W",
+        awayPlayer: "Truelove, Ayala",
+        homeRating: 1890,
+        awayRating: 1565,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 4,
+        homePlayer: "Steele, Kevin G",
+        awayPlayer: "Dhall, Ojas",
+        homeRating: 1786,
+        awayRating: 1490,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 5,
+        homePlayer: "Jones, Steven Edwin",
+        awayPlayer: "Long, David",
+        homeRating: 1655,
+        awayRating: 1448,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      }
+    ]
+  },
+  "andover-b-2025-11-05": {
+    "boardResults": [
+      {
+        board: 1,
+        homePlayer: "Bennett, Milan",
+        awayPlayer: "Roberts, Andrew",
+        homeRating: 1755,
+        awayRating: 1713,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 2,
+        homePlayer: "Pearson, Simon RM",
+        awayPlayer: "Devlin, Liam",
+        homeRating: 1705,
+        awayRating: 1669,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 3,
+        homePlayer: "Smith, Rick F",
+        awayPlayer: "Morris, Nicholas",
+        homeRating: 1454,
+        awayRating: 1516,
+        result: "0-1",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 4,
+        homePlayer: "Gates, Simon",
+        awayPlayer: "Prynne, Josh",
+        homeRating: 1347,
+        awayRating: 1473,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      }
+    ]
+  },
+  "andover-b-2025-11-11": {
+    "boardResults": [
+      {
+        board: 1,
+        homePlayer: "Roberts, Andrew",
+        awayPlayer: "Cross, Tony",
+        homeRating: 1713,
+        awayRating: 1510,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 2,
+        homePlayer: "Morris, Nicholas",
+        awayPlayer: "Hayward, Thomas",
+        homeRating: 1516,
+        awayRating: 1455,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 3,
+        homePlayer: "Stonham, Gavin",
+        awayPlayer: "Ware, Philip",
+        homeRating: 1480,
+        awayRating: 1456,
+        result: "0-1",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      },
+      {
+        board: 4,
+        homePlayer: "Tipler, Gregg",
+        awayPlayer: "Foster, John",
+        homeRating: 0,
+        awayRating: 1516,
+        result: "1-0",
+        gameLength: "",
+        opening: "",
+        notes: ""
+      }
+    ]
+  },  
 };
 
 // Function to determine fixture status based on date

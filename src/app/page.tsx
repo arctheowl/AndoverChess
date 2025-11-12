@@ -1,19 +1,170 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import { clubStats, achievements, venueInfo, meetingSchedule, contactInfo } from '@/data/clubInfo';
-import { getRecentResults, getUpcomingFixtures, fixtures } from '@/data/fixtures';
+import { getRecentResults, getUpcomingFixtures, fixtures as staticFixtures, Fixture } from '@/data/fixtures';
 import { teams } from '@/data/teams';
 import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass } from '@/lib/teamColors';
+import { getTeamFixturesDynamic, TeamMatch } from '@/lib/teamFixtures';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import TeamFormDisplay from '@/components/TeamFormDisplay';
 
+interface TeamStats {
+  position: number;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  points: number;
+}
+
 export default function Home() {
   const { theme } = useTheme();
-  const recentResults = getRecentResults();
-  const upcomingFixtures = getUpcomingFixtures();
+  const [fixtures, setFixtures] = useState<Fixture[]>(staticFixtures);
+  const [loadingFixtures, setLoadingFixtures] = useState(true);
+  const [teamStats, setTeamStats] = useState<Record<string, TeamStats>>({});
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [teamFixtures, setTeamFixtures] = useState<Record<string, TeamMatch[]>>({});
+  const [loadingTeamFixtures, setLoadingTeamFixtures] = useState<Record<string, boolean>>({});
+
+  // Fetch dynamic fixtures on mount
+  useEffect(() => {
+    async function fetchFixtures() {
+      try {
+        const response = await fetch('/api/fixtures/lms');
+        const data = await response.json();
+        
+        if (data.success && data.data && data.data.length > 0) {
+          // Convert scraped fixtures to Fixture format
+          const convertedFixtures: Fixture[] = data.data.map((f: any) => {
+            const year = parseInt(f.date.split('-')[0]);
+            const season = `${year}-${year + 1}`;
+            
+            return {
+              id: f.id,
+              season,
+              homeTeam: f.homeTeam,
+              awayTeam: f.awayTeam,
+              date: f.date,
+              time: f.time,
+              venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
+              competition: f.competition || 'Southampton Chess League',
+              isTournament: false,
+              status: f.status || 'upcoming',
+              result: f.result,
+              score: f.score,
+              notes: f.notes,
+              moreInfoLink: f.fixtureUrl,
+            };
+          });
+          
+          // Deduplicate by ID (in case of duplicates)
+          const uniqueFixtures = Array.from(
+            new Map(convertedFixtures.map(fixture => [fixture.id, fixture])).values()
+          );
+          
+          // Merge with static tournament fixtures (which are not in LMS)
+          const tournamentFixtures = staticFixtures.filter(f => f.isTournament);
+          const allFixtures = [...uniqueFixtures, ...tournamentFixtures];
+          
+          // Deduplicate again in case a tournament has the same ID as a league match
+          const finalFixtures = Array.from(
+            new Map(allFixtures.map(fixture => [fixture.id, fixture])).values()
+          );
+          
+          setFixtures(finalFixtures);
+        }
+      } catch (error) {
+        console.error('Error fetching dynamic fixtures:', error);
+        // Keep static fixtures as fallback
+      } finally {
+        setLoadingFixtures(false);
+      }
+    }
+
+    fetchFixtures();
+  }, []);
+
+  // Fetch team statistics on component mount
+  useEffect(() => {
+    async function fetchTeamStats() {
+      try {
+        const response = await fetch('/api/teams/stats');
+        const data = await response.json();
+        
+        if (data.success && data.stats) {
+          setTeamStats(data.stats);
+        }
+      } catch (error) {
+        console.error('Error fetching team stats:', error);
+      } finally {
+        setLoadingStats(false);
+      }
+    }
+
+    fetchTeamStats();
+  }, []);
+
+  // Fetch fixtures for all teams on mount
+  useEffect(() => {
+    async function fetchAllTeamFixtures() {
+      const fetchedTeams = new Set<string>();
+      const fetchPromises = teams.map(async (team) => {
+        if (fetchedTeams.has(team.name)) return;
+        
+        fetchedTeams.add(team.name);
+        setLoadingTeamFixtures(prev => ({ ...prev, [team.name]: true }));
+        
+        try {
+          const fixtures = await getTeamFixturesDynamic(team.name);
+          setTeamFixtures(prev => ({ ...prev, [team.name]: fixtures }));
+        } catch (error) {
+          console.error(`Error fetching fixtures for ${team.name}:`, error);
+        } finally {
+          setLoadingTeamFixtures(prev => ({ ...prev, [team.name]: false }));
+        }
+      });
+      
+      await Promise.all(fetchPromises);
+    }
+    
+    fetchAllTeamFixtures();
+  }, []);
+
+  // Helper to get team with dynamic stats
+  const getTeamWithStats = (teamName: string) => {
+    const dynamicStats = teamStats[teamName];
+    const staticTeam = teams.find(t => t.name === teamName);
+    
+    if (!staticTeam) return null;
+    
+    if (dynamicStats) {
+      return {
+        ...staticTeam,
+        position: dynamicStats.position,
+        played: dynamicStats.played,
+        won: dynamicStats.won,
+        drawn: dynamicStats.drawn,
+        lost: dynamicStats.lost,
+        points: dynamicStats.points,
+        record: `W${dynamicStats.won} D${dynamicStats.drawn} L${dynamicStats.lost}`,
+      };
+    }
+    
+    return staticTeam;
+  };
+
+  const recentResults = fixtures
+    .filter(fixture => fixture.status === 'completed' && !fixture.isTournament)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
+  
+  const upcomingFixtures = fixtures
+    .filter(fixture => !fixture.isTournament && fixture.status === 'upcoming')
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   
   // Get next 3 upcoming events
   const next3Events = fixtures
@@ -277,6 +428,7 @@ export default function Home() {
                   break;
               }
               const teamColor = teamLetter === 'A' ? 'A' : teamLetter === 'B' ? 'B' : teamLetter === 'C' ? 'C' : 'A';
+              const teamWithStats = getTeamWithStats(team.name) || team;
               
               return (
                 <div key={team.id} className={`${getTeamGradientClass(teamColor)} ${getTeamDarkGradientClass(teamColor)} rounded-lg p-6 text-center border-2 ${getTeamBorderClass(teamColor)} dark:border-${getTeamColorClasses(teamColor, 'secondary')}/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}>
@@ -288,27 +440,50 @@ export default function Home() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="theme-text-secondary">Position:</span>
-                    <span className="font-semibold theme-text-primary">{team.position}{team.position === 1 ? 'st' : team.position === 2 ? 'nd' : team.position === 3 ? 'rd' : 'th'}</span>
+                    <span className="font-semibold theme-text-primary">
+                      {loadingStats ? '...' : `${teamWithStats.position}${teamWithStats.position === 1 ? 'st' : teamWithStats.position === 2 ? 'nd' : teamWithStats.position === 3 ? 'rd' : 'th'}`}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="theme-text-secondary">Record:</span>
-                    <span className="font-semibold theme-text-primary">{team.record}</span>
+                    <span className="font-semibold theme-text-primary">
+                      {loadingStats ? '...' : teamWithStats.record}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="theme-text-secondary">Points:</span>
-                    <span className="font-semibold theme-text-primary">{team.points}/{team.maxPoints}</span>
+                    <span className="font-semibold theme-text-primary">
+                      {loadingStats ? '...' : `${teamWithStats.points}/${teamWithStats.maxPoints}`}
+                    </span>
                   </div>
                 </div>
                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                  <TeamFormDisplay teamName={team.name} />
+                  <TeamFormDisplay 
+                    teamName={team.name} 
+                    fixtures={teamFixtures[team.name]} 
+                    loading={loadingTeamFixtures[team.name]}
+                  />
                 </div>
                 
                 {/* Next Match */}
                 {(() => {
+                  const fixtures = teamFixtures[team.name] || [];
                   // Filter upcoming matches to only show future dates
-                  const futureMatches = team.upcomingMatches?.filter(match => 
-                    new Date(match.date) > new Date()
-                  ) || [];
+                  const futureMatches = fixtures
+                    .filter(match => 
+                      (match.status === 'upcoming' || match.status === 'postponed') &&
+                      new Date(match.date) > new Date()
+                    )
+                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+                  
+                  if (loadingTeamFixtures[team.name]) {
+                    return (
+                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <div className="text-xs theme-text-muted">Next Match</div>
+                        <div className="text-sm theme-text-secondary">Loading...</div>
+                      </div>
+                    );
+                  }
                   
                   return futureMatches.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -320,7 +495,7 @@ export default function Home() {
                         {new Date(futureMatches[0].date).toLocaleDateString('en-GB', {
                           day: 'numeric',
                           month: 'short'
-                        })} • {futureMatches[0].isHome ? 'Home' : 'Away'}
+                        })} • {futureMatches[0].venue === 'home' ? 'Home' : 'Away'}
                       </div>
                     </div>
                   );

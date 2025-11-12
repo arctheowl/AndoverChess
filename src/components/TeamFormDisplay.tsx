@@ -1,14 +1,46 @@
 'use client';
 
-import { getRecentTeamResults } from '@/lib/teamFixtures';
+import { getRecentTeamResults, TeamMatch } from '@/lib/teamFixtures';
 
 interface TeamFormDisplayProps {
   teamName: string;
   className?: string;
+  fixtures?: TeamMatch[]; // Optional - if provided, use these instead of fetching
+  loading?: boolean;
 }
 
-export default function TeamFormDisplay({ teamName, className = '' }: TeamFormDisplayProps) {
-  const recentResults = getRecentTeamResults(teamName);
+export default function TeamFormDisplay({ 
+  teamName, 
+  className = '',
+  fixtures: providedFixtures,
+  loading = false
+}: TeamFormDisplayProps) {
+  // If fixtures are provided, use them; otherwise fetch from static (for backward compatibility)
+  const recentResults = providedFixtures
+    ? providedFixtures
+        .filter(match => match.status === 'completed')
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 5)
+    : getRecentTeamResults(teamName);
+  
+  // Show loading state if fixtures are being loaded
+  if (loading) {
+    return (
+      <div className={`${className}`}>
+        <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Recent Form</h4>
+        <div className="flex gap-1 justify-center">
+          {[...Array(5)].map((_, index) => (
+            <div
+              key={index}
+              className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center animate-pulse"
+            >
+              <span className="text-xs text-gray-400 dark:text-gray-500">...</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   
   // If no recent results, show placeholder
   if (recentResults.length === 0) {
