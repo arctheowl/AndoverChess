@@ -98,15 +98,57 @@ async function scrapeFixtureDetails(fixtureUrl: string): Promise<{
       }
     });
     
-    // Extract match notes
+    // Extract match notes - look for h3 heading followed by <p> comments
     let matchNotes = '';
-    $('p, div').each((index, el) => {
-      const text = $(el).text().trim();
-      if (text.length > 50 && /match|game/i.test(text)) {
-        matchNotes = text;
-        return false; // Break
+    
+    // Find h3 elements that might indicate a comment section
+    // Common headings: "Comment", "Comments", "Notes", "Match Report", "Match Comment"
+    $('h3').each((index, el) => {
+      const headingText = $(el).text().trim().toLowerCase();
+      
+      // Check if this heading indicates a comment section
+      if (headingText.includes('comment') || 
+          headingText.includes('note') || 
+          headingText.includes('report') ||
+          headingText.includes('match comment')) {
+        
+        // Get all following <p> elements until we hit another heading or the end
+        const commentParagraphs: string[] = [];
+        let nextElement = $(el).next();
+        
+        while (nextElement.length > 0) {
+          // Stop if we hit another heading
+          if (nextElement.is('h1, h2, h3, h4, h5, h6')) {
+            break;
+          }
+          
+          // Collect <p> elements
+          if (nextElement.is('p')) {
+            const text = nextElement.text().trim();
+            if (text.length > 0) {
+              commentParagraphs.push(text);
+            }
+          }
+          
+          // Move to next sibling
+          nextElement = nextElement.next();
+        }
+        
+        // Combine all comment paragraphs
+        if (commentParagraphs.length > 0) {
+          matchNotes = commentParagraphs.join('\n\n');
+          return false; // Break out of h3 loop
+        }
       }
     });
+    
+    // Clean up the match notes - remove extra whitespace
+    if (matchNotes) {
+      matchNotes = matchNotes
+        .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+        .replace(/\n\s*\n/g, '\n') // Remove empty lines
+        .trim();
+    }
     
     return {
       boardResults,
