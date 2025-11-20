@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { fixtures as staticFixtures, Fixture } from '@/data/fixtures';
+import { Fixture } from '@/data/fixtures';
 import { getTeamColorClasses, getTeamBorderClass, getTeamBgClass, getTeamTextClass, getTeamGradientClass, getTeamDarkGradientClass } from '@/lib/teamColors';
 
 interface FilterState {
@@ -23,7 +23,7 @@ export default function FixturesClient() {
   });
 
   const [showFilters, setShowFilters] = useState(false);
-  const [fixtures, setFixtures] = useState<Fixture[]>(staticFixtures);
+  const [fixtures, setFixtures] = useState<Fixture[]>([]);
   const [loadingFixtures, setLoadingFixtures] = useState(true);
 
   // Fetch dynamic fixtures on mount
@@ -50,7 +50,7 @@ export default function FixturesClient() {
               venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
               competition: f.competition || 'Southampton Chess League',
               isTournament: false,
-              status: f.status || 'upcoming',
+              status: (f.status || 'upcoming') as Fixture['status'],
               result: f.result,
               score: f.score,
               notes: f.notes,
@@ -63,16 +63,9 @@ export default function FixturesClient() {
             new Map(convertedFixtures.map(fixture => [fixture.id, fixture])).values()
           );
           
-          // Merge with static tournament fixtures (which are not in LMS)
-          const tournamentFixtures = staticFixtures.filter(f => f.isTournament);
-          const allFixtures = [...uniqueFixtures, ...tournamentFixtures];
-          
-          // Deduplicate again in case a tournament has the same ID as a league match
-          const finalFixtures = Array.from(
-            new Map(allFixtures.map(fixture => [fixture.id, fixture])).values()
-          );
-          
-          setFixtures(finalFixtures);
+          setFixtures(uniqueFixtures);
+        } else {
+          setFixtures([]);
         }
       } catch (error) {
         console.error('Error fetching dynamic fixtures:', error);

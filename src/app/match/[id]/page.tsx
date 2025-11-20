@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
-import { fixtures as staticFixtures, getMatchStats, Fixture } from '@/data/fixtures';
+import { getMatchStats, Fixture } from '@/data/fixtures';
 
 
 export default function MatchPage() {
@@ -27,14 +27,6 @@ export default function MatchPage() {
       try {
         setLoading(true);
         setError(null);
-        
-        // First try static fixtures (for tournaments)
-        const staticMatch = staticFixtures.find(f => f.id === matchId);
-        if (staticMatch) {
-          setMatch(staticMatch);
-          setLoading(false);
-          return;
-        }
         
         // Try to fetch from API
         const response = await fetch(`/api/fixtures/${matchId}`);

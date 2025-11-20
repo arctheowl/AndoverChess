@@ -1,6 +1,6 @@
 'use client';
 
-import { getRecentTeamResults, TeamMatch } from '@/lib/teamFixtures';
+import { TeamMatch } from '@/lib/teamFixtures';
 
 interface TeamFormDisplayProps {
   teamName: string;
@@ -15,13 +15,13 @@ export default function TeamFormDisplay({
   fixtures: providedFixtures,
   loading = false
 }: TeamFormDisplayProps) {
-  // If fixtures are provided, use them; otherwise fetch from static (for backward compatibility)
+  // If fixtures are provided, use them; otherwise show empty state
   const recentResults = providedFixtures
     ? providedFixtures
         .filter(match => match.status === 'completed')
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 5)
-    : getRecentTeamResults(teamName);
+    : [];
   
   // Show loading state if fixtures are being loaded
   if (loading) {

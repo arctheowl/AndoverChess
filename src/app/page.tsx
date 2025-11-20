@@ -5,12 +5,54 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import { clubStats, achievements, venueInfo, meetingSchedule, contactInfo } from '@/data/clubInfo';
-import { getRecentResults, getUpcomingFixtures, fixtures as staticFixtures, Fixture } from '@/data/fixtures';
+import { Fixture } from '@/data/fixtures';
 import { teams } from '@/data/teams';
 import { getTeamGradientClass, getTeamDarkGradientClass, getTeamColorClasses, getTeamBorderClass } from '@/lib/teamColors';
 import { getTeamFixturesDynamic, TeamMatch } from '@/lib/teamFixtures';
 import SEOStructuredData from '@/components/SEOStructuredData';
 import TeamFormDisplay from '@/components/TeamFormDisplay';
+
+const FixtureListSkeleton = ({ count = 3 }: { count?: number }) => (
+  <div className="space-y-4" role="status" aria-live="polite">
+    {Array.from({ length: count }).map((_, idx) => (
+      <div
+        key={idx}
+        className="theme-card p-4 border border-gray-200 dark:border-gray-700 rounded-lg animate-pulse"
+      >
+        <div className="flex justify-between items-center gap-6">
+          <div className="flex-1 space-y-2">
+            <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
+          </div>
+          <div className="text-right space-y-2">
+            <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div className="h-3 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
+          </div>
+        </div>
+        <div className="mt-4 h-3 w-40 bg-gray-200 dark:bg-gray-700 rounded" />
+      </div>
+    ))}
+  </div>
+);
+
+const EventListSkeleton = ({ count = 3 }: { count?: number }) => (
+  <div className="space-y-6" role="status" aria-live="polite">
+    {Array.from({ length: count }).map((_, idx) => (
+      <div key={idx} className="flex items-center space-x-4 theme-card p-4 animate-pulse">
+        <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full" />
+        <div className="flex-1 space-y-2">
+          <div className="h-4 w-40 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-48 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+        <div className="w-20 h-6 bg-gray-200 dark:bg-gray-700 rounded-full" />
+      </div>
+    ))}
+  </div>
+);
+
+const baseFixtureCardClasses =
+  'block theme-card p-4 border-l-4 rounded-lg min-h-[130px] transition-all duration-200';
 
 interface TeamStats {
   position: number;
@@ -23,12 +65,14 @@ interface TeamStats {
 
 export default function Home() {
   const { theme } = useTheme();
-  const [fixtures, setFixtures] = useState<Fixture[]>(staticFixtures);
+  const [fixtures, setFixtures] = useState<Fixture[]>([]);
   const [loadingFixtures, setLoadingFixtures] = useState(true);
   const [teamStats, setTeamStats] = useState<Record<string, TeamStats>>({});
   const [loadingStats, setLoadingStats] = useState(true);
   const [teamFixtures, setTeamFixtures] = useState<Record<string, TeamMatch[]>>({});
   const [loadingTeamFixtures, setLoadingTeamFixtures] = useState<Record<string, boolean>>({});
+  // const previewSkeletons = true; // TODO: remove after visually verifying skeletons
+  const showFixturesSkeleton = loadingFixtures;
 
   // Fetch dynamic fixtures on mount
   useEffect(() => {
@@ -53,7 +97,7 @@ export default function Home() {
               venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
               competition: f.competition || 'Southampton Chess League',
               isTournament: false,
-              status: f.status || 'upcoming',
+              status: (f.status || 'upcoming') as Fixture['status'],
               result: f.result,
               score: f.score,
               notes: f.notes,
@@ -66,16 +110,9 @@ export default function Home() {
             new Map(convertedFixtures.map(fixture => [fixture.id, fixture])).values()
           );
           
-          // Merge with static tournament fixtures (which are not in LMS)
-          const tournamentFixtures = staticFixtures.filter(f => f.isTournament);
-          const allFixtures = [...uniqueFixtures, ...tournamentFixtures];
-          
-          // Deduplicate again in case a tournament has the same ID as a league match
-          const finalFixtures = Array.from(
-            new Map(allFixtures.map(fixture => [fixture.id, fixture])).values()
-          );
-          
-          setFixtures(finalFixtures);
+          setFixtures(uniqueFixtures);
+        } else {
+          setFixtures([]);
         }
       } catch (error) {
         console.error('Error fetching dynamic fixtures:', error);
@@ -339,33 +376,39 @@ export default function Home() {
                 </span>
                 Recent Results
               </h2>
-              <div className="space-y-4">
-                {recentResults.map((fixture) =>  (
-                  <Link 
-                    key={fixture.id} 
-                    href={`/match/${fixture.id}`}
-                    className={`block theme-card p-4 border-l-4 transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer no-underline ${
-                      fixture.result === 'Win' ? 'border-green-500 hover:border-green-600' : 
-                      fixture.result === 'Loss' ? 'border-red-500 hover:border-red-600' : 'border-yellow-500 hover:border-yellow-600'
-                    }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="font-semibold theme-text-primary">{fixture.homeTeam}</div>
-                        <div className="text-sm theme-text-secondary">vs {fixture.awayTeam}</div>
+              {showFixturesSkeleton ? (
+                <FixtureListSkeleton />
+              ) : recentResults.length === 0 ? (
+                <p className="theme-text-secondary">No recent results available.</p>
+              ) : (
+                <div className="space-y-4">
+                  {recentResults.map((fixture) =>  (
+                    <Link 
+                      key={fixture.id} 
+                      href={`/match/${fixture.id}`}
+                      className={`${baseFixtureCardClasses} hover:shadow-lg hover:scale-[1.02] cursor-pointer no-underline ${
+                        fixture.result === 'Win' ? 'border-green-500 hover:border-green-600' : 
+                        fixture.result === 'Loss' ? 'border-red-500 hover:border-red-600' : 'border-yellow-500 hover:border-yellow-600'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <div className="font-semibold theme-text-primary">{fixture.homeTeam}</div>
+                          <div className="text-sm theme-text-secondary">vs {fixture.awayTeam}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-2xl font-bold ${
+                            fixture.result === 'Win' ? 'text-green-600' : 
+                            fixture.result === 'Loss' ? 'text-red-600' : 'text-yellow-600'
+                          }`}>{fixture.score}</div>
+                          <div className="text-sm theme-text-muted capitalize">{fixture.result}</div>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className={`text-2xl font-bold ${
-                          fixture.result === 'Win' ? 'text-green-600' : 
-                          fixture.result === 'Loss' ? 'text-red-600' : 'text-yellow-600'
-                        }`}>{fixture.score}</div>
-                        <div className="text-sm theme-text-muted capitalize">{fixture.result}</div>
-                      </div>
-                    </div>
-                    <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}</div>
-                  </Link>
-                ))}
-              </div>
+                      <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {new Date(fixture.date).toLocaleDateString('en-GB')}</div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Upcoming Matches */}
@@ -378,23 +421,32 @@ export default function Home() {
                 </span>
                 Upcoming Matches
               </h2>
-              <div className="space-y-4">
-                {upcomingFixtures.slice(0, 3).map((fixture) => (
-                  <div key={fixture.id} className="theme-card p-4 border-l-4 border-emerald-500">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="font-semibold theme-text-primary">{fixture.homeTeam}</div>
-                        <div className="text-sm theme-text-secondary">vs {fixture.awayTeam}</div>
+              {showFixturesSkeleton ? (
+                <FixtureListSkeleton />
+              ) : upcomingFixtures.length === 0 ? (
+                <p className="theme-text-secondary">No upcoming matches scheduled.</p>
+              ) : (
+                <div className="space-y-4">
+                  {upcomingFixtures.slice(0, 3).map((fixture) => (
+                    <div
+                      key={fixture.id}
+                      className={`${baseFixtureCardClasses} border-emerald-500 hover:shadow-lg hover:scale-[1.02] hover:bg-gray-50 dark:hover:bg-gray-800/70`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <div className="font-semibold theme-text-primary">{fixture.homeTeam}</div>
+                          <div className="text-sm theme-text-secondary">vs {fixture.awayTeam}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-emerald-600 capitalize">{fixture.venue}</div>
+                          <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString('en-GB')}</div>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-emerald-600 capitalize">{fixture.venue}</div>
-                        <div className="text-sm theme-text-muted">{new Date(fixture.date).toLocaleDateString('en-GB')}</div>
-                      </div>
+                      <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {fixture.time}</div>
                     </div>
-                    <div className="mt-2 text-xs theme-text-muted">{fixture.competition} • {fixture.time}</div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -514,31 +566,37 @@ export default function Home() {
             <div>
               <h2 className="text-3xl font-bold theme-text-primary mb-6">Upcoming Events</h2>
               <div className="space-y-6">
-                {next3Events.map((event, index) => (
-                  <div key={event.id} className="flex items-center space-x-4 theme-card p-4">
-                    <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">
-                        {index + 1}
-                      </span>
+                {showFixturesSkeleton ? (
+                  <EventListSkeleton />
+                ) : next3Events.length === 0 ? (
+                  <p className="theme-text-secondary">No upcoming events scheduled.</p>
+                ) : (
+                  next3Events.map((event, index) => (
+                    <div key={event.id} className="flex items-center space-x-4 theme-card p-4">
+                      <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">
+                          {index + 1}
+                        </span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold theme-text-primary">
+                          {event.homeTeam} {event.awayTeam ? 'vs' : ''} {event.awayTeam}
+                        </h3>
+                        <p className="theme-text-secondary">
+                          {formatEventDate(event.date)} • {event.time}
+                        </p>
+                        <p className="text-sm theme-text-muted">
+                          {event.competition} • {event.venue === 'home' ? 'Home' : 'Away'}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 text-xs px-2 py-1 rounded-full">
+                          {event.isTournament ? 'Tournament' : 'League'}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold theme-text-primary">
-                        {event.homeTeam} {event.awayTeam ? 'vs' : ''} {event.awayTeam}
-                      </h3>
-                      <p className="theme-text-secondary">
-                        {formatEventDate(event.date)} • {event.time}
-                      </p>
-                      <p className="text-sm theme-text-muted">
-                        {event.competition} • {event.venue === 'home' ? 'Home' : 'Away'}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 text-xs px-2 py-1 rounded-full">
-                        {event.isTournament ? 'Tournament' : 'League'}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
               <div className="mt-6">
                 <Link 

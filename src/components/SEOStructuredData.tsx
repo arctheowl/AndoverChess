@@ -1,13 +1,39 @@
 'use client';
 
-import { fixtures } from '@/data/fixtures';
+import { useEffect, useState } from 'react';
 import { clubStats, venueInfo, contactInfo } from '@/data/clubInfo';
 
+interface SEOFixture {
+  id: string;
+  homeTeam: string;
+  awayTeam: string;
+  date: string;
+  time: string;
+  venue: 'home' | 'away';
+  competition: string;
+  location?: string;
+}
+
 export default function SEOStructuredData() {
-  // Get upcoming events for structured data
-  const upcomingEvents = fixtures
-    .filter(fixture => fixture.status === 'upcoming')
-    .slice(0, 5); // Limit to next 5 events
+  const [upcomingEvents, setUpcomingEvents] = useState<SEOFixture[]>([]);
+
+  useEffect(() => {
+    async function fetchUpcoming() {
+      try {
+        const response = await fetch('/api/fixtures?status=upcoming&limit=5', {
+          cache: 'no-store',
+        });
+        const data = await response.json();
+        if (data.success && Array.isArray(data.data)) {
+          setUpcomingEvents(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching fixtures for structured data:', error);
+      }
+    }
+
+    fetchUpcoming();
+  }, []);
 
   const eventsStructuredData = {
     "@context": "https://schema.org",

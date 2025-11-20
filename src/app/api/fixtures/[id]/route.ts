@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fixtures } from '@/data/fixtures';
 import * as cheerio from 'cheerio';
+import type { Fixture } from '@/data/fixtures';
 
 interface BoardResult {
   board: number;
@@ -169,75 +169,43 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const fixtureUrl = searchParams.get('url'); // Optional fixture URL to scrape
     
-    // First try to get from static fixtures (for tournaments)
-    let fixture = fixtures.find(f => f.id === id);
-    
-    // If not found in static, try to fetch from LMS
-    if (!fixture) {
-      try {
-        const lmsResponse = await fetch(
-          `${request.nextUrl.origin}/api/fixtures/lms`,
-          { next: { revalidate: 300 } }
-        );
-        
-        if (lmsResponse.ok) {
-          const lmsData = await lmsResponse.json();
-          if (lmsData.success && lmsData.data) {
-            const lmsFixture = lmsData.data.find((f: any) => f.id === id);
-            if (lmsFixture) {
-              // Convert LMS fixture to Fixture format
-              const year = parseInt(lmsFixture.date.split('-')[0]);
-              const season = `${year}-${year + 1}`;
-              
-              fixture = {
-                id: lmsFixture.id,
-                season,
-                homeTeam: lmsFixture.homeTeam,
-                awayTeam: lmsFixture.awayTeam,
-                date: lmsFixture.date,
-                time: lmsFixture.time,
-                venue: lmsFixture.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
-                competition: lmsFixture.competition || 'Southampton Chess League',
-                isTournament: false,
-                status: lmsFixture.status || 'upcoming',
-                result: lmsFixture.result,
-                score: lmsFixture.score,
-                notes: lmsFixture.notes,
-                moreInfoLink: lmsFixture.fixtureUrl,
-              };
-              
-              // If we have a fixture URL, scrape details
-              if (lmsFixture.fixtureUrl) {
-                const scrapedDetails = await scrapeFixtureDetails(lmsFixture.fixtureUrl);
-                if (scrapedDetails) {
-                  fixture = {
-                    ...fixture,
-                    boardResults: scrapedDetails.boardResults,
-                    matchNotes: scrapedDetails.matchNotes,
-                  };
-                }
-              }
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching from LMS:', error);
-      }
-    } else {
-      // If we have a fixture URL for static fixture, try to scrape details
-      if (fixtureUrl || fixture.moreInfoLink) {
-        const urlToScrape = fixtureUrl || fixture.moreInfoLink;
-        if (urlToScrape) {
-          const scrapedDetails = await scrapeFixtureDetails(urlToScrape);
-          if (scrapedDetails) {
+    let fixture: Fixture | null = null;
+
+    try {
+      const lmsResponse = await fetch(
+        `${request.nextUrl.origin}/api/fixtures/lms`,
+        { next: { revalidate: 300 } }
+      );
+
+      if (lmsResponse.ok) {
+        const lmsData = await lmsResponse.json();
+        if (lmsData.success && Array.isArray(lmsData.data)) {
+          const lmsFixture = lmsData.data.find((f: any) => f.id === id);
+          if (lmsFixture) {
+            const year = parseInt(lmsFixture.date.split('-')[0]);
+            const season = `${year}-${year + 1}`;
+
             fixture = {
-              ...fixture,
-              boardResults: scrapedDetails.boardResults,
-              matchNotes: scrapedDetails.matchNotes || fixture.matchNotes,
+              id: lmsFixture.id,
+              season,
+              homeTeam: lmsFixture.homeTeam,
+              awayTeam: lmsFixture.awayTeam,
+              date: lmsFixture.date,
+              time: lmsFixture.time,
+              venue: lmsFixture.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
+              competition: lmsFixture.competition || 'Southampton Chess League',
+              isTournament: false,
+              status: (lmsFixture.status || 'upcoming') as Fixture['status'],
+              result: lmsFixture.result,
+              score: lmsFixture.score,
+              notes: lmsFixture.notes,
+              moreInfoLink: lmsFixture.fixtureUrl,
             };
           }
         }
       }
+    } catch (error) {
+      console.error('Error fetching from LMS:', error);
     }
     
     if (!fixture) {
@@ -245,6 +213,19 @@ export async function GET(
         { success: false, error: 'Fixture not found' },
         { status: 404 }
       );
+    }
+
+    // If we have a fixture URL, scrape details to enrich data
+    const urlToScrape = fixtureUrl || fixture.moreInfoLink;
+    if (urlToScrape) {
+      const scrapedDetails = await scrapeFixtureDetails(urlToScrape);
+      if (scrapedDetails) {
+        fixture = {
+          ...fixture,
+          boardResults: scrapedDetails.boardResults,
+          matchNotes: scrapedDetails.matchNotes || fixture.matchNotes,
+        };
+      }
     }
 
     return NextResponse.json({

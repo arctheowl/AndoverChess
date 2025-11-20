@@ -36,7 +36,7 @@ export const teams: Team[] = [
     "divisionLink": "https://lms.englishchess.org.uk/lms/event/8398/view",
     "position": 6,
     "played": 1,
-    "won": 0,
+    "won": 1,
     "drawn": 0,
     "lost": 1,
     "points": 0,

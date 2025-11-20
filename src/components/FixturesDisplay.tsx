@@ -2,20 +2,30 @@
 
 import { useUpcomingFixtures, useRecentResults } from '@/hooks/useFixtures';
 
+const SkeletonCard = () => (
+  <div className="theme-card p-4 border-l-4 border-gray-200 dark:border-gray-700 animate-pulse" role="status" aria-live="polite">
+    <div className="flex justify-between items-center gap-6">
+      <div className="flex-1 space-y-2">
+        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
+      </div>
+      <div className="text-right space-y-2">
+        <div className="h-5 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
+        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
+      </div>
+    </div>
+    <div className="mt-4 h-3 w-40 bg-gray-200 dark:bg-gray-700 rounded" />
+  </div>
+);
+
 export default function FixturesDisplay() {
   const { fixtures: upcomingFixtures, loading: upcomingLoading, error: upcomingError } = useUpcomingFixtures(5);
   const { fixtures: recentResults, loading: resultsLoading, error: resultsError } = useRecentResults();
+  const previewSkeletons = true; // TODO: remove after verifying skeleton visuals
+  const showUpcomingSkeletons = previewSkeletons || upcomingLoading;
+  const showResultsSkeletons = previewSkeletons || resultsLoading;
 
-  if (upcomingLoading || resultsLoading) {
-    return (
-      <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
-        <span className="ml-2">Loading fixtures...</span>
-      </div>
-    );
-  }
-
-  if (upcomingError || resultsError) {
+  if (!showUpcomingSkeletons && !showResultsSkeletons && (upcomingError || resultsError)) {
     return (
       <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
         <p className="text-red-800 dark:text-red-200">
@@ -30,7 +40,15 @@ export default function FixturesDisplay() {
       {/* Upcoming Fixtures */}
       <div>
         <h2 className="text-2xl font-bold theme-text-primary mb-4">Upcoming Fixtures</h2>
-        {upcomingFixtures.length === 0 ? (
+        {showUpcomingSkeletons ? (
+          <div className="space-y-3">
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <SkeletonCard key={idx} />
+            ))}
+          </div>
+        ) : upcomingError ? (
+          <p className="text-red-600 dark:text-red-400">Unable to load upcoming fixtures. Please try again later.</p>
+        ) : upcomingFixtures.length === 0 ? (
           <p className="theme-text-secondary">No upcoming fixtures scheduled.</p>
         ) : (
           <div className="space-y-3">
@@ -56,7 +74,15 @@ export default function FixturesDisplay() {
       {/* Recent Results */}
       <div>
         <h2 className="text-2xl font-bold theme-text-primary mb-4">Recent Results</h2>
-        {recentResults.length === 0 ? (
+        {showResultsSkeletons ? (
+          <div className="space-y-3">
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <SkeletonCard key={idx} />
+            ))}
+          </div>
+        ) : resultsError ? (
+          <p className="text-red-600 dark:text-red-400">Unable to load recent results. Please try again later.</p>
+        ) : recentResults.length === 0 ? (
           <p className="theme-text-secondary">No recent results available.</p>
         ) : (
           <div className="space-y-3">
