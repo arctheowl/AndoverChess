@@ -1,4 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+type LMSFixture = {
+  status: string;
+  date: string;
+  result?: string;
+};
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,15 +20,18 @@ export async function GET(request: NextRequest) {
       throw new Error(`Failed to fetch LMS fixtures: ${lmsResponse.status}`);
     }
 
-    const lmsData = await lmsResponse.json();
+    const lmsData = (await lmsResponse.json()) as {
+      success: boolean;
+      data: LMSFixture[];
+    };
     if (!lmsData.success || !Array.isArray(lmsData.data)) {
       throw new Error('Invalid LMS response');
     }
 
-    let results = lmsData.data
-      .filter((fixture: { status: string }) => fixture.status === 'completed')
+    let results: LMSFixture[] = lmsData.data
+      .filter((fixture) => fixture.status === 'completed')
       .sort(
-        (a: { date: string }, b: { date: string }) =>
+        (a, b) =>
           new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
@@ -43,14 +52,14 @@ export async function GET(request: NextRequest) {
     const normalizeResult = (result?: string) => result?.toLowerCase() || '';
     const summary = {
       total: results.length,
-      won: results.filter(f => normalizeResult(f.result) === 'win' || normalizeResult(f.result) === 'won').length,
-      lost: results.filter(f => normalizeResult(f.result) === 'loss' || normalizeResult(f.result) === 'lost').length,
-      drawn: results.filter(f => normalizeResult(f.result) === 'draw' || normalizeResult(f.result) === 'drew').length,
+      won: results.filter(fixture => normalizeResult(fixture.result) === 'win' || normalizeResult(fixture.result) === 'won').length,
+      lost: results.filter(fixture => normalizeResult(fixture.result) === 'loss' || normalizeResult(fixture.result) === 'lost').length,
+      drawn: results.filter(fixture => normalizeResult(fixture.result) === 'draw' || normalizeResult(fixture.result) === 'drew').length,
       winRate:
         results.length === 0
           ? 0
           : Math.round(
-              (results.filter(f => normalizeResult(f.result) === 'win' || normalizeResult(f.result) === 'won').length /
+              (results.filter(fixture => normalizeResult(fixture.result) === 'win' || normalizeResult(fixture.result) === 'won').length /
                 results.length) *
                 100
             ),
