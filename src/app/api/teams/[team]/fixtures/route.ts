@@ -153,14 +153,17 @@ async function scrapeTeamFixtures(teamLetter: 'A' | 'B' | 'C'): Promise<ScrapedF
     }
     
     // Generate ID from teams and date
-    const extractTeamLetter = (teamName: string): string => {
+    const extractTeamLetter = (teamName: string): string | null => {
       const match = teamName.match(/andover\s+([A-Z])\b/i);
-      return match ? match[1].toLowerCase() : 'a';
+      return match ? match[1].toLowerCase() : null;
     };
     
-    const teamLetter = extractTeamLetter(homeTeam) || extractTeamLetter(awayTeam) || 'a';
+    const teamLetterForId = 
+      extractTeamLetter(homeTeam) ?? 
+      extractTeamLetter(awayTeam) ?? 
+      teamLetter.toLowerCase();
     const dateId = date.replace(/-/g, '');
-    const id = `andover-${teamLetter}-${dateId}`;
+    const id = `andover-${teamLetterForId}-${dateId}`;
     
     fixtures.push({
       id,
