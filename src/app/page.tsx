@@ -124,7 +124,7 @@ export default function Home() {
               moreInfoLink: f.fixtureUrl,
             };
           });
-          
+        
           // Deduplicate by ID (in case of duplicates)
           const uniqueFixtures = Array.from(
             new Map(convertedFixtures.map(fixture => [fixture.id, fixture])).values()
