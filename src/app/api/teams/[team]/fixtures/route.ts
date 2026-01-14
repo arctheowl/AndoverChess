@@ -150,6 +150,15 @@ async function scrapeTeamFixtures(teamLetter: 'A' | 'B' | 'C'): Promise<ScrapedF
       status = 'postponed';
     } else if (statusText.toLowerCase().includes('cancelled')) {
       status = 'cancelled';
+    } else if (date) {
+      // If no result but date is in the past, mark as completed
+      const fixtureDate = new Date(date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      fixtureDate.setHours(0, 0, 0, 0);
+      if (fixtureDate < today) {
+        status = 'completed';
+      }
     }
     
     // Generate ID from teams and date

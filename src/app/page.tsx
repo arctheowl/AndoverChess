@@ -81,11 +81,31 @@ export default function Home() {
         const response = await fetch('/api/fixtures/lms');
         const data = await response.json();
         
+
+        
         if (data.success && data.data && data.data.length > 0) {
           // Convert scraped fixtures to Fixture format
           const convertedFixtures: Fixture[] = data.data.map((f: any) => {
-            const year = parseInt(f.date.split('-')[0]);
-            const season = `${year}-${year + 1}`;
+            // Determine season from date (chess seasons run Sep-Aug)
+            const dateParts = f.date.split('-');
+            const year = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]);
+            // If month is Sep-Dec (9-12), season is year-year+1
+            // If month is Jan-Aug (1-8), season is year-1-year
+            const season = month >= 9 ? `${year}-${year + 1}` : `${year - 1}-${year}`;
+            
+            // Determine status - check date if status is missing or 'upcoming'
+            let status = (f.status || 'upcoming') as Fixture['status'];
+            if (status === 'upcoming' && f.date) {
+              // If marked as upcoming but date is in the past, mark as completed
+              const fixtureDate = new Date(f.date);
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              fixtureDate.setHours(0, 0, 0, 0);
+              if (fixtureDate < today) {
+                status = 'completed';
+              }
+            }
             
             return {
               id: f.id,
@@ -97,7 +117,7 @@ export default function Home() {
               venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
               competition: f.competition || 'Southampton Chess League',
               isTournament: false,
-              status: (f.status || 'upcoming') as Fixture['status'],
+              status,
               result: f.result,
               score: f.score,
               notes: f.notes,

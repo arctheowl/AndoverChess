@@ -182,8 +182,26 @@ export async function GET(
         if (lmsData.success && Array.isArray(lmsData.data)) {
           const lmsFixture = lmsData.data.find((f: any) => f.id === id);
           if (lmsFixture) {
-            const year = parseInt(lmsFixture.date.split('-')[0]);
-            const season = `${year}-${year + 1}`;
+            // Determine season from date (chess seasons run Sep-Aug)
+            const dateParts = lmsFixture.date.split('-');
+            const year = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]);
+            // If month is Sep-Dec (9-12), season is year-year+1
+            // If month is Jan-Aug (1-8), season is year-1-year
+            const season = month >= 9 ? `${year}-${year + 1}` : `${year - 1}-${year}`;
+
+            // Determine status - check date if status is missing or 'upcoming'
+            let status = (lmsFixture.status || 'upcoming') as Fixture['status'];
+            if (status === 'upcoming' && lmsFixture.date) {
+              // If marked as upcoming but date is in the past, mark as completed
+              const fixtureDate = new Date(lmsFixture.date);
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              fixtureDate.setHours(0, 0, 0, 0);
+              if (fixtureDate < today) {
+                status = 'completed';
+              }
+            }
 
             fixture = {
               id: lmsFixture.id,
@@ -195,7 +213,7 @@ export async function GET(
               venue: lmsFixture.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
               competition: lmsFixture.competition || 'Southampton Chess League',
               isTournament: false,
-              status: (lmsFixture.status || 'upcoming') as Fixture['status'],
+              status,
               result: lmsFixture.result,
               score: lmsFixture.score,
               notes: lmsFixture.notes,

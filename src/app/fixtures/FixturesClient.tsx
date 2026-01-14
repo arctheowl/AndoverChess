@@ -36,9 +36,26 @@ export default function FixturesClient() {
         if (data.success && data.data && data.data.length > 0) {
           // Convert scraped fixtures to Fixture format
           const convertedFixtures: Fixture[] = data.data.map((f: any) => {
-            // Determine season from date
-            const year = parseInt(f.date.split('-')[0]);
-            const season = `${year}-${year + 1}`;
+            // Determine season from date (chess seasons run Sep-Aug)
+            const dateParts = f.date.split('-');
+            const year = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]);
+            // If month is Sep-Dec (9-12), season is year-year+1
+            // If month is Jan-Aug (1-8), season is year-1-year
+            const season = month >= 9 ? `${year}-${year + 1}` : `${year - 1}-${year}`;
+            
+            // Determine status - check date if status is missing or 'upcoming'
+            let status = (f.status || 'upcoming') as Fixture['status'];
+            if (status === 'upcoming' && f.date) {
+              // If marked as upcoming but date is in the past, mark as completed
+              const fixtureDate = new Date(f.date);
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              fixtureDate.setHours(0, 0, 0, 0);
+              if (fixtureDate < today) {
+                status = 'completed';
+              }
+            }
             
             return {
               id: f.id,
@@ -50,7 +67,7 @@ export default function FixturesClient() {
               venue: f.homeTeam.toLowerCase().includes('andover') ? 'home' : 'away',
               competition: f.competition || 'Southampton Chess League',
               isTournament: false,
-              status: (f.status || 'upcoming') as Fixture['status'],
+              status,
               result: f.result,
               score: f.score,
               notes: f.notes,
@@ -478,37 +495,37 @@ END:VEVENT
                 <h3 className="text-sm font-medium theme-text-secondary mb-3">Quick Filters</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
-                    onClick={() => setFilters({ status: 'upcoming', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'upcoming', team: 'all', competition: 'all', venue: 'all', season: '2026-2027' })}
                     className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors"
                   >
                     Upcoming Matches
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'completed', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'completed', team: 'all', competition: 'all', venue: 'all', season: '2026-2027' })}
                     className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors"
                   >
                     Recent Results
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'all', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'all', season: '2026-2027' })}
                     className="px-3 py-1 text-sm bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors"
                   >
                     All Fixtures
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'A', competition: 'league', venue: 'all', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'all', team: 'A', competition: 'league', venue: 'all', season: '2026-2027' })}
                     className={`px-3 py-1 text-sm ${getTeamBgClass('A')} ${getTeamTextClass('A')} rounded-full hover:bg-${getTeamColorClasses('A', 'hover')} transition-colors`}
                   >
                     A Team League
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'internal', venue: 'all', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'internal', venue: 'all', season: '2026-2027' })}
                     className="px-3 py-1 text-sm bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition-colors"
                   >
                     Internal Events
                   </button>
                   <button
-                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'home', season: '2025-2026' })}
+                    onClick={() => setFilters({ status: 'all', team: 'all', competition: 'all', venue: 'home', season: '2026-2027' })}
                     className="px-3 py-1 text-sm bg-orange-100 text-orange-800 rounded-full hover:bg-orange-200 transition-colors"
                   >
                     Home Matches
